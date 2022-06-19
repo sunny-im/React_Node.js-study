@@ -3,10 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 ReactDOM.render(
+  // message라는 변수를 App.js가 Props로 사용할 수 있게 전달(상속)
   <App message="Hello Message" />,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
