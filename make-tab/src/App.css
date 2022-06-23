@@ -1,9 +1,14 @@
 * {margin: 0; padding: 0;}
+
+/* Tab */
 .container {width: 600px; height: 300px; border: 1px solid black; margin: 100px auto;}
 
 .tabs {height: 50px; display: flex; justify-content: space-between;}
 .tabs button {width: calc(100%/3); cursor: pointer;}
 
-.content { padding: 20px; display: none;}
-.content h2 { text-align: center;}
+.content { display: none;}
+h2 { padding: 20px; text-align: center;}
 .active-content { display: block;}
+
+/* Table */
+.wrap {margin: 0 auto;  width: 100%; border: 1px solid black; text-align: center;}
