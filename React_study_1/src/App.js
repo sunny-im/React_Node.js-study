@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Tab from './Tab';
 
 class App extends Component {
   state = {
@@ -35,6 +36,9 @@ class App extends Component {
             handleChange={this.handleChange}
           />
         </div>
+
+        <h3>Tab</h3>
+        <Tab/>
       </div>
     );
   }
