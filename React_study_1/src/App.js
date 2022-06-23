@@ -9,7 +9,7 @@ class App extends Component {
     this.setState({
       count: this.state.count + 1
     });
-  };
+  }; 
   
 
   render() {
