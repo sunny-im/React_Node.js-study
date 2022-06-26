@@ -3,8 +3,9 @@
 /* Tab */
 .container {width: 600px; height: 300px; border: 1px solid black; margin: 100px auto;}
 
-.tabs {height: 50px; display: flex; justify-content: space-between;}
+.tabs {height: 50px; display: flex; justify-content: space-between; margin: 0 -12px;}
 .tabs button {width: calc(100%/3); cursor: pointer;}
+.active-tab {background-color: gold;}
 
 .content { display: none;}
 h2 { padding: 20px; text-align: center;}
@@ -12,5 +13,4 @@ h2 { padding: 20px; text-align: center;}
 
 /* Table */
 .wrap {margin: 0 auto;  width: 100%; text-align: center;}
-
 

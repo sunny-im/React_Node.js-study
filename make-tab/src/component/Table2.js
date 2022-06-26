@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import data from '../data';
-import '../App.css'
+import '../Table2.css'
 
 
 function Table() {
     const [datas, setDatas] = useState("");
+    const [btn, setBtn] = useState("hide");
     function onChange(e) {
         return(setDatas({datas:e.target.value}))
     }
@@ -13,8 +14,9 @@ function Table() {
     console.log(column);
     return (
         <div className="wrap">
-            <h2>json To Table</h2>
-            <table className="table table-striped">
+            <h2 className="header">json To Table</h2>
+            <button>{btn}</button>
+            <table className={setBtn === "hide" ? "table_content" : "active"}>
                 <thead>
                     <tr>
                         {column.map((data, i) => (

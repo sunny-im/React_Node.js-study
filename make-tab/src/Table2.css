@@ -1,0 +1,10 @@
+* {margin: 0; padding: 0;}
+
+.wrap {margin: 0 auto;  width: 100%; text-align: center;}
+.header {display: flex; justify-content: center; align-items: center;}
+button {border: none; height: 40px; width: 70px;}
+
+.table_content { display: none;}
+.active {display : table-header-group;}
+
+tr input { width: 100px;}
