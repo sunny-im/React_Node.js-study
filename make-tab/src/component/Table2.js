@@ -6,6 +6,9 @@ import '../Table2.css'
 function Table() {
     const [datas, setDatas] = useState("");
     const [btn, setBtn] = useState("hide");
+    function changeBtn() {
+        setBtn(btn === "hide" ? "show" : "hide")
+    }
     function onChange(e) {
         return(setDatas({datas:e.target.value}))
     }
@@ -15,8 +18,8 @@ function Table() {
     return (
         <div className="wrap">
             <h2 className="header">json To Table</h2>
-            <button>{btn}</button>
-            <table className={setBtn === "hide" ? "table_content" : "active"}>
+            <button onClick={changeBtn}>{btn}</button>
+            <table className={btn === "hide" ? "table_content" : "active table table-striped"}>
                 <thead>
                     <tr>
                         {column.map((data, i) => (
