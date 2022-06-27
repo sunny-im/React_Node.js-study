@@ -85,13 +85,9 @@ function Table() {
     }
 
     // 데이터 삭제
-    const onDelete = (일자) => {
-        setDatas(datas.filter((data) => {
-            //console.log(data);
-            //return data.캠페인 !== 캠페인;
-            })
-        );
+    const onDelete = (id) => {
     };
+    const idx = datas.map((data,i) => console.log('i 는', i));
     // test....
     /*
     const inputOnChange = (e) => {
@@ -112,7 +108,6 @@ function Table() {
     //console.log(data)
       // 컬럼 가져오기
     const column = Object.keys(datas[0]);
-   // console.log(column);
     return (
         <div className="container">
             <div className="wrap">
@@ -178,8 +173,7 @@ function Table() {
                     {datas.map((data, i) => (
                         <tr key={i}>
                             <td><button className="btn btn-dark">수정</button></td>
-                            {/* <td><button className="btn btn-dark" onRemove={onDelete(data.캠페인)}>삭제</button></td> */}
-                            <td><button className="btn btn-dark">삭제</button></td>
+                            <td><button className="btn btn-dark" onRemove={onDelete}>삭제</button></td>
                             <td>{data.일자}</td>
                             <td>{data.캠페인}</td>
                             <td>{data.광고매체}</td>
