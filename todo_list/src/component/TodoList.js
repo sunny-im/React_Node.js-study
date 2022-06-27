@@ -51,7 +51,7 @@ function TodoList() {
                                 {/* <Tall><input type="checkbox" className={checked === {item.completed} ? "checked" : "unChecked"}/></Tall> */}                        
                                 <TableCell align="center"><input type="checkbox"/></TableCell>
                                 <TableCell align="center"><Button variant="outlined" color="primary" size="small">Update</Button></TableCell>
-                                <TableCell align="center"><Button variant="outlined" color="primary" size="small" onClick={()=>{if(window.confirm('${id+1}번째 데이터 삭제?')){onDelete(item.id)}}}>Delete</Button></TableCell>
+                                <TableCell align="center"><Button variant="outlined" color="primary" size="small" onClick={()=>{if(window.confirm(`${item.id}번째 데이터 삭제?`)){onDelete(item.id)}}}>Delete</Button></TableCell>
                             </TableRow>
                         ))}
                         </TableBody>
