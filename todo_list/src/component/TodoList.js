@@ -55,17 +55,17 @@ function TodoList() {
                 <Table sx={{ minWidth: 650 }} aria-label="customized table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>
+                            <TableCell colSpan={5}>
                                 <Button variant="outlined" color="primary" size="small" onClick={() => setAddBtn(!addBtn)}>Add</Button>
                             </TableCell>
                         </TableRow>
                         {!addBtn&&(
                         <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell>
+                            <TableCell colSpan={1}></TableCell>
+                            <TableCell colSpan={3}>
                                 <input type="text" name="title" onChange={onChange} value={input.title}/>
                             </TableCell>
-                            <TableCell><Button variant="outlined" color="primary" size="small" onClick={() => {if(window.confirm(`등록할까요?`)){onSave()}}}>Submit</Button></TableCell>
+                            <TableCell colSpan={1}><Button variant="outlined" color="primary" size="small" onClick={() => {if(window.confirm(`등록할까요?`)){onSave()}}}>Submit</Button></TableCell>
                         </TableRow>
                         )}
                         <TableRow>
