@@ -7,4 +7,5 @@ button {border: none; height: 40px; width: 70px;}
 .table_content { display: none;}
 .active {display : table-header-group;}
 
-tr input { width: 100px;}
+tr input { width: 70px; height: 40px; font-size: 13px; text-align: center; }
+tr td button, tr th button {width: 60px;}
