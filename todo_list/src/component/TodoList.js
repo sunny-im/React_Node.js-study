@@ -14,12 +14,36 @@ import './TodoList.css';
 function TodoList() {
     const [datas, setDatas] = useState([]);
     const [checked, setChecked] = useState("true");
-
+    const [addBtn, setAddBtn] = useState(true);
+    const [input, setInput] = useState({
+        id : "",
+        title : "",
+    })
+    
     useEffect(() => {
         axios.get("https://jsonplaceholder.typicode.com/todos")
             .then(response => setDatas(response.data))
             .catch(err => console.log(err));
     }, []);
+    
+
+    const onChange = e => {
+        const {value, name} = e.target;
+        setInput({
+            ...input,
+            [name] : value
+        });
+    };
+
+    const onSave = () => {
+        setDatas([input, ...datas]);
+        setInput({
+            userId : "1",
+            id : "",
+            title : "",
+            completed : "",
+        });
+    }
 
     const onDelete = id => {
         setDatas(datas.filter(item => item.id !== id));
@@ -32,9 +56,18 @@ function TodoList() {
                     <TableHead>
                         <TableRow>
                             <TableCell>
-                                <Button className="addBtn" variant="outlined" color="primary" size="small">Add</Button>
+                                <Button variant="outlined" color="primary" size="small" onClick={() => setAddBtn(!addBtn)}>Add</Button>
                             </TableCell>
                         </TableRow>
+                        {!addBtn&&(
+                        <TableRow>
+                            <TableCell></TableCell>
+                            <TableCell>
+                                <input type="text" name="title" onChange={onChange} value={input.title}/>
+                            </TableCell>
+                            <TableCell><Button variant="outlined" color="primary" size="small" onClick={() => {if(window.confirm(`등록할까요?`)){onSave()}}}>Submit</Button></TableCell>
+                        </TableRow>
+                        )}
                         <TableRow>
                             <TableCell align="center">No</TableCell>
                             <TableCell align="center">Title</TableCell>
@@ -51,7 +84,7 @@ function TodoList() {
                                 {/* <Tall><input type="checkbox" className={checked === {item.completed} ? "checked" : "unChecked"}/></Tall> */}                        
                                 <TableCell align="center"><input type="checkbox"/></TableCell>
                                 <TableCell align="center"><Button variant="outlined" color="primary" size="small">Update</Button></TableCell>
-                                <TableCell align="center"><Button variant="outlined" color="primary" size="small" onClick={()=>{if(window.confirm(`${item.id}번째 데이터 삭제?`)){onDelete(item.id)}}}>Delete</Button></TableCell>
+                                <TableCell align="center"><Button variant="outlined" color="primary" size="small" onClick={()=>{if(window.confirm(`${item.id}번째 데이터 삭제할까염?`)){onDelete(item.id)}}}>Delete</Button></TableCell>
                             </TableRow>
                         ))}
                         </TableBody>
