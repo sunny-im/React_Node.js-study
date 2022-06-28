@@ -8,19 +8,32 @@ import {TableContainer} from '@material-ui/core';
 import {TableHead} from '@material-ui/core';
 import {TableRow} from '@material-ui/core';
 import {Paper} from '@material-ui/core';
+import {Checkbox} from '@material-ui/core/';
 import {Button} from '@material-ui/core';
 import {TextField} from '@material-ui/core/';
 import {Grid} from '@material-ui/core/';
+import {Drawer} from '@material-ui/core/';
+import { makeStyles } from '@material-ui/core/styles';
 import './TodoList.css';
 
 const TodoList = () => {
     const [datas, setDatas] = useState([]);
-    const [checked, setChecked] = useState("true");
     const [addBtn, setAddBtn] = useState(true);
     const [newTitle, setNewTitle] = useState("");
     const [isUpdate, setIsUpdate] = useState(false);
     const [changeTitle, setChangeTitle] = useState(datas.title);
 
+    const useStyles = makeStyles({
+        list: {
+          width: 250,
+        },
+        fullList: {
+          width: 'auto',
+        },
+      });
+    const [state, setState] = React.useState({
+        bottom: false,
+    });
 
     useEffect(() => {
         axios.get("https://jsonplaceholder.typicode.com/todos")
@@ -59,9 +72,11 @@ const TodoList = () => {
         setDatas(datas.filter(item => item.id !== id));
     };
 
-    const onUpdate = () => {
+    const onSubmit = () => {
+        console.log('수정할꺼야');
         const updateTitle = datas.map((item) => ({
-            title : item.id === datas.id ? item.title : changeTitle,
+            ...item,
+            title : item.id === datas.id ? changeTitle : item.title ,
         }));
         setChangeTitle(updateTitle);
         setIsUpdate(false);
@@ -87,6 +102,8 @@ const TodoList = () => {
                                 <TableCell align="right" colSpan={1}><Button variant="outlined" color="primary" size="small" onClick={() => {if(window.confirm(`등록할까요?`)){onSave()}}}>Submit</Button></TableCell>
                             </TableRow>
                             )}
+                        </TableHead>
+                        <TableBody>
                             <TableRow>
                                 <TableCell align="center">No</TableCell>
                                 <TableCell align="center">Title</TableCell>
@@ -95,8 +112,6 @@ const TodoList = () => {
                                 <TableCell align="center">Delete</TableCell>
                                 <TableCell align="center"></TableCell>
                             </TableRow>
-                        </TableHead>
-                        <TableBody>
                             {datas.map((item) => (
                                 <TableRow key={item.id} sx={{ '&:last-child td, &:last-child th': { border: 0 }}}>
                                     <TableCell align="center">{item.id}</TableCell>
@@ -105,10 +120,10 @@ const TodoList = () => {
                                     ):(
                                         <TableCell align="center">{item.title}</TableCell>
                                     )}
-                                    <TableCell align="center"><input type="checkbox" checked={item.completed}/></TableCell>
+                                    <TableCell align="center"><Checkbox color="primary" checked={item.completed}/></TableCell>
 
                                     {isUpdate === item.id ? (
-                                    <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="submit" onClick={()=>onUpdate(changeTitle)}>Submit</Button></TableCell>  
+                                    <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="submit" onClick={()=>onSubmit()}>Submit</Button></TableCell>  
                                     ):(
                                     <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="update" onClick={()=>(setIsUpdate(item.id))}>Update</Button></TableCell>
                                     )}
