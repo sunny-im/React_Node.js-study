@@ -21,7 +21,7 @@ const TodoList = () => {
     const [addBtn, setAddBtn] = useState(true);
     const [newTitle, setNewTitle] = useState("");
     const [isUpdate, setIsUpdate] = useState(false);
-    const [changeTitle, setChangeTitle] = useState(datas.title);
+    const [changeTitle, setChangeTitle] = useState("");
 
     const useStyles = makeStyles({
         list: {
@@ -74,23 +74,24 @@ const TodoList = () => {
 
     const onSubmit = () => {
         console.log('수정할꺼야');
-        // const updateTitle = datas.map((item) => ({
-        //     ...item,
-        //     title : item.id === datas.id ? changeTitle : item.title ,
-        // }));
-        // setChangeTitle(updateTitle);
-        // setIsUpdate(false);
-        if (datas.id) {
-            setDatas (
-                datas.map(changeTitle => datas.id === changeTitle.id ? {
-                id : datas.id,
-                title : datas.title,
-            } : changeTitle))
-            console.log(changeTitle);
-        } else {
+        const updateTitle = datas.map((item) => ({
+            title : item.id === datas.id ? item.title : changeTitle,
+        })).reverse();
+        setChangeTitle(updateTitle);
+        console.log(updateTitle);
+        setIsUpdate(false);
+        
+        // if (datas.id) {
+        //     setDatas (
+        //         datas.map(changeTitle => datas.id === changeTitle.id ? {
+        //         id : datas.id,
+        //         title : datas.title,
+        //     } : changeTitle))
+        //     console.log(changeTitle);
+        // } else {
 
-            console.log('수정할꺼야11');
-        }
+        //     console.log('수정할꺼야11');
+        // }
 
         setIsUpdate(false);
     }
@@ -136,7 +137,7 @@ const TodoList = () => {
                                     <TableCell align="center"><Checkbox color="primary" checked={item.completed}/></TableCell>
 
                                     {isUpdate === item.id ? (
-                                    <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="submit" onClick={()=>onSubmit()}>Submit</Button></TableCell>  
+                                    <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="submit" onClick={onSubmit}>Submit</Button></TableCell>  
                                     ):(
                                     <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="update" onClick={()=>(setIsUpdate(item.id))}>Update</Button></TableCell>
                                     )}
