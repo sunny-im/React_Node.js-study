@@ -74,11 +74,24 @@ const TodoList = () => {
 
     const onSubmit = () => {
         console.log('수정할꺼야');
-        const updateTitle = datas.map((item) => ({
-            ...item,
-            title : item.id === datas.id ? changeTitle : item.title ,
-        }));
-        setChangeTitle(updateTitle);
+        // const updateTitle = datas.map((item) => ({
+        //     ...item,
+        //     title : item.id === datas.id ? changeTitle : item.title ,
+        // }));
+        // setChangeTitle(updateTitle);
+        // setIsUpdate(false);
+        if (datas.id) {
+            setDatas (
+                datas.map(changeTitle => datas.id === changeTitle.id ? {
+                id : datas.id,
+                title : datas.title,
+            } : changeTitle))
+            console.log(changeTitle);
+        } else {
+
+            console.log('수정할꺼야11');
+        }
+
         setIsUpdate(false);
     }
    
