@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import data from '../data';
 import '../Table2.css'
 
@@ -28,6 +28,10 @@ function Table() {
         소재보기: "",
     });
     
+    const [edited, setEdited] = useState(false);
+    const [update, setUpdate] = useState(datas);
+
+
     const onChange = e => {
         const { value, name } = e.target; // e.target에서 date,campaign 추출
         setInput({
@@ -59,6 +63,7 @@ function Table() {
         });
     };
 
+
     // 데이터 추가..? (spread 연산자?)
     const onSave = () => {
         //console.log(input);
@@ -85,9 +90,41 @@ function Table() {
     }
 
     // 데이터 삭제
-    const onDelete = (id) => {
+    const onDelete = (i) => {
+        const row = [...datas];
+        setDatas(row);
+        console.log('i는 몇번째',i);
+        row.splice(i,1);
     };
-    const idx = datas.map((data,i) => console.log('i 는', i));
+
+    // 데이터 수정
+    const editInputRef = useRef(null);
+    useEffect(() => {
+        if (edited) {
+            editInputRef.current.focus();
+        }
+    }, [edited]);
+
+    const onClickEdit = () => {
+        setEdited(true);
+    }
+
+    const onChangeEditInput = (e) => {
+        setUpdate(e.target.value);
+    }
+    const onClickUpdate = () => {
+        const newData = datas.map((item) => ({
+            ...item,
+            일자 : item.일자 === newData.일자 ? update : item.일자,
+        }));
+        setDatas(newData);
+        setEdited(false);
+    }
+
+    const onUpdate = (i) => {
+        const row = [...datas];
+
+    }
     // test....
     /*
     const inputOnChange = (e) => {
@@ -172,8 +209,8 @@ function Table() {
                         )} 
                     {datas.map((data, i) => (
                         <tr key={i}>
-                            <td><button className="btn btn-dark">수정</button></td>
-                            <td><button className="btn btn-dark" onRemove={onDelete}>삭제</button></td>
+                            <td><button className="btn btn-dark" onClick={onClickEdit}>수정</button></td>
+                            <td><button className="btn btn-dark" onClick={()=>{if(window.confirm(`${i+1}번째 데이터 삭제할까염?`))(onDelete(i))}}>삭제</button></td>
                             <td>{data.일자}</td>
                             <td>{data.캠페인}</td>
                             <td>{data.광고매체}</td>
