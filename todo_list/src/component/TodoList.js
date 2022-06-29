@@ -11,30 +11,37 @@ import {Paper} from '@material-ui/core';
 import {Checkbox} from '@material-ui/core/';
 import {Button} from '@material-ui/core';
 import {TextField} from '@material-ui/core/';
+import {Box} from '@material-ui/core/';
 import {Grid} from '@material-ui/core/';
-import {Drawer} from '@material-ui/core/';
-import { makeStyles } from '@material-ui/core/styles';
-import './TodoList.css';
- 
+
+import {Modal} from '@material-ui/core/';
+import {Fade} from '@material-ui/core/';
+
 const TodoList = () => {
     const [datas, setDatas] = useState([]);
     const [addBtn, setAddBtn] = useState(true);
     const [newTitle, setNewTitle] = useState("");
     const [isUpdate, setIsUpdate] = useState(false);
-    const [changeTitle, setChangeTitle] = useState("");
+    const [changeTitle, setChangeTitle] = useState(true);
+    const [selectedTitle, setSelectedTitle] = useState("");
+    const [selectedId, setSelectedId] = useState(0);
 
-    const useStyles = makeStyles({
-        list: {
-          width: 250,
-        },
-        fullList: {
-          width: 'auto',
-        },
-      });
-    const [state, setState] = React.useState({
-        bottom: false,
-    });
+    // ========================
+    const [open, setOpen] = React.useState(false);
 
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleDetail = (id, title) => {
+        console.log(id);
+        console.log(title);
+        setSelectedId(id);
+        setSelectedTitle(title);
+        setOpen(true);
+    }
+
+    //============================
     useEffect(() => {
         axios.get("https://jsonplaceholder.typicode.com/todos")
             .then(response => setDatas(response.data))
@@ -72,16 +79,22 @@ const TodoList = () => {
         setDatas(datas.filter(item => item.id !== id));
     };
 
-    const onSubmit = () => {
+    const onChangeInput = (e) => {
+        setChangeTitle(e.target.value);
+    }
+    
+    const onSubmit = (setDatas) => {
         console.log('수정할꺼야');
-        const updateTitle = datas.map((item) => ({
-            title : item.id === datas.id ? item.title : changeTitle,
-        })).reverse();
-        setChangeTitle(updateTitle);
-        console.log(updateTitle);
+        const updateTitle = datas.map((changeTitle) => ({
+            title : datas.id === changeTitle.id ?  changeTitle : datas.title,
+        }));
+        //setChangeTitle(updateTitle);
+        console.log(changeTitle);
         setIsUpdate(false);
         
-        // if (datas.id) {
+
+
+        // if (!datas.id) {
         //     setDatas (
         //         datas.map(changeTitle => datas.id === changeTitle.id ? {
         //         id : datas.id,
@@ -92,63 +105,75 @@ const TodoList = () => {
 
         //     console.log('수정할꺼야11');
         // }
-
-        setIsUpdate(false);
+        // setIsUpdate(false);
     }
    
 
     return (
         <Container maxWidth="lg">
             <h2>Todo List</h2>
-                <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 650 }} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell colSpan={6} align="right">
-                                    <Button variant="outlined" color="primary" size="small" onClick={() => setAddBtn(!addBtn)}>Add</Button>
-                                </TableCell>
-                            </TableRow>
-                            {!addBtn&&(
-                            <TableRow>
-                                <TableCell align="right" colSpan={5}>
-                                    <input type="text" name="title" onChange={(e) => setNewTitle(e.target.value)} value={newTitle} placeholder="Title"/>
-                                </TableCell>
-                                <TableCell align="right" colSpan={1}><Button variant="outlined" color="primary" size="small" onClick={() => {if(window.confirm(`등록할까요?`)){onSave()}}}>Submit</Button></TableCell>
-                            </TableRow>
-                            )}
-                        </TableHead>
-                        <TableBody>
-                            <TableRow>
-                                <TableCell align="center">No</TableCell>
-                                <TableCell align="center">Title</TableCell>
-                                <TableCell align="center">Completed</TableCell>
-                                <TableCell align="center">Update</TableCell>
-                                <TableCell align="center">Delete</TableCell>
-                                <TableCell align="center"></TableCell>
-                            </TableRow>
-                            {datas.map((item) => (
-                                <TableRow key={item.id} sx={{ '&:last-child td, &:last-child th': { border: 0 }}}>
-                                    <TableCell align="center">{item.id}</TableCell>
-                                    {isUpdate===item.id?(
-                                        <TableCell align="center"><TextField id="filled-basic" label={item.title} variant="filled" maxRows={2}/></TableCell>
-                                    ):(
-                                        <TableCell align="center">{item.title}</TableCell>
-                                    )}
-                                    <TableCell align="center"><Checkbox color="primary" checked={item.completed}/></TableCell>
-
-                                    {isUpdate === item.id ? (
-                                    <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="submit" onClick={onSubmit}>Submit</Button></TableCell>  
-                                    ):(
-                                    <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="update" onClick={()=>(setIsUpdate(item.id))}>Update</Button></TableCell>
-                                    )}
-
-                                    <TableCell align="center"><Button variant="outlined" color="primary" size="small" onClick={()=>{if(window.confirm(`${item.id}번째 데이터 삭제할까염?`)){onDelete(item.id)}}}>Delete</Button></TableCell>
-                                    <TableCell><Button variant="outlined" color="primary" size="small">Detail</Button></TableCell> 
+            <Box component="div" style={{display:'flex', justifyContent:'flex-end', alignItems:'center'}}>
+                <Button variant="outlined" color="primary" size="small" onClick={() => setAddBtn(!addBtn)}>Add</Button>
+            </Box>
+            <Grid container spacing={2}>
+                <Grid item xs={addBtn?12:10}>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="customized table">
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell align="center">Id</TableCell>
+                                    <TableCell align="center">Title</TableCell>
+                                    <TableCell align="center">Completed</TableCell>
+                                    <TableCell align="center">Update</TableCell>
+                                    <TableCell align="center">Delete</TableCell>
+                                    <TableCell align="center"></TableCell>
                                 </TableRow>
-                            )).reverse()}
-                            </TableBody>
-                    </Table>
-                </TableContainer>
+                                {datas.map((item) => (
+                                    <TableRow key={item.id} sx={{ '&:last-child td, &:last-child th': { border: 0 }}}>
+                                        <TableCell align="center">{item.id}</TableCell>
+                                        {isUpdate===item.id?(
+                                            <TableCell align="center"><TextField id="filled-basic" label={item.title} variant="filled" maxRows={2} onChange={onChangeInput}/></TableCell>
+                                            ):( 
+                                            <TableCell align="center" >{item.title}</TableCell>
+                                        )}
+                                                
+                                        <TableCell align="center">
+                                            <Checkbox checked={item.completed} color="primary" />
+                                        </TableCell>
+
+                                        {isUpdate === item.id ? (
+                                        <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="submit" onClick={onSubmit}>Submit</Button></TableCell>  
+                                        ):(
+                                        <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="update" onClick={()=>(setIsUpdate(item.id))}>Update</Button></TableCell>
+                                        )}
+
+                                        <TableCell align="center"><Button variant="outlined" color="primary" size="small" onClick={()=>{if(window.confirm(`${item.id}번째 데이터 삭제할까염?`)){onDelete(item.id)}}}>Delete</Button></TableCell>
+                                        {/* <TableCell><Button variant="outlined" color="primary" size="small">Detail</Button></TableCell>  */}
+                                        <TableCell>
+                                            <Button variant="outlined" color="primary" size="small" onClick={()=>handleDetail(item.id, item.title)}>Detail</Button>
+                                        </TableCell> 
+                                    </TableRow>
+                                )).reverse()}
+                                </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Grid>
+                {!addBtn&&(
+                    <Grid item xs={2}>
+                        <Box component="div" style={{display: 'flex', flexDirection: 'column', paddingTop:'30px'}}><br/>
+                            <TextField id="filled-basic" label="Title..." variant="filled" maxRows={5} onChange={(e) => setNewTitle(e.target.value)} value={newTitle}/>
+                            <Button variant="outlined" color="primary" size="small" onClick={() => {if(window.confirm(`등록할까요?`)){onSave()}}}>Submit</Button>
+                        </Box>
+                    </Grid>
+                )}                
+            </Grid>
+            <Modal aria-labelledby="transition-modal-title" aria-describedby="transition-modal-description" open={open} onClose={handleClose}>
+                <Fade in={open}>
+                    <div style={{background:'#fff',padding:'3rem 2rem'}}>
+                        <h2 id="transition-modal-title" style={{margin:0}}>{selectedId}. {selectedTitle}</h2>
+                    </div>
+                </Fade>
+            </Modal>                   
         </Container>
     );
 };
