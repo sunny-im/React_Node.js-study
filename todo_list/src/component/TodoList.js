@@ -22,7 +22,7 @@ const TodoList = () => {
     const [addBtn, setAddBtn] = useState(true);
     const [newTitle, setNewTitle] = useState("");
     const [isUpdate, setIsUpdate] = useState(false);
-    const [changeTitle, setChangeTitle] = useState(true);
+    const [changeTitle, setChangeTitle] = useState({title:""});
     const [selectedTitle, setSelectedTitle] = useState("");
     const [selectedId, setSelectedId] = useState(0);
 
@@ -79,9 +79,15 @@ const TodoList = () => {
         setDatas(datas.filter(item => item.id !== id));
     };
 
-    const onChangeInput = (e) => {
-        setChangeTitle(e.target.value);
-    }
+    const {title} = changeTitle;
+
+    const onChangeHandler = (e) => {
+        const { value, title} = e.target;
+        setChangeTitle ({
+            ...changeTitle,
+            [title] : value
+        });
+    };
     
     const onSubmit = (setDatas) => {
         console.log('수정할꺼야');
@@ -89,7 +95,7 @@ const TodoList = () => {
             title : datas.id === changeTitle.id ?  changeTitle : datas.title,
         }));
         //setChangeTitle(updateTitle);
-        console.log(changeTitle);
+        console.log('changeTitle : ',changeTitle);
         setIsUpdate(false);
         
 
@@ -132,7 +138,7 @@ const TodoList = () => {
                                     <TableRow key={item.id} sx={{ '&:last-child td, &:last-child th': { border: 0 }}}>
                                         <TableCell align="center">{item.id}</TableCell>
                                         {isUpdate===item.id?(
-                                            <TableCell align="center"><TextField id="filled-basic" label={item.title} variant="filled" maxRows={2} onChange={onChangeInput}/></TableCell>
+                                            <TableCell align="center"><TextField id="filled-basic" label={item.title} variant="filled" maxRows={2} /></TableCell>
                                             ):( 
                                             <TableCell align="center" >{item.title}</TableCell>
                                         )}
@@ -142,7 +148,7 @@ const TodoList = () => {
                                         </TableCell>
 
                                         {isUpdate === item.id ? (
-                                        <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="submit" onClick={onSubmit}>Submit</Button></TableCell>  
+                                        <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="submit" onClick={onSubmit} onChange={onChangeHandler}>Submit</Button></TableCell>  
                                         ):(
                                         <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="update" onClick={()=>(setIsUpdate(item.id))}>Update</Button></TableCell>
                                         )}
