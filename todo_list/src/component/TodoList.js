@@ -22,7 +22,7 @@ const TodoList = () => {
     const [addBtn, setAddBtn] = useState(true);
     const [newTitle, setNewTitle] = useState("");
     const [isUpdate, setIsUpdate] = useState(false);
-    const [changeTitle, setChangeTitle] = useState({title:""});
+    const [changeTitle, setChangeTitle] = useState("");
     const [selectedTitle, setSelectedTitle] = useState("");
     const [selectedId, setSelectedId] = useState(0);
 
@@ -79,15 +79,15 @@ const TodoList = () => {
         setDatas(datas.filter(item => item.id !== id));
     };
 
-    const {title} = changeTitle;
-
     const onChangeHandler = (e) => {
-        const { value, title} = e.target;
-        setChangeTitle ({
-            ...changeTitle,
-            [title] : value
-        });
-    };
+        console.log('onChangeHandler' , setChangeTitle(e.target.value));
+        setChangeTitle(e.target.value);
+        // const { name, value } = e.target;
+        // setChangeTitle({
+        //     ...changeTitle,
+        //     [name] : value
+        //})
+    }
     
     const onSubmit = (setDatas) => {
         console.log('수정할꺼야');
@@ -95,10 +95,9 @@ const TodoList = () => {
             title : datas.id === changeTitle.id ?  changeTitle : datas.title,
         }));
         //setChangeTitle(updateTitle);
-        console.log('changeTitle : ',changeTitle);
+        console.log(changeTitle);
+        //setChangeTitle(changeTitle)
         setIsUpdate(false);
-        
-
 
         // if (!datas.id) {
         //     setDatas (
@@ -138,7 +137,7 @@ const TodoList = () => {
                                     <TableRow key={item.id} sx={{ '&:last-child td, &:last-child th': { border: 0 }}}>
                                         <TableCell align="center">{item.id}</TableCell>
                                         {isUpdate===item.id?(
-                                            <TableCell align="center"><TextField id="filled-basic" label={item.title} variant="filled" maxRows={2} /></TableCell>
+                                            <TableCell align="center"><TextField id="filled-basic" label={item.title} variant="filled" maxRows={2} onChange={onChangeHandler}/></TableCell>
                                             ):( 
                                             <TableCell align="center" >{item.title}</TableCell>
                                         )}
@@ -148,7 +147,7 @@ const TodoList = () => {
                                         </TableCell>
 
                                         {isUpdate === item.id ? (
-                                        <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="submit" onClick={onSubmit} onChange={onChangeHandler}>Submit</Button></TableCell>  
+                                        <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="submit" onClick={onSubmit}>Submit</Button></TableCell>  
                                         ):(
                                         <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="update" onClick={()=>(setIsUpdate(item.id))}>Update</Button></TableCell>
                                         )}
