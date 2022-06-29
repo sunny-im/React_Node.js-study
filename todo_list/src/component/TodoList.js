@@ -175,7 +175,7 @@ const TodoList = () => {
             </Grid>
             <Modal aria-labelledby="transition-modal-title" aria-describedby="transition-modal-description" open={open} onClose={handleClose}>
                 <Fade in={open}>
-                    <div style={{background:'#fff',padding:'3rem 2rem'}}>
+                    <div style={{background:'#fff',padding:'3rem 2rem', position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', width:'500px', textAlign:'center'}}>
                         <h2 id="transition-modal-title" style={{margin:0}}>{selectedId}. {selectedTitle}</h2>
                     </div>
                 </Fade>
