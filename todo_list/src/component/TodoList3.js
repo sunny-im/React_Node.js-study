@@ -90,7 +90,7 @@ const TodoList3 = () => {
     }
     
     const onSubmit = () => {
-        console.log('수정할꺼야');
+        alert('수정 좀 되라...')
         // const updateTitle = datas.map((changeTitle) => ({
         //     title : datas.id === changeTitle.id ?  changeTitle : datas.title,
         // }));
