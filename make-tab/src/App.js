@@ -1,13 +1,13 @@
 //import './App.css'
 // import Tab from './component/Tab';
 // import Table from './component/Table'
-import Update from './component/Update'
+import Input from './component/Input'
 
 function App() {
   return (
     <div className='App'>
 
-      <Update />
+      <Input />
     </div>
   );
 }
