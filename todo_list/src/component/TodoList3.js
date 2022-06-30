@@ -22,7 +22,7 @@ const TodoList3 = () => {
     const [addBtn, setAddBtn] = useState(true);
     const [newTitle, setNewTitle] = useState("");
     const [isUpdate, setIsUpdate] = useState(false);
-    const [changeTitle, setChangeTitle] = useState(datas.title="");
+    const [changeTitle, setChangeTitle] = useState("");
     const [selectedTitle, setSelectedTitle] = useState("");
     const [selectedId, setSelectedId] = useState(0);
 
@@ -97,11 +97,8 @@ const TodoList3 = () => {
         //setChangeTitle(updateTitle);
         
         setChangeTitle(changeTitle);
-        //setChangeTitle(changeTitle);
         console.log('changeTitle는',changeTitle);
-        console.log('item',datas.title);
-        //setChangeTitle(changeTitle)
-        //setIsUpdate(false);
+        setIsUpdate(false);
 
         // if (!datas.id) {
         //     setDatas (
@@ -114,7 +111,6 @@ const TodoList3 = () => {
 
         //     console.log('수정할꺼야11');
         // }
-        setIsUpdate(false);
     }
    
 
@@ -142,7 +138,7 @@ const TodoList3 = () => {
                                         <TableCell align="center">{item.id}</TableCell>
                                         {isUpdate===item.id?(
                                             <TableCell align="center"><TextField id="filled-basic" defaultValue={item.title} variant="filled" fullWidth onChange={onChangeHandler}/></TableCell>
-                                            ):(<TableCell align="center" >{!changeTitle ? item.title : changeTitle}</TableCell>)
+                                            ):(<TableCell align="center" >{changeTitle ? changeTitle : item.title }</TableCell>)
                                         }
                                                 
                                         <TableCell align="center">
