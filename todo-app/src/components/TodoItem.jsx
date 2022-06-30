@@ -4,7 +4,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
-import { SentimentDissatisfiedTwoTone } from "@material-ui/icons";
 
 const TodoItem = ({todoItem, todoList, setTodoList}) => {
     const [edited, setEdited] = useState(false); // 수정모드인지 확인용
