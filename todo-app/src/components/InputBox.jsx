@@ -11,10 +11,11 @@ const InputBox = ({todoList, setTodoList}) => { // 부모컴포넌트(Home)로 �
 
     const onChangeInput = (e) => {    // input이 변화하는 이벤트가 발생했을 때 e.target에 있는 <TextField/>로부터 value를 가져온다.
         setText(e.target.value);
-        console.log(e.target.value);
-    }
+        //console.log(e.target.value);
+    };
 
-    const onClickAddBtn = () => {
+    const onClickAddBtn = (e) => {
+        e.preventDefault();
         // todoItemList에 값 추가
         const nextTodoList = todoList.concat({  // 입력한 값을 setTodoList()를 이용하여 todoList에 추가
             // concat 함수는 인자로 받은 값을 배열에 추가하여 새로운 배열을 반환한다.
@@ -25,14 +26,14 @@ const InputBox = ({todoList, setTodoList}) => { // 부모컴포넌트(Home)로 �
         });
         setTodoList(nextTodoList);
 
-        setText("");    // setText(입력한 값)에 빈 문자열을 넣어 초기화
+        setText('');    // setText(입력한 값)에 빈 문자열을 넣어 초기화
         inputRef.current.focus(); // ref.current로 <TextField/>태그에 접근하여 포커싱
-    }
+    };
 
     // 기능 동작 확인용 ..
-    useEffect(()=>{ // todoList가 변했을 때만 실행됨
-        console.log(todoList);
-    },[todoList]);
+    // useEffect(()=>{ // todoList가 변했을 때만 실행됨
+    //     console.log(todoList);
+    // },[todoList]);
 
     return (
         <Box component="div">

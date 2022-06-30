@@ -56,9 +56,8 @@ const TodoItem = ({todoItem, todoList, setTodoList}) => {
     return (
     <List>
         {/* 완료 체크 할 체크박스 */}
-        <Checkbox chechked={todoItem.checked} onChange={onChangeCheckbox} />
+        <Checkbox checked={todoItem.checked} onChange={onChangeCheckbox} />
         
-        <Box component="span">{todoItem.text}</Box>
         {/* 아이템 내용 */}
         {edited ? (
             <TextField ref={editInputRef} onChange={onChangeEditInput}/>
