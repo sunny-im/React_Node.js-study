@@ -22,7 +22,7 @@ const TodoList3 = () => {
     const [addBtn, setAddBtn] = useState(true);
     const [newTitle, setNewTitle] = useState("");
     const [isUpdate, setIsUpdate] = useState(false);
-    const [changeTitle, setChangeTitle] = useState(true);
+    const [changeTitle, setChangeTitle] = useState(datas.title="");
     const [selectedTitle, setSelectedTitle] = useState("");
     const [selectedId, setSelectedId] = useState(0);
 
@@ -80,22 +80,26 @@ const TodoList3 = () => {
     };
 
     const onChangeHandler = (e) => {
-        // console.log('onChangeHandler' , setChangeTitle(e.target.value));
-        // setChangeTitle(e.target.value);
-        const { title, value } = e.target;
-        setChangeTitle({
-            ...changeTitle,
-            [title] : value
-        })
+        setChangeTitle(e.target.value);
+        console.log(e.target.value);
+        // const { value, name } = e.target;
+        // setChangeTitle({
+        //     ...changeTitle,
+        //     [name] : value
+        // })
     }
     
-    const onSubmit = () => {
+    const onSubmit = (datas) => {
         alert('수정 좀 되라...')
         // const updateTitle = datas.map((changeTitle) => ({
         //     title : datas.id === changeTitle.id ?  changeTitle : datas.title,
         // }));
         //setChangeTitle(updateTitle);
+        
+        setChangeTitle(changeTitle);
+        //setChangeTitle(changeTitle);
         console.log('changeTitle는',changeTitle);
+        console.log('item',datas.title);
         //setChangeTitle(changeTitle)
         //setIsUpdate(false);
 
@@ -137,10 +141,9 @@ const TodoList3 = () => {
                                     <TableRow key={item.id} sx={{ '&:last-child td, &:last-child th': { border: 0 }}}>
                                         <TableCell align="center">{item.id}</TableCell>
                                         {isUpdate===item.id?(
-                                            <TableCell align="center"><TextField id="filled-basic" defaultValue={!changeTitle ? changeTitle : item.title} variant="filled" fullWidth onChange={onChangeHandler}/></TableCell>
-                                            ):( 
-                                            <TableCell align="center" >{item.title}</TableCell>
-                                        )}
+                                            <TableCell align="center"><TextField id="filled-basic" defaultValue={item.title} variant="filled" fullWidth onChange={onChangeHandler}/></TableCell>
+                                            ):(<TableCell align="center" >{!changeTitle ? item.title : changeTitle}</TableCell>)
+                                        }
                                                 
                                         <TableCell align="center">
                                             <Checkbox checked={item.completed} color="primary" />

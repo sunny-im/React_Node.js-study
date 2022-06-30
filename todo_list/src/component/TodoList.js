@@ -22,7 +22,7 @@ const TodoList = () => {
     const [addBtn, setAddBtn] = useState(true);
     const [newTitle, setNewTitle] = useState("");
     const [isUpdate, setIsUpdate] = useState(false);
-    const [changeTitle, setChangeTitle] = useState("");
+    const [changeTitle, setChangeTitle] = useState(datas.title);
     const [selectedTitle, setSelectedTitle] = useState("");
     const [selectedId, setSelectedId] = useState(0);
 
@@ -88,15 +88,47 @@ const TodoList = () => {
         //     [name] : value
         //})
     }
+
+    function update(id, updatedData) {
+        return axios.put(DOMAIN+'/api/boards/'+id, updatedData);
+    }
     
-    const onSubmit = (setDatas) => {
+    const modifyData = (id, updatedData, allData) => dispatch => {
+        return update(id, updatedData)
+            .then(response => {
+                allData.forEach(function (element) {
+                    if(element.id == id){
+                        for (var key in updatedData){
+                            element[key] = updatedData[key];
+                        }
+                        return;
+                    }
+                })
+    
+                dispatch({
+                    type: type.MODIFY_DATA,
+                    payload: allData,
+                })
+            }).catch(error => {
+                /* error control */
+            })
+    }
+
+    const handleModify = (updatedData) => {
+        modifyData(datas.id, updatedData, selectData.slice(0));
+    }
+
+    const combineData = () => {
+        return {
+            title : title
+        }
+    }
+    const onSubmit = (e) => {
         console.log('수정할꺼야');
-        const updateTitle = datas.map((changeTitle) => ({
-            title : datas.id === changeTitle.id ?  changeTitle : datas.title,
-        }));
-        //setChangeTitle(updateTitle);
-        console.log(changeTitle);
-        //setChangeTitle(changeTitle)
+        e.preventDefault();
+
+        const updatedData = combineData();
+        handleModify(updatedData);
         setIsUpdate(false);
 
         // if (!datas.id) {
@@ -137,7 +169,7 @@ const TodoList = () => {
                                     <TableRow key={item.id} sx={{ '&:last-child td, &:last-child th': { border: 0 }}}>
                                         <TableCell align="center">{item.id}</TableCell>
                                         {isUpdate===item.id?(
-                                            <TableCell align="center"><TextField id="filled-basic" label={item.title} variant="filled" maxRows={2} onChange={onChangeHandler}/></TableCell>
+                                            <TableCell align="center"><TextField id="filled-basic"  variant="filled" fullWidth InputLabelProps={{shrink: true,}} value={item.title} label={item.title} onChange={onChangeHandler}/></TableCell>
                                             ):( 
                                             <TableCell align="center" >{item.title}</TableCell>
                                         )}
