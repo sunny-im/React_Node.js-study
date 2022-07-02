@@ -15,7 +15,7 @@ const TodoItem = ({todoItem, todoList, setTodoList}) => {
             ...item,
             // id 값이 같은 항목의 checked값을 토글
             checked : item.id === todoItem.id ? !item.checked : item.checked,
-        }))
+        })) 
         setTodoList(nextTodoList);
     }
 
