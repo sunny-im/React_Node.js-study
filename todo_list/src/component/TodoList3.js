@@ -96,9 +96,9 @@ const TodoList3 = () => {
         // }));
         //setChangeTitle(updateTitle);
         
-        setChangeTitle(changeTitle);
-        console.log('changeTitle는',changeTitle);
-        setIsUpdate(false);
+         setChangeTitle(changeTitle);
+        // console.log('changeTitle는',changeTitle);
+         setIsUpdate(false);
 
         // if (!datas.id) {
         //     setDatas (
@@ -135,7 +135,7 @@ const TodoList3 = () => {
                                 </TableRow>
                                 {datas.map((item) => (
                                     <TableRow key={item.id} sx={{ '&:last-child td, &:last-child th': { border: 0 }}}>
-                                        <TableCell align="center">{item.id}</TableCell>
+                                        <onClickAddBtnTableCell align="center">{item.id}</onClickAddBtnTableCell>
                                         {isUpdate===item.id?(
                                             <TableCell align="center"><TextField id="filled-basic" defaultValue={item.title} variant="filled" fullWidth onChange={onChangeHandler}/></TableCell>
                                             ):(<TableCell align="center" >{changeTitle ? changeTitle : item.title }</TableCell>)
