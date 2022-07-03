@@ -76,29 +76,36 @@ const TodoList3 = () => {
     }
 
     const onDelete = id => {
+        window.confirm(`${id}번째 데이터 삭제할까염?`);
         setDatas(datas.filter(item => item.id !== id));
     };
 
     const onChangeHandler = (e) => {
+        // setChangeTitle( {
+        //     changeTitle : e.target.value
+        // });
+
         setChangeTitle(e.target.value);
         console.log(e.target.value);
-        // const { value, name } = e.target;
+        
+        // const { name, value } = e.target;
         // setChangeTitle({
         //     ...changeTitle,
         //     [name] : value
-        // })
+        // });
     }
     
-    const onSubmit = (datas) => {
+    const onSubmit = id => {
         alert('수정 좀 되라...')
+
         // const updateTitle = datas.map((changeTitle) => ({
         //     title : datas.id === changeTitle.id ?  changeTitle : datas.title,
         // }));
-        //setChangeTitle(updateTitle);
+        // setChangeTitle(updateTitle);
         
-         setChangeTitle(changeTitle);
+        setChangeTitle(changeTitle);
         // console.log('changeTitle는',changeTitle);
-         setIsUpdate(false);
+        setIsUpdate(false);
 
         // if (!datas.id) {
         //     setDatas (
@@ -137,7 +144,7 @@ const TodoList3 = () => {
                                     <TableRow key={item.id} sx={{ '&:last-child td, &:last-child th': { border: 0 }}}>
                                         <onClickAddBtnTableCell align="center">{item.id}</onClickAddBtnTableCell>
                                         {isUpdate===item.id?(
-                                            <TableCell align="center"><TextField id="filled-basic" defaultValue={item.title} variant="filled" fullWidth onChange={onChangeHandler}/></TableCell>
+                                            <TableCell align="center"><TextField id="filled-basic" name={changeTitle} defaultValue={item.title} variant="filled" fullWidth onChange={onChangeHandler}/></TableCell>
                                             ):(<TableCell align="center" >{changeTitle ? changeTitle : item.title }</TableCell>)
                                         }
                                                 
@@ -146,12 +153,12 @@ const TodoList3 = () => {
                                         </TableCell>
 
                                         {isUpdate === item.id ? (
-                                        <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="submit" onClick={onSubmit}>Submit</Button></TableCell>  
+                                        <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="submit" onClick={()=>{onSubmit(item.id)}}>Submit</Button></TableCell>  
                                         ):(
                                         <TableCell align="center"><Button variant="outlined" color="primary" size="small" value="update" onClick={()=>(setIsUpdate(item.id))}>Update</Button></TableCell>
                                         )}
 
-                                        <TableCell align="center"><Button variant="outlined" color="primary" size="small" onClick={()=>{if(window.confirm(`${item.id}번째 데이터 삭제할까염?`)){onDelete(item.id)}}}>Delete</Button></TableCell>
+                                        <TableCell align="center"><Button variant="outlined" color="primary" size="small" onClick={()=>{onDelete(item.id)}}>Delete</Button></TableCell>
                                         {/* <TableCell><Button variant="outlined" color="primary" size="small">Detail</Button></TableCell>  */}
                                         <TableCell>
                                             <Button variant="outlined" color="primary" size="small" onClick={()=>handleDetail(item.id, item.title)}>Detail</Button>
