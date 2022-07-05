@@ -1,6 +1,12 @@
 # CKeditor5 install
 yarn add @ckeditor/ckeditor5-react @ckeditor/ckeditor5-build-classic
 
+# HTML parser
+yarn add node-html-parser  
+
+# Buffer 문제 발생 시
+yarn add buffer
+
 # Material-UI core / icons install
 yarn add @material-ui/core
 yarn add @material-ui/icons
