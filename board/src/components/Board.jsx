@@ -29,6 +29,7 @@ const Board = () => {
         <CKEditor
             editor={ClassicEditor}
             data='<p>Hello from CKEditor 5!</p>'
+            onReady={(editor) => {console.log("start", editor);}}
             onChange={contentChange}
         />
         <button className="submitBtn" onClick={submit}>등록</button>
