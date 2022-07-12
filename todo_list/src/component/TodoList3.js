@@ -96,14 +96,14 @@ const TodoList3 = () => {
     }
     
     const onSubmit = id => {
-        alert('수정 좀 되라...')
+        window.confirm('수정 좀 되라...')
 
-        // const updateTitle = datas.map((changeTitle) => ({
-        //     title : datas.id === changeTitle.id ?  changeTitle : datas.title,
+        // const updateTitle = datas.map((setChangeTitle) => ({
+        //     title : datas.id === setChangeTitle.id ?  setChangeTitle : datas.title,
         // }));
         // setChangeTitle(updateTitle);
         
-        setChangeTitle(changeTitle);
+        //setChangeTitle(changeTitle);
         // console.log('changeTitle는',changeTitle);
         setIsUpdate(false);
 
