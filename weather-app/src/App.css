@@ -1,0 +1,5 @@
+body {background: url(https://littledeep.com/wp-content/uploads/2021/06/weather-illustration-main-1024x607.png); height: 100vh; background-repeat: no-repeat; background-size: cover;}
+
+.container {display: flex; justify-content: center; align-items: center; flex-direction: column; height: 100vh;}
+
+.weatherBox{border: 3px solid white; padding: 50px 115px; border-radius: 30px; background-color: white; opacity: .8;}
