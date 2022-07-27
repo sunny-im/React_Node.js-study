@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import './App.css';
 import Box from './component/Box'
 
@@ -56,9 +56,26 @@ function App() {
     console.log('final',final);
     return choice[final];
   };
+
+  // useEffect는 
+  /*
+  1. 매개변수로 콜백함수와 배열을 받는다.
+  2. 기본적으로 앱 실행 후 첫번째 렌더 후에 한번 실행이된다.
+  3. 여기에선 주로 화면에 처음 보여줘야 할 데이터들에 대한 api호출을 한다.
+  */
+  useEffect(()=>{
+    console.log("2.useEffect - 클래스형 컴포넌트의 componentDidMount를 커버한다 ! ");
+  },[]);
+
+  useEffect(()=>{
+    console.log("4.useEffect - 클래스형 컴포넌트의 componentDidUpdate를 커버한다 ! 배열안에 state값을 넣으면 업데이트가 된 새로운 값 확인가능 !!!", userSelect, result);
+    // 배열안에 여러개의 state를 구독하고 있다면 배열 안의 state중 하나라도 업데이트가 되면 해당 useEffect가 호출이 된다. 하지만 여러개의 state가 동시에 업데이트 되었다 해도 한 번만 호출된다 !
+  },[userSelect,result]);
+
   return (
     <>
       <div className='main'>
+        {console.log("1/3.render")}
         <Box title="You" item={userSelect} result={result}/>
         <Box title="Computer" item={computerSelect} result={result}/> 
       </div>
