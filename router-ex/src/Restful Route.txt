@@ -1,0 +1,14 @@
+RESTful Routes
+REST 규칙을 이용해서 만드는 api 디자인 패턴!
+
+HTTP 명령어
+1. GET : 데이터를 가져올 때 (fetch하면 기본 명령어 속성이 Get!)
+2. Post : 데이터 생성
+3. Put(Patch) : 데이터 수정 
+4. Delete : 데이터 삭제
+
+/url + get || post || put || delete 
+url 하나로 4가지 액션이 가능하다
+
+하나의 아이템만 가져오고 싶다면 뒤에 파라미터를 붙이면 된다.
+/url/:id + get || put || delete 
