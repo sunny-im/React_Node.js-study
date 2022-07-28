@@ -5,15 +5,15 @@ import WeatherBox from './component/WeatherBox'
 import WeartherButton from './component/WeartherButton'
 import ClipLoader from "react-spinners/ClipLoader";
 
-// 5. 현재위치 버튼을 누르면 다시 현재위치 기반의 날씨가 나온다.
-
 function App() {
   const [weather, setWeather] = useState(null);
   const [city, setCity] = useState("");
-  // 3. 버튼 5개 - 현재위치 / 다른도시 
-  const cities = ['New York','Tokyo','Paris','Seoul'];
   // 6. 데이터 가져오는 동안 로딩스피너  
   const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
+  
+  // 3. 버튼 5개 - 현재위치 / 다른도시 
+  const cities = ['New York','Tokyo','Paris','Seoul'];
 
   const getCurrentLocation = ()=>{
     navigator.geolocation.getCurrentPosition((position)=>{
@@ -35,14 +35,31 @@ function App() {
   }
 
   const getWeatherByCity= async() => {
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1390646e577d82047d347ae8e6d2c811&units=metric`
-    setLoading(true);
-    let response = await fetch(url);
-    let data = await response.json();
-    console.log("city data",data);
-    setWeather(data);
-    setLoading(false);
+    try {
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1390646e577d82047d347ae8e6d2c811&units=metric`
+      setLoading(true);
+      let response = await fetch(url);
+      let data = await response.json();
+      console.log("city data",data);
+      setWeather(data);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setApiError(err.message);
+      setLoading(false);
+      alert(setApiError);
+    }
   }
+
+  // 5. 현재위치 버튼을 누르면 다시 현재위치 기반의 날씨가 나온다.
+  const handleCityChange = (city)=>{
+    if(city === "current"){
+      setCity("");
+    } else {
+      setCity(city);
+    }
+  };
+
   // 1. 앱이 실행되자마자 현재위치 기반의 날씨 
   useEffect(()=>{
     if(city==""){
@@ -69,7 +86,7 @@ function App() {
       <div className="container">
         {/* 2. 날씨정보에는 도시, 섭씨, 화씨, 날씨상태 */}
         <WeatherBox weather={weather} />
-        <WeartherButton cities={cities} setCity={setCity}/>
+        <WeartherButton cities={cities} setCity={city} handleCityChange={handleCityChange}/>
       </div>
         )} 
     </div>
