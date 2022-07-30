@@ -12,9 +12,7 @@ const ProductAll = () => {
         let searchQuery = query.get('q') || "";
         console.log("쿼리값은?", searchQuery);
         // 2.전체상품페이지 - 전체상품을 볼 수 있다. (json-server 사용)
-        let url=`https://my-json-server.typicode.com/sunny-im/React_study
-        /products
-        ?q=${searchQuery}`;
+        let url=`https://my-json-server.typicode.com/sunny-im/shoppingmall-app/products?q=${searchQuery}`;
         let response = await fetch(url);
         let data = await response.json();
         console.log(data);
