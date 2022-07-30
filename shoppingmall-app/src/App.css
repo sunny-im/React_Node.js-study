@@ -1,8 +1,10 @@
-.loginBtn {display: flex; justify-content: flex-end; margin: 20px;}
+.loginBtn {display: flex; justify-content: flex-end; margin: 20px; cursor: pointer;}
 .navBar {display: flex; justify-content: center;}
-.logo {height: 80px;}
+.logo {height: 80px; cursor: pointer;}
 .menuArea {display: flex; justify-content: center;}
 .menuList {display: flex; list-style: none; }
 .menuList > li {padding: 10px;}
-.search {position: absolute; right: 20px; top: 165px; border-bottom: 1px solid black; padding-bottom: 4px;}
+.search {position: absolute; right: 20px; top: 145px; border-bottom: 1px solid black; padding-bottom: 4px;}
 .search > input {border: none; padding-left: 10px;}
+
+.productImg {display: flex; justify-content: flex-end;}
