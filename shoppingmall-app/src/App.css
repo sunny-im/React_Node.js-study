@@ -1,4 +1,5 @@
 .loginBtn {display: flex; justify-content: flex-end; margin: 20px; cursor: pointer;}
+.loginBtn span {padding: 0 10px;}
 .navBar {display: flex; justify-content: center;}
 .logo {height: 80px; cursor: pointer;}
 .menuArea {display: flex; justify-content: center;}
@@ -8,3 +9,8 @@
 .search > input {border: none; padding-left: 10px;}
 
 .productImg {display: flex; justify-content: flex-end;}
+.card {border: none !important; margin-bottom: 13px;}
+.card>img:hover{ transform: scale(1.1); z-index: 1; }
+
+.detail>div {margin: 20px 0;}
+.detail>button {width: 200px;}

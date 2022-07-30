@@ -4,16 +4,10 @@ import { faUser } from '@fortawesome/free-regular-svg-icons'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 
-const Navbar = ({authenticate}) => {
+const Navbar = ({authenticate, setAuthenticate}) => {
   const menuList = ['여성', 'Divided', '남성', '신생아/유아', '아동', 'Home', 'Sale', '지속가능성']
   // 3.로그인버튼을 누르면 로그인 페이지
   const navigate = useNavigate();
-  const goToLogin=()=>{
-    navigate('/login');
-  }
-  const goToHompage=()=>{
-    navigate('/');
-  }
   const search = (e) =>{
     if (e.key === "Enter"){
       // 입력한 검색어를 읽어와서
@@ -25,12 +19,23 @@ const Navbar = ({authenticate}) => {
   };
   return (
     <div>
-        <div className='loginBtn'  onClick={goToLogin}>
-          <FontAwesomeIcon icon={faUser} />
-          <div>{authenticate==true?"로그인":"로그아웃"}</div>
+        <div className='loginBtn'>
+          <div>
+              {authenticate ? (
+              <div onClick={() => setAuthenticate(false)}>
+              <FontAwesomeIcon icon={faUser} />
+              <span>로그아웃</span>
+              </div>
+            ):(
+              <div onClick={() => navigate("/login")}>
+              <FontAwesomeIcon icon={faUser} />
+              <span>로그인</span>
+              </div>
+            )}
+          </div>
         </div>
         <div className='navBar'>
-          <img className="logo" src="/img/logo.png" alt="로고" onClick={goToHompage}/>
+          <img className="logo" src="/img/logo.png" alt="로고" onClick={()=>navigate('/')}/>
         </div>
         <div className='menuArea'>
           <ul className='menuList'>

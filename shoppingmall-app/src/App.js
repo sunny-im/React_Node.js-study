@@ -21,7 +21,7 @@ function App() {
   return (
     <div>
       {/* 1-1. 네비게이션 바 (항상 그대로 유지) */}
-      <Navbar authenticate={authenticate}/>
+      <Navbar authenticate={authenticate} setAuthenticate={setAuthenticate}/>
       {/* 1.전체상품 / 로그인 / 상품상세페이지 총 3개 */}
       <Routes>
         <Route path="/" element={<ProductAll />} />
