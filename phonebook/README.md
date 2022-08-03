@@ -1,3 +1,10 @@
+
+redux install
+>>  npm install redux react-redux
+redux setting
+>> index.js에서 App을 <provider>로 감싸준다. store를 제공해주기 위해서 !!
+>> provider에는 props로 store가 온다 !
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
