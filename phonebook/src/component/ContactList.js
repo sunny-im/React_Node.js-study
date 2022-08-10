@@ -14,7 +14,7 @@ const ContactList = () => {
             let list = contactList.filter((item)=>item.name.includes(keyword));
             setFilteredList(list);
         } else {
-            setFilteredList(contactList);
+            setFilteredList(contactList); 
         }
     },[keyword])
     return (
