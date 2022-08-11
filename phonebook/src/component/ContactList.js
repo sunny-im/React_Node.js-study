@@ -28,7 +28,7 @@ const ContactList = () => {
             </div>
             {/* {contactList.map((item)=>(
                 <ContactItem item={item}/>
-            ))} */}
+            ))} */} 
         </div>
     )
 }
