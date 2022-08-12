@@ -22,7 +22,7 @@ const ContactList = () => {
             <SearchBox/>
             <div>
                 num: {filteredList.length}
-                {filteredList.map((item)=>(
+                {filteredList.map((item)=>( 
                     <ContactItem item={item}/>
                 ))}
             </div>
