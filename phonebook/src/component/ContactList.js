@@ -21,7 +21,7 @@ const ContactList = () => {
         <div>
             <SearchBox/>
             <div>
-                num: {filteredList.length}
+                num : {filteredList.length}
                 {filteredList.map((item)=>( 
                     <ContactItem item={item}/>
                 ))}
