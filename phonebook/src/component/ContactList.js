@@ -11,7 +11,7 @@ const ContactList = () => {
 
     useEffect(()=>{
         if (keyword !== ""){
-            let list = contactList.filter((item)=>item.name.includes(keyword));
+            let list = contactList.filter((item)=>item.name.includes(keyword)); 
             setFilteredList(list);
         } else {
             setFilteredList(contactList); 
