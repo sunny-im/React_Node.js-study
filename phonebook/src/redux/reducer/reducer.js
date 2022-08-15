@@ -2,8 +2,8 @@ let initialState = {
     contactList: [],
     keyword: "",
 };
-function reducer(state=initialState, action) {
-    const {type, payload} = action
+const reducer = (state=initialState, action) => {
+    const {type, payload} = action;
     // contactForm에서 받은 값으로 행동지침을 정하자
     switch(type){
         case "ADD_CONTACT" :
@@ -26,9 +26,8 @@ function reducer(state=initialState, action) {
         case "SEARCH_NAME" :
             state.keyword = payload.keyword
             break;
-        default :
-            return {...state}; // store는 리턴값을 무조건 받아야하니까 여기도 return !
-    }
-}
+        }
+        return {...state}; // store는 리턴값을 무조건 받아야하니까 여기도 return !
+};
 
 export default reducer;
