@@ -7,10 +7,10 @@ import { productAction } from '../redux/actions/productAction';
 
 const ProductDetail = () => {
     // const [product, setProduct] =useState('');
-    const product = useSelector((state)=>state.product.selectedItem);
+    const product = useSelector((state)=>state.product.singleProduct);
     let{id} = useParams();
     const dispatch = useDispatch();
-    const getProductDetail = ()=>{
+    const getProductDetail =()=>{
         // let url=`http://localhost:4000/products/${id}`
         // let response = await fetch(url);
         // let data = await response.json();
@@ -20,6 +20,7 @@ const ProductDetail = () => {
     }
     useEffect(()=>{
         getProductDetail()
+        console.log(getProductDetail)
     },[]);
   return (
     <div>

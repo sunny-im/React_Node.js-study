@@ -28,19 +28,19 @@ const ProductAll = () => {
     useEffect(()=>{
         getProducts()
     },[query]); // 쿼리값이 바뀔때마다 getProducts()를 호출해야 하므로!
-  return (
-    <div>
-        <Container>
-            <Row>
-                {productList.map((menu, idx) => (
-                    <Col lg={3} key={idx}>
-                        <ProductCard item={menu}/>
-                    </Col>
-                ))}
-            </Row>
-        </Container>
-    </div>
-  )
+    return (
+        <div>
+            <Container>
+                <Row>
+                    {productList.map((menu, idx) => (
+                        <Col lg={3} key={idx}>
+                            <ProductCard item={menu}/>
+                        </Col>
+                    ))}
+                </Row>
+            </Container>
+        </div>
+    )
 }
 
 export default ProductAll

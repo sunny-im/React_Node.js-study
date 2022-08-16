@@ -3,8 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-const Navbar = ({authenticate, setAuthenticate}) => {
+const Navbar = () => {
+  const authenciate = useSelector((state) => state.auth.authenticate);
   const menuList = ['여성', 'Divided', '남성', '신생아/유아', '아동', 'Home', 'Sale', '지속가능성']
   // 3.로그인버튼을 누르면 로그인 페이지
   const navigate = useNavigate();
@@ -21,8 +23,8 @@ const Navbar = ({authenticate, setAuthenticate}) => {
     <div>
         <div className='loginBtn'>
           <div>
-              {authenticate ? (
-              <div onClick={() => setAuthenticate(false)}>
+              {authenciate ? (
+              <div onClick={() => authenciate(false)}>
               <FontAwesomeIcon icon={faUser} />
               <span>로그아웃</span>
               </div>
