@@ -3,6 +3,8 @@ import './App.css';
 import Home from './pages/Home';
 import Movies from './pages/Movies';
 import MovieDetail from './pages/MovieDetail';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Navigation from './components/Navigation';
 
 //1. 홈페이지, 영화페이지, 영화 상세페이지 필요
 //2-1. 홈페이지 배너
@@ -21,6 +23,7 @@ import MovieDetail from './pages/MovieDetail';
 function App() {
   return (
     <div>
+      <Navigation />
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/movies" element={<Movies/>}/>
