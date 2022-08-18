@@ -1,6 +1,6 @@
 let initialState = {
     productList:[],
-    singleProduct:null,
+    singleProduct:'',
 }
 
 function productReducer(state=initialState, action) {
@@ -10,7 +10,7 @@ function productReducer(state=initialState, action) {
             return { ...state, productList: payload.data};
 
         case "GET_SINGLE_PRODUCT_SUCCESS" :
-            return {...state, singleProduct:payload.data}
+            return {...state, singleProduct: payload.data}
         default :
             return {...state};
     }
