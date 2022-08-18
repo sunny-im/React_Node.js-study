@@ -1,4 +1,8 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Home from './pages/Home';
+import Movies from './pages/Movies';
+import MovieDetail from './pages/MovieDetail';
 
 //1. 홈페이지, 영화페이지, 영화 상세페이지 필요
 //2-1. 홈페이지 배너
@@ -17,6 +21,11 @@ import './App.css';
 function App() {
   return (
     <div>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/movies" element={<Movies/>}/>
+        <Route path="/movies/:id" element={<MovieDetail/>}/>
+      </Routes>
     </div>
   );
 }
