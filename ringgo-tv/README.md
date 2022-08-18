@@ -15,3 +15,6 @@ npm install redux-thunk
 
 ### redux devtool
 npm install --save redux-devtools-extension
+
+### react 자동완성 
+rafce
