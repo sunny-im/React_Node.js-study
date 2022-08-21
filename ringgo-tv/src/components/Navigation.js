@@ -28,7 +28,7 @@ const Navigation = () => {
             <Button variant="outline-warning">Search</Button>
           </Form>
         </Navbar.Collapse>
-      </Container>
+      </Container> 
     </Navbar>
     </div>
   )
