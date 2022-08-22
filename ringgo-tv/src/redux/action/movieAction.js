@@ -12,7 +12,20 @@ function getMovies(){
         const upcomingApit = api.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`);
 
         // 연관이 없는 API 여러개를 await로 하나하나 부르면 기다리는 시간이 있기때문에 동시에 부르는 방법! Promise.all()
-        let [popularMovies, topRatedMovies, upcomingMovies] = await Promise.all([popularMovieApi,topRatedApi,upcomingApit]);
+        let [popularMovies, topRatedMovies, upcomingMovies] = await Promise.all([
+            popularMovieApi,
+            topRatedApi,
+            upcomingApit
+        ]);
+
+        dispatch({
+            type : "GET_MOVIES_SUCCESS",
+            payload : {
+                popularMovies:popularMovies.data , 
+                topRatedMovies:topRatedMovies.data, 
+                upcomingMovies:upcomingMovies.data
+            }
+        });
 
         console.log("popularMovies",popularMovies);
         console.log("topRatedMovies",topRatedMovies);
