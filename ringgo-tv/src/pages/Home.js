@@ -24,13 +24,15 @@ const Home = () => {
             {/* {popularMovies.results && */}
             <Banner movie={popularMovies.results[0]}/>
             {/* } */}
-            <div className="moviesList">
-                <h3>인기영화</h3>
-                <MovieSlide movies={popularMovies}/>
-                <h3>평점 높은 영화</h3>
-                <MovieSlide movies={topRatedMovies}/>
-                <h3>개봉 예정 영화</h3>
-                <MovieSlide movies={upcomingMovies}/>
+            <div className='card_container'>
+                <div className="moviesList">
+                    <h3>인기영화</h3>
+                    <MovieSlide movies={popularMovies}/>
+                    <h3>평점 높은 영화</h3>
+                    <MovieSlide movies={topRatedMovies}/>
+                    <h3>개봉 예정 영화</h3>
+                    <MovieSlide movies={upcomingMovies}/>
+                </div>
             </div>
         </div>
     )
