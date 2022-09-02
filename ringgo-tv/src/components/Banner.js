@@ -14,6 +14,7 @@ const Banner = ({movie}) => {
         <div className="bannerInfo">
             <h1>{movie.title}</h1>
             <p>{movie.overview}</p>
+            <p>{movie.overview}</p>
         </div>
     </div>
   )
