@@ -6,3 +6,7 @@
 >> npm install @material-ui/core
 3. react bootstrap
 >> npm install react-bootstrap bootstrap
+4. axios
+>> npm install axios
+5. cheerio
+>> npm install cheerio
