@@ -11,7 +11,7 @@ const News = () => {
 
     const searchNews = () => {
         let searchItem = encodeURI(search);
-        axios.get(`/search.naver?where=news&ie=utf8&sm=nws_hty&query=${searchItem}`)
+        axios.get(`/news/search.naver?where=news&ie=utf8&sm=nws_hty&query=${searchItem}`)
         .then(res => {
             const $ = cheerio.load(res.data);
             $('.group_news > .list_news > .bx > div > div').each((index, item)=>{
