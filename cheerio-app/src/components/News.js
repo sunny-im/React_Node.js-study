@@ -6,7 +6,7 @@ import { Container, Box, Button, TextField, Table, TableHead, TableRow, TableCel
 const News = () => {
     const [search, setSearch] = useState('');
     const [title, setTitle] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(0);
     let newTitle = [];
 
     const searchNews = () => {
@@ -19,12 +19,11 @@ const News = () => {
                 newTitle.push(text);
             });
             setTitle(newTitle);
-            setLoading(false);
+            setLoading(1);
             })
             .catch((error) => {
             console.log("error", error);
         });
-    console.log('123')
     };
     useEffect (()=>{
         searchNews();
@@ -49,7 +48,7 @@ const News = () => {
         <p>검색하고 싶은 뉴스는 ? </p> 
         <TextField id="outlined-basic" label="검색어를 입력하세요" variant="outlined" onChange={(e)=>setSearch(e.target.value)} />
         <Button variant="outlined" onClick={()=>searchNews()}>검색</Button>
-        {!loading &&(
+        {loading === 1 &&(
         <LinearProgress className="progress" variant="determinate" value={loading}/>
         )}
         <Box>
