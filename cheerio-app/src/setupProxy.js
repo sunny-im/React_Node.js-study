@@ -11,9 +11,8 @@ module.exports = (app) => {
         })
     )
     app.use(
-        '/naver',
-        createProxyMiddleware({
-            target: 'https://api.naver.com',
+        createProxyMiddleware('/naver',{
+            target: 'https://api.naver.com/',
             changeOrigin: true,
             pathRewrite: {
                 '^/naver': '/' 

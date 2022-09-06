@@ -7,6 +7,7 @@ const Menubar = () => {
         <div className="header">
             <Link to="/" className='nav_item'>Home</Link>
             <Link to="/news" className='nav_item'>News</Link>
+            <Link to="/naverapi" className='nav_item'>NaverAPI</Link>
         </div> 
     </div>
   )
