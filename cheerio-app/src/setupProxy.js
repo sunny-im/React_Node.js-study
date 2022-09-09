@@ -6,7 +6,7 @@ module.exports = (app) => {
             target: 'https://search.naver.com/',
             changeOrigin: true,
             pathRewrite: {
-                '^/news': '/' // URL ^/news -> 공백 변경
+                '^/news': '/' // URL ^/news -> /로 변경
             }
         })
     )

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
-import { Container, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress  } from '@material-ui/core';
+import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress  } from '@material-ui/core';
 
 const NaverAPI = () => {
     const[keyword, setKeyword] = useState([]);
@@ -55,14 +55,14 @@ const NaverAPI = () => {
     },[]);
 
     return (
-    <Container>
+    <TableContainer>
         <Table stickyHeader aria-label="sticky table">
             <TableHead>
-            <TableRow>
-                <TableCell>No</TableCell>
-                <TableCell>Keyword</TableCell>
-                <TableCell>compIdx</TableCell>
-            </TableRow>
+                <TableRow>
+                    <TableCell>No</TableCell>
+                    <TableCell>Keyword</TableCell>
+                    <TableCell>compIdx</TableCell>
+                </TableRow>
             </TableHead>
             {loading ? (
             <CircularProgress />
@@ -71,17 +71,17 @@ const NaverAPI = () => {
                 {keyword.map((item,idx) => {
                 const color = getColor(item.compIdx);
                 return (
-                    <TableRow key={idx} style={{background: `${color}`}}>
+                <TableRow key={idx} style={{background: `${color}`}}>
                     <TableCell>{idx+1}</TableCell>
                     <TableCell>{item.relKeyword}</TableCell>
                     <TableCell>{item.compIdx}</TableCell>
-                    </TableRow>
+                </TableRow>
                 )
                 })} 
             </TableBody>
             )}
         </Table>
-    </Container>
+    </TableContainer>
     )
     }
 
