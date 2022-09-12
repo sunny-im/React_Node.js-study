@@ -18,4 +18,12 @@ module.exports = (app) => {
                 '^/naver': '/' 
             }
         }))
+    app.use(
+        createProxyMiddleware('/starbucks',{
+            target: 'http://localhost:5000/',
+            changeOrigin: true, 
+            pathRewrite: {
+                '^/starbucks': '/' 
+            }
+        }))
 }
