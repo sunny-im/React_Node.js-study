@@ -21,6 +21,6 @@ module.exports = (app) => {
     app.use(
         createProxyMiddleware('/starbucks',{
             target: 'http://localhost:5000',
-            changeOrigin: true, 
+            changeOrigin: true,
         }))
 }
