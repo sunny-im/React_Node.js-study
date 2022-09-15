@@ -1,3 +1,5 @@
+a {text-decoration: none;}
+
 .container { margin: 0 auto; }
 .container > div { display: flex; justify-content: center; }
 .container > div > img { width: 150px; margin: 50px 0; }

@@ -11,12 +11,18 @@ const NaverLogin = () => {
     const requestUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&state=state&redirect_uri=${CALLBACK_URL}`
     //console.log(requestUrl)
 
+    // code 가져오기
+    const getNaverCode = () => {
+        const uri = window.location.search;
+        if(!uri) return;
+        const CODE = uri.split('=')[1].split('&')[0];
+    }
     //토큰 발급 
     const data = {
         grant_type : "authorization_code",
         client_id : CLIENT_ID,
         client_secret : CLIENT_SECRET,
-        code : "oakNX7H3PrnQQLWktf"
+        code : getNaverCode()
     }
     let accessToken = {
         headers: {
@@ -61,8 +67,8 @@ const NaverLogin = () => {
                         <Button className="btn_login" variant="warning" onClick={naverLogin}>
                             로그인 하기
                         </Button>
-                        <Button className="btn_login naver" variant="warning" type="submit">
-                            네이버로 로그인
+                        <Button className="btn_login naver" variant="warning">
+                            <a href={requestUrl}>네이버로 로그인</a>
                         </Button>
                         <Button className="btn_login kakao" variant="warning" type="submit">
                             카카오로 로그인
