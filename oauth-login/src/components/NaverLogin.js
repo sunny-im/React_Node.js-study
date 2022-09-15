@@ -9,7 +9,7 @@ const NaverLogin = () => {
     const CALLBACK_URL = "http://localhost:3000/login/oauth2/code/naver";
     //로그인 연동 URL
     const requestUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&state=state&redirect_uri=${CALLBACK_URL}`
-    console.log(requestUrl)
+    //console.log(requestUrl)
 
     //토큰 발급 
     const data = {
@@ -25,7 +25,7 @@ const NaverLogin = () => {
         },
         method: "POST",
         data: qs.stringify(data),
-        url: "https://nid.naver.com/oauth2.0/token"
+        url: "/oauth2.0/token"
     }
 
     const naverLogin = async () => {
@@ -58,7 +58,7 @@ const NaverLogin = () => {
                         <Form.Check type="checkbox" label="로그인 상태 유지" />
                     </Form.Group>
                     <div className="btnGroup">
-                        <Button className="btn_login" variant="warning" type="submit" onClick={naverLogin}>
+                        <Button className="btn_login" variant="warning" onClick={naverLogin}>
                             로그인 하기
                         </Button>
                         <Button className="btn_login naver" variant="warning" type="submit">
