@@ -1,7 +1,19 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Container, Form, Button } from 'react-bootstrap';
 
 const NaverLogin = () => {
+    const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+    const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
+    const CALLBACK_URL = "http://localhost:3000/login/oauth2/code/naver";
+    
+    //로그인 연동 URL
+    const requestUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&state=STATE_STRING&redirect_uri=${CALLBACK_URL}`
+    console.log(requestUrl)
+
+    //토큰 발급 
+
+    useEffect (()=>{
+    },[]);
     return (
     <div>
         <Container className="container">
