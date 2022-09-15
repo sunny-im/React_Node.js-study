@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react'
 import { Container, Form, Button } from 'react-bootstrap';
+import axios from 'axios'
+import qs from 'qs'
 
 const NaverLogin = () => {
     const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
@@ -10,7 +12,26 @@ const NaverLogin = () => {
     console.log(requestUrl)
 
     //토큰 발급 
+    const data = {
+        grant_type : "authorization_code",
+        client_id : CLIENT_ID,
+        client_secret : CLIENT_SECRET,
+        code : "oakNX7H3PrnQQLWktf"
+    }
+    let accessToken = {
+        headers: {
+            "XGET" : "https://openapi.naver.com/v1/nid/me",
+            "Authorization" : "Bearer AAAAPIuf0L+qfDkMABQ3IJ8heq2mlw71DojBj3oc2Z6OxMQESVSrtR0dbvsiQbPbP1/cxva23n7mQShtfK4pchdk/rc="
+        },
+        method: "POST",
+        data: qs.stringify(data),
+        url: "https://nid.naver.com/oauth2.0/token"
+    }
 
+    const naverLogin = async () => {
+        const res = await axios(accessToken);
+        console.log('res',res);
+    }
     useEffect (()=>{
     },[]);
     return (
@@ -37,7 +58,7 @@ const NaverLogin = () => {
                         <Form.Check type="checkbox" label="로그인 상태 유지" />
                     </Form.Group>
                     <div className="btnGroup">
-                        <Button className="btn_login" variant="warning" type="submit">
+                        <Button className="btn_login" variant="warning" type="submit" onClick={naverLogin}>
                             로그인 하기
                         </Button>
                         <Button className="btn_login naver" variant="warning" type="submit">
