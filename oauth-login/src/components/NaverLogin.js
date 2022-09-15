@@ -4,7 +4,7 @@ import axios from 'axios'
 import qs from 'qs'
 
 const NaverLogin = () => {
-    const [code, setCode] = useState('');
+    const [newCode, setNewCode] = useState('');
     
     const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
     const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
@@ -19,45 +19,31 @@ const NaverLogin = () => {
         if(!uri) return;
         let getCode = uri.split('=')[1].split('&')[0];
         console.log(getCode)
-        setCode(getCode);
+        setNewCode(getCode);
     }
     //토큰 발급 
-    // const data = {
-    //     grant_type : "authorization_code",
-    //     client_id : CLIENT_ID,
-    //     client_secret : CLIENT_SECRET,
-    //     code : {code}
-    // }
-    // let accessToken = {
-    //     headers: {
-    //         "XGET" : "https://openapi.naver.com/v1/nid/me",
-    //         "Authorization" : "Bearer AAAAPIuf0L+qfDkMABQ3IJ8heq2mlw71DojBj3oc2Z6OxMQESVSrtR0dbvsiQbPbP1/cxva23n7mQShtfK4pchdk/rc="
-    //     },
-    //     method: "POST",
-    //     data: qs.stringify(data),
-    //     url: "/oauth2.0/token"
-    // }
-
-    const URL = "/oauth2.0/token";
-    const params = new URLSearchParams();
-    params.append('grant_type', 'authorization_code');
-    params.append('client_id', CLIENT_ID);
-    params.append('client_secret', 'CLIENT_SECRET');
-    params.append('code', code);
-    const config = {
-        headers : {
+    const data = {
+        grant_type : "authorization_code",
+        client_id : CLIENT_ID,
+        client_secret : CLIENT_SECRET,
+        code : newCode
+    }
+    let accessToken = {
+        headers: {
             "XGET" : "https://openapi.naver.com/v1/nid/me",
             "Authorization" : "Bearer AAAAPIuf0L+qfDkMABQ3IJ8heq2mlw71DojBj3oc2Z6OxMQESVSrtR0dbvsiQbPbP1/cxva23n7mQShtfK4pchdk/rc="
-        }
+        },
+        method: "POST",
+        data: qs.stringify(data),
+        url: "/oauth2.0/token"
     }
+
     const naverLogin = async () => {
-        // const res = await axios(accessToken);
-        // console.log('res',res);
-        let axiosResult = await axios.post(URL, params, config);
-        console.log(axiosResult);
-        getNaverCode();
+        const res = await axios(accessToken);
+        console.log('res',res);
     }
     useEffect (()=>{
+        getNaverCode();
     },[]);
     return (
     <div>
