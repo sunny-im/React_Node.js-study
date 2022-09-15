@@ -1,0 +1,15 @@
+.container { margin: 0 auto; }
+.container > div { display: flex; justify-content: center; }
+.container > div > img { width: 150px; margin: 50px 0; }
+
+.wrap { border: 2px solid rgb(171, 169, 169); border-radius: 3px; width: 500px; height: 365px; margin: 0 auto; padding: 20px 0;}
+.wrap .inner_wrap h2 { text-align: center;}
+.wrap .inner_wrap .mb-3 { display: flex; align-items: center; justify-content: space-between; margin: 10px 30px;}
+.wrap .inner_wrap .mb-3 > label { font-size: 20px;}
+.wrap .inner_wrap #formBasicEmail { margin-left: 112px;}
+.wrap .inner_wrap .mb-3 > input { width: 300px; height: 30px;}
+.wrap .inner_wrap .mb-3 .form-check { margin: 10px 0;}
+.wrap .inner_wrap .btnGroup { display: flex; flex-direction: column;}
+.wrap .inner_wrap .btn_login { display: flex; align-items: center; justify-content: center; background-color: #ccc; border: none; border-radius: 10px; width: 400px; height: 40px; margin: 3px auto; font-size: 18px; color: #fff; font-weight: bold; cursor: pointer;}
+.wrap .inner_wrap .btn_login.naver { background-color: #19ce60; }
+.wrap .inner_wrap .btn_login.kakao { background-color: gold; }
