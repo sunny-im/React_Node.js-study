@@ -36,7 +36,7 @@ const NaverLogin = () => {
         method: "POST",
         data: qs.stringify(data),
         url: "/oauth2.0/token"
-    }
+    } 
 
     const naverLogin = async () => {
         const res = await axios(accessToken);
