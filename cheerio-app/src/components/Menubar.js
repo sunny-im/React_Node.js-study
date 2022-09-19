@@ -8,6 +8,7 @@ const Menubar = () => {
             <Link to="/" className='nav_item'>Home</Link>
             <Link to="/news" className='nav_item'>News</Link>
             <Link to="/naverapi" className='nav_item'>NaverAPI</Link>
+            <Link to="/starbucks" className='nav_item'>Starbucks</Link>
         </div> 
     </div>
   )
