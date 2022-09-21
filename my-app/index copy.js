@@ -1,3 +1,4 @@
+
 // express 모듈 불러오기
 const express = require("express");
 
@@ -32,20 +33,18 @@ async function openBrowser(keyword) {
     // 페이지 크기 설정
     await page.setViewport({width:1920, height:1080})
     // 포탈로 이동
-    await page.goto("https://www.naver.com/");
+    await page.goto("https://www.google.com/");
     // 키워드 입력
-    await page.type("input[class='input_text']", keyword);
+    await page.type("input[class='gLFyf gsfi']", keyword);
     await page.waitForTimeout(500);
     // 엔터로 키워드 검색
-    //await page.type("input[class='gLFyf gsfi']", String.fromCharCode(13));
-    // 클릭으로 키워드 검색
-    await page.click("#search_btn");
+    await page.type("input[class='gLFyf gsfi']", String.fromCharCode(13));
     await page.waitForTimeout(500);
 
     // 예외 처리
     try {
     // 해당 콘텐츠가 로드될 때까지 대기
-    await page.waitForSelector(".sc_new.b8k1d > div > ul > li > .CHC5F", { timeout: 10000 });
+    await page.waitForSelector("#rso div.g", { timeout: 10000 });
     //await page.waitForTimeout(500);
     console.log("여기ok")
     } catch (error) {
@@ -53,58 +52,44 @@ async function openBrowser(keyword) {
     console.log("에러 발생: " + error);
     return [
         {
-        store: "검색결과 없음",
-        type: "",
-        comment: "",
-        open: "",
-        score:"",
+        title: "검색결과 없음",
+        link: "",
+        text: "",
+        kategorie: "",
         },
     ];
     }
 
     // 여기서부턴 호출된 브라우저 영역
     const searchData = await page.evaluate(() => {  // puppeteer로 호출한 브라우저에서 실행될 함수(크롤링코드)
+        console.log("1")
     // 검색된 돔 요소를 Array.form을 통해 배열에 담음
-    const contentsList = Array.from(document.querySelectorAll(".sc_new.b8k1d > div > ul > li > .CHC5F"));
-    // 호출된 브라우저 영역 콘솔창에서 확인할 수 있음
-    console.log("contentsList", contentsList);
+    const contentsList = Array.from(document.querySelectorAll("#rso div.g"));
+        console.log("2")
     let contentsObjList = [];
 
     // 검색결과 크롤링
     contentsList.forEach((item) => {
-        if (item.className === "CHC5F") {
-        const store = item.querySelector(".place_bluelink");
-        const type = item.querySelector(".KCMnt");
-        // const comment = item.querySelector(".Ldfxw");
-        // const open = item.querySelector(".h69bs ");
-        // const score = item.querySelector(".place_blind em");
+        if (item.className === "g") {
+        const title = item.querySelector("h3");
+        const link = item.querySelector(".yuRUbf");
+        const text = item.querySelector(".VwiC3b");
+        const kategorie = item.querySelector(".iUh30 ");
 
-        console.log("store",store)
-        console.log("type",type)
-        // console.log("comment",comment)
-        // console.log("open",open)
-        // console.log("score",score)
-
-        if (store && type ) {
+        if (title && link && text && kategorie) {
             contentsObjList.push({
-                /*
-                store: (store.textContent) ? store.textContent : "", // 매장명
-                type: (type.textContent) ? type.textContent : "", // 음식타입
-                comment: (comment.textContent) ? comment.textContent : "", // 코멘트
-                open: (open.textContent) ? open.textContent : "", // 영업여부
-                score: (score.textContent) ? score.textContent : "", // 별점
-                */
-               store: store.textContent, // 매장명
-               type: type.textContent, // 음식타입
-            //    comment: (comment.textContent)!=null ? comment.textContent : "", // 코멘트
-            //    open: (open.textContent)!=null ? open.textContent : "", // 영업여부
-            //    score: (score.textContent)!=null ? score.textContent : "", // 별점
+            title: title.textContent, // 타이틀
+            link: link.children[0].href, // 링크
+            text: text.textContent, // 내용
+            kategorie: kategorie.textContent, // 카테고리
             });
         }
         }
     });
 
-    console.log("contentsObjList",contentsObjList);
+    // 호출된 브라우저 영역 콘솔창에서 확인할 수 있음
+    console.log(contentsList); // 검색한 엘리먼트 리스트
+    console.log(contentsObjList); // 검색한 콘텐츠 오브젝트 리스트
 
     return contentsObjList;
     });
