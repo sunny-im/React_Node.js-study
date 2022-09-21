@@ -1,19 +1,13 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
-const SearchItem = (props) => {
-    const { item } = props;
+
+const SearchItem = ({item}) => {
+    console.log('item',item)
+
+    useEffect(()=> {
+    },[])
     return (
     <div className="card">
-        <div className="top">
-            <div className="kategorie">{item.kategorie}</div>
-            <div className="title">{item.title}</div>
-        </div>
-        <div className="bottom">
-            <div className="text">{item.text}</div>
-            <a href={item.link} className="link" target="_blank" rel="noreferrer">
-            더보기
-            </a>
-        </div>
     </div>
     )
 }

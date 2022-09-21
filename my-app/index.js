@@ -73,44 +73,33 @@ async function openBrowser(keyword) {
     // 검색결과 크롤링
     contentsList.forEach((item) => {
         if (item.className === "CHC5F") {
-        const store = item.querySelector(".place_bluelink");
-        const type = item.querySelector(".KCMnt");
-        // const comment = item.querySelector(".Ldfxw");
-        // const open = item.querySelector(".h69bs ");
-        // const score = item.querySelector(".place_blind em");
+            const store = item.querySelector(".place_bluelink") ? item.querySelector(".place_bluelink") : "<div>결과없음</div>";
+            const type = item.querySelector(".KCMnt") ? item.querySelector(".KCMnt") : "<div>결과없음</div>";
+            const comment = item.querySelector(".Ldfxw") ? item.querySelector(".Ldfxw") : "<div>결과없음</div>";
+            const open = item.querySelector(".h69bs ") ? item.querySelector(".h69bs ") : "<div>결과없음</div>";
+            const score = item.querySelector(".a2RFq  em") ? item.querySelector(".a2RFq  em") : "<div>결과없음</div>";
 
-        console.log("store",store)
-        console.log("type",type)
-        // console.log("comment",comment)
-        // console.log("open",open)
-        // console.log("score",score)
-
-        if (store && type ) {
-            contentsObjList.push({
-                /*
-                store: (store.textContent) ? store.textContent : "", // 매장명
-                type: (type.textContent) ? type.textContent : "", // 음식타입
-                comment: (comment.textContent) ? comment.textContent : "", // 코멘트
-                open: (open.textContent) ? open.textContent : "", // 영업여부
-                score: (score.textContent) ? score.textContent : "", // 별점
-                */
-               store: store.textContent, // 매장명
-               type: type.textContent, // 음식타입
-            //    comment: (comment.textContent)!=null ? comment.textContent : "", // 코멘트
-            //    open: (open.textContent)!=null ? open.textContent : "", // 영업여부
-            //    score: (score.textContent)!=null ? score.textContent : "", // 별점
-            });
-        }
+            console.log("store",store)
+            console.log("score",score)
+            
+            if (store && type && type) {
+                contentsObjList.push({
+                    store: store.textContent, // 매장명
+                    type: type.textContent, // 음식타입
+                    comment: comment.textContent , // 코멘트
+                    open: open.textContent , // 영업여부
+                    score: score.textContent , // 별점
+                });
+            }
         }
     });
-
     console.log("contentsObjList",contentsObjList);
 
     return contentsObjList;
     });
 
     // 브라우저 닫기
-    //browser.close();
+    browser.close();
 
     // 검색결과 반환
     return searchData;
