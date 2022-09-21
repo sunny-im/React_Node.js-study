@@ -1,23 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 
-const SearchForm = () => {
-    const getData = () => {
-        fetch("api/data")
-        .then((res)=>{
-            return res.json();
-        })
-        .then((data)=>{
-            console.log(data);
-        })
-    }
+const SearchForm = (props) => {
+    const [keyword, setKeyword] = useState('');
+    const {getData} = props;
+
     return (
     <div className="form">
-        <input type="text" className="form-text" />
-        <button
-        type="button"
-        className="form-btn"
-        onClick={getData}
-        >
+        <input type="text" className="form-text" 
+            onChange={(e)=>setKeyword(e.target.value)}
+        />
+        <button type="button" className="form-btn" onClick={()=>{if(keyword) getData(keyword)}}>
         search
         </button>
     </div>

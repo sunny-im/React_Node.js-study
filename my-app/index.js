@@ -10,7 +10,8 @@ app.listen(port);
 
 // 미들웨어 함수를 특정 경로에 등록
 app.use("/api/data", function (req, res) {
+    console.log("검색키워드(서버) : " + req.query.keyword);
     res.json({ greeting: "Hello World" });
 });
 
-console.log(`server running at http ${port}`);
+console.log(`server running at http ${port} !!`);
