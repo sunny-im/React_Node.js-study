@@ -1,8 +1,17 @@
 import React from "react";
+import SearchItem from "./SearchItem";
 
-const SearchList = () => {
+
+const SearchList = (props) => {
+    const { searchData } = props;
     return (
-        <div className="card-list"></div>
+        <div className="card-list">
+            {searchData.map((item,idx)=>{
+                return (
+                    <SearchItem key={idx} item={item}/>
+                )
+            })}
+        </div>
     );
 };
 

@@ -13,7 +13,7 @@ app.use("/api/data", async function (req, res) {
     console.log("검색키워드(서버) : " + req.query.keyword);
     //res.json({ greeting: "Hello World" });
     const resultList = await openBrowser(req.query.keyword);
-    console.log("resultList", resultList);
+    console.log("resultList는? ", resultList);
     res.json(resultList);
     
 });
@@ -61,8 +61,10 @@ async function openBrowser(keyword) {
 
     // 호출된 브라우저 영역
     const searchData = await page.evaluate(() => {  // puppeteer로 호출한 브라우저에서 실행될 함수(크롤링코드)
+        console.log("1")
     // 검색된 돔 요소를 Array.form을 통해 배열에 담음
     const contentsList = Array.from(document.querySelectorAll("#rso div.g"));
+        console.log("2")
     let contentsObjList = [];
 
     // 검색결과 크롤링
@@ -92,7 +94,7 @@ async function openBrowser(keyword) {
     });
 
     // 브라우저 닫기
-    //browser.close();
+    browser.close();
 
     // 검색결과 반환
     return searchData;
