@@ -6,7 +6,10 @@ const port = process.env.PORT || 5000;
 app.listen(port);
 
 app.use("/starbucks", async function (req, res) {
-    const resultList = await openBrowser();
+    console.log("검색키워드(서버) : " + req.query.keyword);
+    //res.json({ greeting: "Hello World" });
+    const resultList = await openBrowser(req.query.keyword);
+    console.log("resultList는? ", resultList);
     res.json(resultList);
     
 });
@@ -17,18 +20,19 @@ console.log(`server running at http ${port} !!`);
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 
-async function openBrowser() {
+async function openBrowser(keyword) {
     const browser = await puppeteer.launch({headless: false});
     const page = await browser.newPage();
-    const start = "역삼";
+    // const start = "역삼";
 
     await page.setViewport({width:1920, height:1080})
     await page.goto('https://www.starbucks.co.kr/');
     await page.click(".util_nav04");
     await page.waitForTimeout(500);
-    await page.evaluate((start) => {
-        document.querySelector('#quickSearchText').value = start;
-    }, start);
+    await page.type("input[name='quickSearchText']", keyword);
+    // await page.evaluate((start) => {
+    //     document.querySelector('#quickSearchText').value = start;
+    // }, start);
     await page.waitForTimeout(500);
     // await page.keyboard.press('Enter')
     // await page.waitForTimeout(500);
@@ -73,7 +77,7 @@ async function openBrowser() {
 
         return addrObjList;
     });
-
+    return searchData;
     //cheerio version
     /*
     const content = await page.content();
