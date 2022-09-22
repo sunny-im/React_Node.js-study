@@ -6,9 +6,7 @@ const port = process.env.PORT || 5000;
 app.listen(port);
 
 app.use("/starbucks", async function (req, res) {
-    //res.json({ greeting: "hihi" });
-    const resultList = await openBrowser(req);
-    console.log("resultList는",resultList)
+    const resultList = await openBrowser();
     res.json(resultList);
     
 });
@@ -18,6 +16,7 @@ console.log(`server running at http ${port} !!`);
 // 스타벅스 크롤링
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
+
 async function openBrowser() {
     const browser = await puppeteer.launch({headless: false});
     const page = await browser.newPage();

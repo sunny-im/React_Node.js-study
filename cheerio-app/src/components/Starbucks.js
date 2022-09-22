@@ -4,8 +4,11 @@ import axios from 'axios'
 const Starbucks = () => {
     const getData = () => {
         fetch("starbucks")
+        .then(res=>{
+            console.log('res',res)
+        })
         .then(data => {
-            console.log(data);
+            console.log('data',data);
         })
     }
 
@@ -16,7 +19,7 @@ const Starbucks = () => {
     <div>
         <button 
         onClick={()=>{
-            fetch("starbucks")
+            fetch("/starbucks")
             .then((res)=>{
                 return res.json();
             })
