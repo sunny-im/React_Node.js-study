@@ -10,10 +10,9 @@ import { Routes, Route } from 'react-router-dom';
 function App() {
   const [searchData, setSearchData] = useState([]);
 
-  //입력한 검색어로 크롤링하는 버전
-  const getData = (keyword) => {
-    console.log("검색 키워드 : " + keyword);
-    fetch(`/starbucks?keyword=${keyword}`)
+  // 검색어를 역삼으로 두고 크롤링 한 버전
+  const getData = () => {
+    fetch(`/starbucks`)
     .then((res)=>{
       return res.json();
     })

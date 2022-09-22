@@ -5,13 +5,11 @@ const app = express();
 const port = process.env.PORT || 5000;
 app.listen(port);
 
-// 입력한 검색어로 크롤링하는 버전
+// 검색어를 역삼으로 두고 크롤링 한 버전
 app.use("/starbucks", async function (req, res) {
-    console.log("검색키워드(서버) : " + req.query.keyword);
-    //res.json({ greeting: "Hello World" });
-    const resultList = await openBrowser(req.query.keyword);
-    console.log("resultList는? ", resultList);
+    const resultList = await open();
     res.json(resultList);
+    console.log(resultList)
     
 });
 
@@ -21,24 +19,24 @@ console.log(`server running at http ${port} !!`);
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 
-async function openBrowser(keyword) {
+async function open() {
     const browser = await puppeteer.launch({headless: false});
     const page = await browser.newPage();
+    const start = "역삼";
 
     await page.setViewport({width:1920, height:1080})
     await page.goto('https://www.starbucks.co.kr/');
     await page.click(".util_nav04");
-    await page.waitForTimeout(5000);
-    /*
-    await page.click("#quickSearchText"); 로 하니까
-    "Node is either not clickable or not an HTMLElement" 이 에러가 발생하여 아래와 같은 코드로 변경함
-    */
-    await page.type("input[name='quickSearchText']", keyword);
+    await page.waitForTimeout(500);
+    await page.evaluate((start) => {
+        document.querySelector('#quickSearchText').value = start;
+    }, start);
     await page.evaluate(()=>document.querySelector('.quickSearchBtn').click())
     await page.waitForTimeout(500);
 
     try {
         await page.waitForSelector(".mCSB_container > ul > .quickResultLstCon", { timeout: 50000 });
+        console.log("여기ok")
         } catch (error) {
         console.log("에러 발생: " + error);
         return [

@@ -1,19 +1,13 @@
 import React, {useEffect,useState} from 'react'
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody  } from '@material-ui/core'
 
-// 입력한 검색어로 크롤링하는 버전
+// 검색어를 역삼으로 두고 크롤링 한 버전
 const Starbucks = (props) => {
     const {getData, searchData} = props;
     const [keyword, setKeyword] = useState('');
     return (
     <div>
-        <h3>찾고싶은 스타벅스의 매장명 또는 주소를 입력하세요 :)</h3>
-        <input type="text" className="form-text" 
-            onChange={(e)=>setKeyword(e.target.value)}
-        />
-        <button type="button" className="form-btn" onClick={()=>{if(keyword) getData(keyword)}}>
-        search
-        </button>
+        <h3>"역삼" 키워드로 찾은 스타벅스 매장입니다 :) </h3>
         <TableContainer>
             <Table stickyHeader aria-label="sticky table">
                 <TableHead>
