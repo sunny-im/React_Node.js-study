@@ -1,9 +1,30 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import axios from 'axios'
 
 const Starbucks = () => {
+    const getData = () => {
+        fetch("starbucks")
+        .then(data => {
+            console.log(data);
+        })
+    }
+
+    useEffect(()=>{
+        getData();
+    },[])
     return (
     <div>
-        Hi
+        <button 
+        onClick={()=>{
+            fetch("starbucks")
+            .then((res)=>{
+                return res.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+        }}
+        >click</button>
     </div>
     )
 }
