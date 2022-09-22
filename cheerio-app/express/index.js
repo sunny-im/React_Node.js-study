@@ -33,6 +33,7 @@ async function openBrowser(keyword) {
     await page.click("#quickSearchText"); 로 하니까
     "Node is either not clickable or not an HTMLElement" 이 에러가 발생하여 아래와 같은 코드로 변경함
     */
+    await page.evaluate(()=>document.querySelector('.quick_search_input').click())
     await page.type("input[name='quickSearchText']", keyword);
     await page.evaluate(()=>document.querySelector('.quickSearchBtn').click())
     await page.waitForTimeout(500);
