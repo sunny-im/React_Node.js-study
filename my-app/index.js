@@ -18,7 +18,7 @@ app.use("/api/data", async function (req, res) {
     
 });
 
-console.log(`server running at http ${port} !!`);
+console.log(`server running at http ${port} !!`); 
 
 // puppeteer 모듈 불러오기
 const puppeteer = require("puppeteer");
