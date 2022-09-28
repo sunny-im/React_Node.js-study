@@ -21,7 +21,7 @@ const MovieCard = ({item}) => {
                     <Badge bg="danger">{genreList.find(item=>item.id==id).name}</Badge>
                     )}
                 </div>
-                <div>
+                <div> 
                     <span>평점 {item.vote_average}점 / </span>
                     <span>{item.adult?"청불":"전체관람가"}</span>
                 </div>
