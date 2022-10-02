@@ -1,12 +1,21 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Container, Grid, TextField, Button, Paper, TableContainer, Table, TableHead, TableRow, TableBody, TableCell} from '@material-ui/core';
+import axios from 'axios';
 
 const Home = () => {
   const [addBtn, setAddBtn] = useState(true);
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    axios.get('/api/test')
+      .then(res => console.log(res))
+      .catch()
+    console.log("123")
+  })
 
   return (
   <Container>
-    리벤지빌런
+    <h1>리벤지빌런</h1>
     <Grid className='search'>
       <TextField className="searchBox" id="filled-basic" label="닉네임 또는 steam url을 입력하세요" variant="filled" />
       <Button className="searchBtn" variant="outlined" color="secondary">Search</Button>
@@ -53,7 +62,9 @@ const Home = () => {
                 <TableCell>Type</TableCell>
                 <TableCell>Date</TableCell>
                 <TableCell>Image</TableCell>
+                {!show&&(
                 <TableCell>url_parameter</TableCell>
+                )}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -63,7 +74,9 @@ const Home = () => {
                 <TableCell>조작</TableCell>
                 <TableCell>2022-10-02</TableCell>
                 <TableCell>사진</TableCell>
+                {!show&&(
                 <TableCell>234252</TableCell>
+                )}
               </TableRow>
             </TableBody>
           </Table>
