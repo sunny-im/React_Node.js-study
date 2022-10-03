@@ -5,39 +5,11 @@ import axios from 'axios';
 const Home = () => {
   const [addBtn, setAddBtn] = useState(true);
   const [show, setShow] = useState(true);
-  const [steamContent, setSteamContent] = useState ({
-    nickname: '',
-    type : '',
-    date : '',
-    parameter : ''
-  });
-  const [datas, setDatas] = useState([]);
-
-  const getContent = (e) => {
-    const {name, value} = e.target;
-    setSteamContent({
-      ...steamContent,
-      [name] : value
-    })
-    console.log('name : ', name, 'value : ', value);
-    console.log("steamContent : ",steamContent)
-  }
-
-  const onsubmit = () => {
-    setDatas([steamContent, ...datas]);
-    setSteamContent({
-      nickname: '',
-      type : '',
-      date : '',
-      parameter : ''
-    })
-    console.log('1231423')
-  }
 
   useEffect(() => {
-    // axios.get('/api/test')
-    //   .then(res => console.log(res))
-    //   .catch()
+    axios.get('/api/test')
+      .then(res => console.log(res))
+      .catch()
     console.log("123")
   })
 
@@ -66,12 +38,12 @@ const Home = () => {
             </TableHead>
             <TableBody>
               <TableRow>
-                <TableCell><TextField id="filled-basic" label="Nickname" variant="filled" name='nickname' onChange={getContent}/></TableCell>
-                <TableCell><TextField id="filled-basic" label="Type" variant="filled" name='type' onChange={getContent}/></TableCell>
-                <TableCell><TextField id="filled-basic" label="Date" variant="filled" name='date' onChange={getContent}/></TableCell>
+                <TableCell><TextField id="filled-basic" label="Nickname" variant="filled" /></TableCell>
+                <TableCell><TextField id="filled-basic" label="Type" variant="filled" /></TableCell>
+                <TableCell><TextField id="filled-basic" label="Date" variant="filled" /></TableCell>
                 <TableCell><TextField id="filled-basic" label="Image" variant="filled" /></TableCell>
-                <TableCell><TextField id="filled-basic" label="url_parameter" variant="filled" name='parameter' onChange={getContent}/></TableCell>
-                <TableCell><Button variant="outlined" color="secondary" onclick={()=>{onsubmit()}}>Submit</Button></TableCell>
+                <TableCell><TextField id="filled-basic" label="url_parameter" variant="filled" /></TableCell>
+                <TableCell><Button variant="outlined" color="secondary">Submit</Button></TableCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -111,6 +83,7 @@ const Home = () => {
         </TableContainer>
       </Paper>
     </Grid>
+
   </Container>
   )
 }
