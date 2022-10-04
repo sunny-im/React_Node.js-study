@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Container, Grid, TextField, Button, Paper, TableContainer, Table, TableHead, TableRow, TableBody, TableCell} from '@material-ui/core';
+import {Container, Grid, TextField, Button, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Box, Label} from '@material-ui/core';
 import axios from 'axios';
 
 const Home = () => {
@@ -23,6 +23,8 @@ const Home = () => {
     setNewType('');
     setNewDate('');
     setNewParameter('');
+    setAddBtn(true);
+  
   }
   console.log('steamContent',steamContent)
 
@@ -40,38 +42,8 @@ const Home = () => {
       <Button className="searchBtn" variant="outlined" color="secondary">Search</Button>
       <Button className="searchBtn" variant="outlined" color="secondary" onClick={()=>setAddBtn(!addBtn)}>Add</Button>
     </Grid>
-    <Grid>
-      {!addBtn&&(
-      <Paper>
-        <TableContainer>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Nickname</TableCell>
-                <TableCell>Type</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>Image</TableCell>
-                <TableCell>url_parameter</TableCell>
-                <TableCell>Submit</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell><TextField id="filled-basic" label="Nickname" variant="filled" value={newNickName} onChange={(e) => setNewNickName(e.target.value)}/></TableCell>
-                <TableCell><TextField id="filled-basic" label="Type" variant="filled" name='type' value={newType} onChange={(e) => setNewType(e.target.value)}/></TableCell>
-                <TableCell><TextField id="filled-basic" label="Date" variant="filled" name='date' value={newDate} onChange={(e) => setNewDate(e.target.value)}/></TableCell>
-                <TableCell><TextField id="filled-basic" label="Image" variant="filled" /></TableCell>
-                <TableCell><TextField id="filled-basic" label="url_parameter" variant="filled" name='parameter' value={newParameter} onChange={(e) => setNewParameter(e.target.value)}/></TableCell>
-                <TableCell><Button variant="outlined" color="secondary" onClick={()=>{onSubmit()}}>Submit</Button></TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-      )}
-    </Grid>
-    <Grid>
-      <Paper>
+    <Grid container spacing={2}>
+      <Grid item xs={addBtn?12:10}>
         <TableContainer>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
@@ -81,9 +53,10 @@ const Home = () => {
                 <TableCell>Type</TableCell>
                 <TableCell>Date</TableCell>
                 <TableCell>Image</TableCell>
-                {!show&&(
+                {!show &&(
                 <TableCell>url_parameter</TableCell>
                 )}
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -102,7 +75,19 @@ const Home = () => {
             </TableBody>
           </Table>
         </TableContainer>
-      </Paper>
+      </Grid>
+      {!addBtn&&(
+      <Grid item xs={2}>
+        <Box className="addField">
+            <TextField id="outlined-textarea" label="닉네임" variant="outlined" multiline value={newNickName} onChange={(e) => setNewNickName(e.target.value)}/>
+            <TextField id="outlined-textarea" label="유형" variant="outlined" multiline name='type' value={newType} onChange={(e) => setNewType(e.target.value)}/>
+            <TextField id="outlined-textarea" label="발생일자" variant="outlined" multiline name='date' value={newDate} onChange={(e) => setNewDate(e.target.value)}/>
+            <TextField id="outlined-textarea" label="이미지" variant="outlined" multiline />
+            <TextField id="outlined-textarea" label="url 파라미터" variant="outlined" multiline name='parameter' value={newParameter} onChange={(e) => setNewParameter(e.target.value)}/>
+            <Button variant="outlined" color="secondary" onClick={()=>{onSubmit()}}>Submit</Button>
+        </Box>
+      </Grid>
+      )}
     </Grid>
   </Container>
   )
