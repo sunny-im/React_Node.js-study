@@ -21,8 +21,10 @@ const TodoList3 = () => {
     const [datas, setDatas] = useState([]);
     const [addBtn, setAddBtn] = useState(true);
     const [newTitle, setNewTitle] = useState("");
+    const [newText, setNewText] = useState("");
     const [isUpdate, setIsUpdate] = useState(false);
     const [changeTitle, setChangeTitle] = useState("");
+    const [changeText, setChangeText] = useState("");
     const [selectedTitle, setSelectedTitle] = useState("");
     const [selectedId, setSelectedId] = useState(0);
 
@@ -69,12 +71,15 @@ const TodoList3 = () => {
             userId : "1",
             id: datas.length + 1,
             title: newTitle,
+            text: newText,
             completed: false
         }
         setDatas([...datas, newTodo]);
         setNewTitle("");
+        setNewText("");
+        
     }
-
+    console.log('datas',datas)
     const onDelete = id => {
         window.confirm(`${id}번째 데이터 삭제할까염?`);
         setDatas(datas.filter(item => item.id !== id));
@@ -86,6 +91,7 @@ const TodoList3 = () => {
         // });
 
         setChangeTitle(e.target.value);
+        setChangeText(e.target.value);
         console.log(e.target.value);
         
         // const { name, value } = e.target;
@@ -135,6 +141,7 @@ const TodoList3 = () => {
                                 <TableRow>
                                     <TableCell align="center">Id</TableCell>
                                     <TableCell align="center">Title</TableCell>
+                                    <TableCell align="center">Text</TableCell>
                                     <TableCell align="center">Completed</TableCell>
                                     <TableCell align="center">Update</TableCell>
                                     <TableCell align="center">Delete</TableCell>
@@ -147,7 +154,7 @@ const TodoList3 = () => {
                                             <TableCell align="center"><TextField id="filled-basic" name={changeTitle} defaultValue={item.title} variant="filled" fullWidth onChange={onChangeHandler}/></TableCell>
                                             ):(<TableCell align="center" >{changeTitle ? changeTitle : item.title }</TableCell>)
                                         }
-                                                
+                                         <TableCell align="center"><TextField id="filled-basic" name={changeText} defaultValue={item.text} variant="filled" fullWidth onChange={onChangeHandler}/></TableCell>       
                                         <TableCell align="center">
                                             <Checkbox checked={item.completed} color="primary" />
                                         </TableCell>
@@ -173,7 +180,8 @@ const TodoList3 = () => {
                     <Grid item xs={2}>
                         <Box component="div" style={{display: 'flex', flexDirection: 'column', paddingTop:'30px'}}><br/>
                             <TextField id="filled-basic" label="Title..." variant="filled" maxRows={5} onChange={(e) => setNewTitle(e.target.value)} value={newTitle}/>
-                            <Button variant="outlined" color="primary" size="small" onClick={() => {if(window.confirm(`등록할까요?`)){onSave()}}}>Submit</Button>
+                            <TextField id="filled-basic" label="Title..." variant="filled" maxRows={5} onChange={(e) => setNewText(e.target.value)} value={newText}/>
+                            <Button variant="outlined" color="primary" size="small" onClick={() => {onSave()}}>Submit</Button>
                         </Box>
                     </Grid>
                 )}                

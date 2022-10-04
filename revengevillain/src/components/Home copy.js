@@ -11,16 +11,6 @@ const Home = () => {
   const [newDate, setNewDate] = useState("");
   const [newParameter, setNewParameter] = useState("");
 
-  const getContent = (e) => {
-    const {name, value} = e.target;
-    setSteamContent({
-      ...steamContent,
-      [name] : value
-    })
-    console.log('name : ', name, 'value : ', value);
-    console.log("steamContent : ",steamContent)
-  }
-
   const onSubmit = () => {
     const newSteamContent = {
       nickname: newNickName,
@@ -28,14 +18,14 @@ const Home = () => {
       date : newDate,
       parameter : newParameter
     }
-    setSteamContent([...steamContent, newSteamContent]);
+    setSteamContent([newSteamContent , ...steamContent]);
   }
-  console.log('steamContent',steamContent)
-
+  
   useEffect(() => {
     // axios.get('/api/test')
     //   .then(res => console.log(res))
     //   .catch()
+    console.log('steamContent',steamContent)
   })
 
   return (
@@ -93,18 +83,16 @@ const Home = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {steamContent.map((item, idx)=>{
               <TableRow hover role="checkbox">
-                <TableCell key={idx}>{idx}</TableCell>
-                <TableCell><a href="https://naver.com">{item.nickname}</a></TableCell>
-                <TableCell>{item.type}</TableCell>
-                <TableCell>{item.date}</TableCell>
+                <TableCell>1</TableCell>
+                <TableCell><a href="https://naver.com">리벤지빌런</a></TableCell>
+                <TableCell>조작</TableCell>
+                <TableCell>2022-10-02</TableCell>
                 <TableCell>사진</TableCell>
                 {!show&&(
-                <TableCell>{item.parameter}</TableCell>
+                <TableCell>234252</TableCell>
                 )}
               </TableRow>
-              })}
             </TableBody>
           </Table>
         </TableContainer>
