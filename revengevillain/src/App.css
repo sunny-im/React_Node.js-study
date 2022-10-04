@@ -2,5 +2,9 @@
 .searchBox {width: 80%;}
 .searchBtn {width: 10%;}
 
+.modalBtn {cursor: pointer;}
+.contentImg {width: 100px; height: 100px; }
+.modalImg {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
+
 .addField {display: flex; flex-direction: column;}
 .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-2 > div > div {padding-bottom: 10px;}

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Container, Grid, TextField, Button, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Box, Label} from '@material-ui/core';
+import {Container, Grid, TextField, Button, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Box, Modal} from '@material-ui/core';
 import axios from 'axios';
 
 const Home = () => {
@@ -10,6 +10,7 @@ const Home = () => {
   const [newType, setNewType] = useState("");
   const [newDate, setNewDate] = useState("");
   const [newParameter, setNewParameter] = useState("");
+  const [open, setOpen] = useState(false);
 
   const onSubmit = () => {
     const newSteamContent = {
@@ -27,6 +28,16 @@ const Home = () => {
   
   }
   console.log('steamContent',steamContent)
+
+  //---------modal
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  //---------modal
 
   useEffect(() => {
     // axios.get('/api/test')
@@ -56,7 +67,6 @@ const Home = () => {
                 {!show &&(
                 <TableCell>url_parameter</TableCell>
                 )}
-                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -66,7 +76,19 @@ const Home = () => {
                   <TableCell><a href="https://naver.com">{item.nickname}</a></TableCell>
                   <TableCell>{item.type}</TableCell>
                   <TableCell>{item.date}</TableCell>
-                  <TableCell>사진</TableCell>
+                  <TableCell>
+                    <button className="modalBtn" type="button" onClick={handleOpen}>
+                      <img className="contentImg" src='./img/profile.png' />
+                    </button>
+                    <Modal
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="simple-modal-title"
+                      aria-describedby="simple-modal-description"
+                    >
+                      <img className="modalImg" src='./img/profile.png' />
+                    </Modal>
+                  </TableCell>
                   {!show&&(
                   <TableCell>{item.parameter}</TableCell>
                   )}
@@ -82,8 +104,8 @@ const Home = () => {
             <TextField id="outlined-textarea" label="닉네임" variant="outlined" multiline value={newNickName} onChange={(e) => setNewNickName(e.target.value)}/>
             <TextField id="outlined-textarea" label="유형" variant="outlined" multiline name='type' value={newType} onChange={(e) => setNewType(e.target.value)}/>
             <TextField id="outlined-textarea" label="발생일자" variant="outlined" multiline name='date' value={newDate} onChange={(e) => setNewDate(e.target.value)}/>
-            <TextField id="outlined-textarea" label="이미지" variant="outlined" multiline />
             <TextField id="outlined-textarea" label="url 파라미터" variant="outlined" multiline name='parameter' value={newParameter} onChange={(e) => setNewParameter(e.target.value)}/>
+            <Button ><input type="file" /></Button>
             <Button variant="outlined" color="secondary" onClick={()=>{onSubmit()}}>Submit</Button>
         </Box>
       </Grid>
