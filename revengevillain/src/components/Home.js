@@ -93,18 +93,18 @@ const Home = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {steamContent.map((item, idx)=>{
-              <TableRow hover role="checkbox">
-                <TableCell key={idx}>{idx}</TableCell>
-                <TableCell><a href="https://naver.com">{item.nickname}</a></TableCell>
-                <TableCell>{item.type}</TableCell>
-                <TableCell>{item.date}</TableCell>
-                <TableCell>사진</TableCell>
-                {!show&&(
-                <TableCell>{item.parameter}</TableCell>
-                )}
-              </TableRow>
-              })}
+              {steamContent.map((item, idx)=>(
+                <TableRow hover role="checkbox">
+                  <TableCell key={idx}>{idx+1}</TableCell>
+                  <TableCell><a href="https://naver.com">{item.nickname}</a></TableCell>
+                  <TableCell>{item.type}</TableCell>
+                  <TableCell>{item.date}</TableCell>
+                  <TableCell>사진</TableCell>
+                  {!show&&(
+                  <TableCell>{item.parameter}</TableCell>
+                  )}
+                </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
