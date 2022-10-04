@@ -11,16 +11,6 @@ const Home = () => {
   const [newDate, setNewDate] = useState("");
   const [newParameter, setNewParameter] = useState("");
 
-  const getContent = (e) => {
-    const {name, value} = e.target;
-    setSteamContent({
-      ...steamContent,
-      [name] : value
-    })
-    console.log('name : ', name, 'value : ', value);
-    console.log("steamContent : ",steamContent)
-  }
-
   const onSubmit = () => {
     const newSteamContent = {
       nickname: newNickName,
@@ -29,6 +19,10 @@ const Home = () => {
       parameter : newParameter
     }
     setSteamContent([...steamContent, newSteamContent]);
+    setNewNickName('');
+    setNewType('');
+    setNewDate('');
+    setNewParameter('');
   }
   console.log('steamContent',steamContent)
 
@@ -93,9 +87,9 @@ const Home = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {steamContent.map((item, idx)=>(
+              {steamContent.map((item,idx)=>(
                 <TableRow hover role="checkbox">
-                  <TableCell key={idx}>{idx+1}</TableCell>
+                  <TableCell key={item}>{idx+1}</TableCell>
                   <TableCell><a href="https://naver.com">{item.nickname}</a></TableCell>
                   <TableCell>{item.type}</TableCell>
                   <TableCell>{item.date}</TableCell>
@@ -104,7 +98,7 @@ const Home = () => {
                   <TableCell>{item.parameter}</TableCell>
                   )}
                 </TableRow>
-                ))}
+                )).reverse()}
             </TableBody>
           </Table>
         </TableContainer>
