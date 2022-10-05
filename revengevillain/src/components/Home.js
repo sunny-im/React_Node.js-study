@@ -34,7 +34,8 @@ const Home = () => {
   console.log('steamContent',steamContent)
 
   //---------modal
-  const handleOpen = () => {
+  const handleOpen = (e) => {
+    e.stopPropagation();
     setOpen(true);
   };
 
@@ -95,7 +96,7 @@ const Home = () => {
               {steamContent.map((item,idx)=>(
                 <TableRow hover role="checkbox">
                   <TableCell key={item}>{idx+1}</TableCell>
-                  <TableCell><a href="https://naver.com">{item.nickname}</a></TableCell>
+                  <TableCell><a href={`https://steamcommunity.com/app/${item.parameter}`} target="_blank">{item.nickname}</a></TableCell>
                   <TableCell>{item.type}</TableCell>
                   <TableCell>{item.date}</TableCell>
                   <TableCell>
