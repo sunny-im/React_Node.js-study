@@ -34,9 +34,11 @@ const Home = () => {
   console.log('steamContent',steamContent)
 
   //---------modal
-  const handleOpen = (e) => {
-    e.stopPropagation();
+  const handleOpen = (img) => {
+    console.log("asdfasdf",img)
     setOpen(true);
+    setNewImg(img);
+    console.log("setNewImg",newImg)
   };
 
   const handleClose = () => {
@@ -100,8 +102,8 @@ const Home = () => {
                   <TableCell>{item.type}</TableCell>
                   <TableCell>{item.date}</TableCell>
                   <TableCell>
-                    <button className="modalBtn" type="button" onClick={handleOpen}>
-                      <img className="contentImg" src={item.img?item.img : ""}/>
+                    <button className="modalBtn" type="button" onClick={()=>handleOpen(item.img)}>
+                      <img className="contentImg" src={item.img}/>
                     </button>
                     <Modal
                       open={open}
@@ -109,7 +111,7 @@ const Home = () => {
                       aria-labelledby="simple-modal-title"
                       aria-describedby="simple-modal-description"
                     >
-                      <img className="modalImg" src={item.img?item.img : ""} />
+                      <img className="modalImg" src={newImg} />
                     </Modal>
                   </TableCell>
                   {!show&&(
