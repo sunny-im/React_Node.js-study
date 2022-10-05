@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {Container, Grid, TextField, Button, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Box, Modal} from '@material-ui/core';
 import axios from 'axios';
 
@@ -11,19 +11,23 @@ const Home = () => {
   const [newDate, setNewDate] = useState("");
   const [newParameter, setNewParameter] = useState("");
   const [open, setOpen] = useState(false);
+  const [newImg, setNewImg] = useState('');
+  const imgInput = useRef(null);
 
   const onSubmit = () => {
     const newSteamContent = {
       nickname: newNickName,
       type : newType,
       date : newDate,
-      parameter : newParameter
+      parameter : newParameter,
+      img : newImg
     }
     setSteamContent([...steamContent, newSteamContent]);
     setNewNickName('');
     setNewType('');
     setNewDate('');
     setNewParameter('');
+    setNewImg('');
     setAddBtn(true);
   
   }
@@ -38,6 +42,24 @@ const Home = () => {
     setOpen(false);
   };
   //---------modal
+
+  //--------업로드한 파일 불러오기
+  const handleBtnClick = e => {
+    imgInput.current.click();
+  };
+  const handleChange = e =>{
+    const reader = new FileReader();
+    const file = imgInput.current.files[0];
+    console.log('file',file)
+    
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setNewImg(reader.result);
+      console.log("이미지주소", reader.result);
+    };
+    
+  };
+  //--------업로드한 파일 불러오기
 
   useEffect(() => {
     // axios.get('/api/test')
@@ -78,7 +100,7 @@ const Home = () => {
                   <TableCell>{item.date}</TableCell>
                   <TableCell>
                     <button className="modalBtn" type="button" onClick={handleOpen}>
-                      <img className="contentImg" src='./img/profile.png' />
+                      <img className="contentImg" src={item.img?item.img : ""}/>
                     </button>
                     <Modal
                       open={open}
@@ -86,7 +108,7 @@ const Home = () => {
                       aria-labelledby="simple-modal-title"
                       aria-describedby="simple-modal-description"
                     >
-                      <img className="modalImg" src='./img/profile.png' />
+                      <img className="modalImg" src={item.img?item.img : ""} />
                     </Modal>
                   </TableCell>
                   {!show&&(
@@ -105,7 +127,7 @@ const Home = () => {
             <TextField id="outlined-textarea" label="유형" variant="outlined" multiline name='type' value={newType} onChange={(e) => setNewType(e.target.value)}/>
             <TextField id="outlined-textarea" label="발생일자" variant="outlined" multiline name='date' value={newDate} onChange={(e) => setNewDate(e.target.value)}/>
             <TextField id="outlined-textarea" label="url 파라미터" variant="outlined" multiline name='parameter' value={newParameter} onChange={(e) => setNewParameter(e.target.value)}/>
-            <Button ><input type="file" /></Button>
+            <Button onClick={handleBtnClick} color="primary">이미지업로드</Button><input ref={imgInput} onChange={handleChange} type="file" id="fileUpload" style={{display:"none"}}/>
             <Button variant="outlined" color="secondary" onClick={()=>{onSubmit()}}>Submit</Button>
         </Box>
       </Grid>
