@@ -58,7 +58,7 @@ const Home = () => {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setNewImg(reader.result);
-      console.log("이미지주소", reader.result);
+      console.log("이미지주소", reader.result); 
     };
     
   };
