@@ -13,6 +13,7 @@ const Home = () => {
   const [open, setOpen] = useState(false);
   const [newImg, setNewImg] = useState('');
   const imgInput = useRef(null);
+  const [search, setSearch] = useState('');
 
   const onSubmit = () => {
     const newSteamContent = {
@@ -31,14 +32,14 @@ const Home = () => {
     setAddBtn(true);
   
   }
-  console.log('steamContent',steamContent)
+  //console.log('steamContent',steamContent)
 
   //---------modal
   const handleOpen = (img) => {
     console.log("asdfasdf",img)
     setOpen(true);
     setNewImg(img);
-    console.log("setNewImg",newImg)
+    //console.log("setNewImg",newImg)
   };
 
   const handleClose = () => {
@@ -53,16 +54,32 @@ const Home = () => {
   const handleChange = e =>{
     const reader = new FileReader();
     const file = imgInput.current.files[0];
-    console.log('file',file)
+    //console.log('file',file)
     
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setNewImg(reader.result);
-      console.log("이미지주소", reader.result); 
+      //console.log("이미지주소", reader.result); 
     };
     
   };
   //--------업로드한 파일 불러오기
+
+  //-------search
+  const onChangeSearch = e => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  }
+
+  const onSearch = e => {
+  //   e.preventdefault();
+  //   if ( search === null || search === '') {
+  //     axios.get(common.baseURL + "user")
+  //     .then(res => {
+  //       set
+  //     })
+  //   }
+  }
 
   useEffect(() => {
     // axios.get('/api/test')
@@ -73,11 +90,11 @@ const Home = () => {
   return (
   <Container>
     <h1>리벤지빌런</h1>
-    <Grid className='search'>
-      <TextField className="searchBox" id="filled-basic" label="닉네임 또는 steam url을 입력하세요" variant="filled" />
-      <Button className="searchBtn" variant="outlined" color="secondary">Search</Button>
+    <form onSubmit={e => onSearch(e)} className='search'>
+      <TextField className="searchBox" id="filled-basic" label="닉네임 또는 steam url을 입력하세요" variant="filled" value={search} onChange={onChangeSearch}/>
+      <Button type="submit" className="searchBtn" variant="outlined" color="secondary">Search</Button>
       <Button className="searchBtn" variant="outlined" color="secondary" onClick={()=>setAddBtn(!addBtn)}>Add</Button>
-    </Grid>
+    </form>
     <Grid container spacing={2}>
       <Grid item xs={addBtn?12:10}>
         <TableContainer>
