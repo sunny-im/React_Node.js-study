@@ -69,18 +69,16 @@ const Home = () => {
   const onChangeSearch = e => {
     e.preventDefault();
     setSearch(e.target.value);
+    console.log(search)
   }
 
-  const onSearch = e => {
-  //   e.preventdefault();
-  //   if ( search === null || search === '') {
-  //     axios.get(common.baseURL + "user")
-  //     .then(res => {
-  //       set
-  //     })
-  //   }
+  const onSearch = () => {
+    if (newNickName === search || newParameter === search) {
+      console.log("123123")
+    } else {
+      console.log("456456")
+    }
   }
-
   useEffect(() => {
     // axios.get('/api/test')
     //   .then(res => console.log(res))
@@ -90,11 +88,11 @@ const Home = () => {
   return (
   <Container>
     <h1>리벤지빌런</h1>
-    <form onSubmit={e => onSearch(e)} className='search'>
+    <Grid className='search'>
       <TextField className="searchBox" id="filled-basic" label="닉네임 또는 steam url을 입력하세요" variant="filled" value={search} onChange={onChangeSearch}/>
-      <Button type="submit" className="searchBtn" variant="outlined" color="secondary">Search</Button>
+      <Button className="searchBtn" variant="outlined" color="secondary" onClick={onSearch}>Search</Button>
       <Button className="searchBtn" variant="outlined" color="secondary" onClick={()=>setAddBtn(!addBtn)}>Add</Button>
-    </form>
+    </Grid>
     <Grid container spacing={2}>
       <Grid item xs={addBtn?12:10}>
         <TableContainer>
