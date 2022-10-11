@@ -16,10 +16,10 @@ const Home = () => {
   const imgInput = useRef(null);
   const [keyword, setKeyword] = useState('');
   const [keywordList, setKeywordList] = useState([]);
-  const searchItem = (e) => {
-    e.preventDefault();
-    dispatchEvent({type:"SEARCH_ITEM", payload:{keyword}})
-  }
+  // const searchItem = (e) => {
+  //   e.preventDefault();
+  //   dispatchEvent({type:"SEARCH_ITEM", payload:{keyword}})
+  // }
 
   const onSubmit = () => {
     const newSteamContent = {
@@ -79,17 +79,15 @@ const Home = () => {
   // }
 
   const onSearch = () => {
-    const searchItem = steamContent.filter((itemList) => {
+    steamContent.filter((itemList) => {
       console.log(itemList)
-      if (itemList.nickname === keyword){
-        setKeywordList(keyword);
-      } else if (itemList.parameter === keyword) {
+      if (itemList.nickname === keyword || itemList.parameter === keyword){
         setKeywordList(keyword);
       } else {
         setKeywordList(itemList);
       }
     })
-    console.log('searchItem',keywordList)
+    console.log('keywordList',keywordList)
   }
   useEffect(() => {
     // axios.get('/api/test')
