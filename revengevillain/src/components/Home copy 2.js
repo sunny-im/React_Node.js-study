@@ -15,7 +15,6 @@ const Home = () => {
   const [newImg, setNewImg] = useState('');
   const imgInput = useRef(null);
   const [keyword, setKeyword] = useState('');
-  const [keywordList, setKeywordList] = useState([]);
   const searchItem = (e) => {
     e.preventDefault();
     dispatchEvent({type:"SEARCH_ITEM", payload:{keyword}})
@@ -78,19 +77,17 @@ const Home = () => {
   //   console.log(search)
   // }
 
-  const onSearch = () => {
-    const searchItem = steamContent.filter((itemList) => {
-      console.log(itemList)
-      if (itemList.nickname === keyword){
-        setKeywordList(keyword);
-      } else if (itemList.parameter === keyword) {
-        setKeywordList(keyword);
-      } else {
-        setKeywordList(itemList);
-      }
-    })
-    console.log('searchItem',keywordList)
-  }
+  // const onSearch = () => {
+  //   const searchItem = steamContent.filter((itemList) => {
+  //     console.log(itemList)
+  //     if (itemList.nickname === search){
+  //       setSearchItem(search);
+  //     } else if (itemList.parameter === search) {
+  //       setSearchItem(search);
+  //     }
+  //   })
+  //   console.log('searchItem',searchItem)
+  // }
   useEffect(() => {
     // axios.get('/api/test')
     //   .then(res => console.log(res))
@@ -100,11 +97,11 @@ const Home = () => {
   return (
   <Container>
     <h1>리벤지빌런</h1>
-    <Grid className='search'>
+    <from className='search' onSubmit={searchItem}>
       <TextField className="searchBox" id="filled-basic" label="닉네임 또는 steam url을 입력하세요" variant="filled" onChange={(e)=>setKeyword(e.target.value)}/>
-      <Button className="searchBtn" variant="outlined" color="secondary" onClick={onSearch}>Search</Button>
+      <Button className="searchBtn" variant="outlined" color="secondary" type="submit">Search</Button>
       <Button className="searchBtn" variant="outlined" color="secondary" onClick={()=>setAddBtn(!addBtn)}>Add</Button>
-    </Grid>
+    </from>
     <Grid container spacing={2}>
       <Grid item xs={addBtn?12:10}>
         <TableContainer>
