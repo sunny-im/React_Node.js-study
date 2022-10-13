@@ -71,13 +71,7 @@ const Home = () => {
   };
   //--------업로드한 파일 불러오기
 
-  // //-------search
-  // const onChangeSearch = e => {
-  //   e.preventDefault();
-  //   setSearch(e.target.value);
-  //   console.log(search)
-  // }
-
+  //-------search
   const onSearch = () => {
     steamContent.filter((itemList) => {
       console.log(itemList)
