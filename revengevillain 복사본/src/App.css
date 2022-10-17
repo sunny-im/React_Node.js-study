@@ -1,3 +1,3 @@
-.search {display: flex; align-items: center; margin: 30px 0; }
-.searchBox {width: 80%;}
-.searchBtn {width: 10%;}
+.buttons {display: flex; justify-content: flex-end;}
+.buttons Button {color: #857f7f;}
+.buttons Button:nth-child(1) {margin-right: 10px;}
