@@ -1,3 +1,7 @@
-.buttons {display: flex; justify-content: flex-end;}
-.buttons Button {color: #857f7f;}
+.buttons {display: flex; justify-content: flex-end; margin-bottom: 15px;}
+.buttons Button , .addField Button {color: #857f7f;}
 .buttons Button:nth-child(1) {margin-right: 10px;}
+.searchFeild {display: flex; justify-content: flex-end; margin: 10px 0;}
+.searchNickname > div {margin-right: 10px;}
+
+.addField > div > div {margin-bottom: 10px;}
