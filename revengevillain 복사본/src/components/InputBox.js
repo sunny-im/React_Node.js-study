@@ -1,6 +1,12 @@
 import React from 'react'
+import {Container, Grid, TextField, Button, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Box, Modal} from '@material-ui/core';
 
 const InputBox = () => {
+  const [newNickName, setNewNickName] = useState("");
+  const [newType, setNewType] = useState("");
+  const [newDate, setNewDate] = useState("");
+  const [newParameter, setNewParameter] = useState("");
+  const imgInput = useRef(null);
 	return (
 		<div>
 			<Box className="addField">
