@@ -1,12 +1,48 @@
-import React from 'react'
+import React,{useState, useRef}  from 'react'
 import {Container, Grid, TextField, Button, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Box, Modal} from '@material-ui/core';
 
 const InputBox = () => {
+  const [addBtn, setAddBtn] = useState(true);
+  const [steamContent, setSteamContent] = useState([]);
   const [newNickName, setNewNickName] = useState("");
   const [newType, setNewType] = useState("");
   const [newDate, setNewDate] = useState("");
   const [newParameter, setNewParameter] = useState("");
+  const [newImg, setNewImg] = useState('');
   const imgInput = useRef(null);
+  const [keyword, setKeyword] = useState('');
+  const [keywordList, setKeywordList] = useState([]);
+
+	const onSubmit = () => {
+    const newSteamContent = {
+      nickname: newNickName,
+      type : newType,
+      date : newDate,
+      parameter : newParameter,
+      img : newImg
+    }
+    setSteamContent([...steamContent, newSteamContent]);
+    setNewNickName('');
+    setNewType('');
+    setNewDate('');
+    setNewParameter('');
+    setNewImg('');
+    setAddBtn(true);
+  }
+
+	const handleBtnClick = e => {
+    imgInput.current.click();
+  };
+  const handleChange = e =>{
+    const reader = new FileReader();
+    const file = imgInput.current.files[0];
+    
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setNewImg(reader.result);
+    };
+    
+  };
 	return (
 		<div>
 			<Box className="addField">
