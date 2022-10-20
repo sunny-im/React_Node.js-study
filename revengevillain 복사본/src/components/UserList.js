@@ -90,7 +90,7 @@ const UserList = () => {
     </Box>
     <Grid>
       {!searchBtn &&(
-        <Search/>
+        <Search keywordList={keywordList} setKeywordList={setKeywordList}/>
       )}
     </Grid>
     <Grid container spacing={2}>
