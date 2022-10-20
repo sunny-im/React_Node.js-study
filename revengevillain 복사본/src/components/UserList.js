@@ -70,14 +70,21 @@ const UserList = () => {
   //-------search
   const onSearch = () => {
     steamContent.filter((itemList) => {
-      console.log(itemList)
-      if (itemList.nickname === keyword || itemList.parameter === keyword){
+      console.log("itemList",itemList)
+      if (itemList.nickname === keyword.nickName || itemList.parameter === keyword.parameter){
         setKeywordList(keyword);
+        console.log("123")
+      } else if (itemList.nickname !== keyword.nickName || itemList.parameter !== keyword.parameter){
+        console.log("456")
+        alert("검색결과가 없습니다")
       } else {
-        setKeywordList(itemList);
+        //setKeywordList(itemList);
+        console.log("789")
+        alert("값을 입력해 주세요!!")
       }
     })
     console.log('keywordList',keywordList)
+    console.log('keyword',keyword)
   }
   useEffect(() => {
   })
@@ -90,7 +97,7 @@ const UserList = () => {
     </Box>
     <Grid>
       {!searchBtn &&(
-        <Search keywordList={keywordList} setKeywordList={setKeywordList}/>
+        <Search keyword={keyword} setKeyword={setKeyword} onSearch={onSearch}/>
       )}
     </Grid>
     <Grid container spacing={2}>
