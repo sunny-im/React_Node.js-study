@@ -74,13 +74,13 @@ const UserList = () => {
       if (itemList.nickname === keyword.nickName || itemList.parameter === keyword.parameter){
         setKeywordList(keyword);
         console.log("123")
-      } else if (itemList.nickname !== keyword.nickName || itemList.parameter !== keyword.parameter){
+      } else if (keyword.nickName.length === 0 || keyword.parameter.length === 0){
         console.log("456")
-        alert("검색결과가 없습니다")
+        alert("값을 입력해주세요 !!")
       } else {
         //setKeywordList(itemList);
         console.log("789")
-        alert("값을 입력해 주세요!!")
+        alert("검색결과가 없습니다.")
       }
     })
     console.log('keywordList',keywordList)
