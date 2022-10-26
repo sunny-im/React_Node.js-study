@@ -2,7 +2,6 @@ import React,{useState, useRef}  from 'react'
 import {Container, Grid, TextField, Button, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Box, Modal} from '@material-ui/core';
 
 const InputBox = (props) => {
-  const [addBtn, setAddBtn] = useState(true);
   const imgInput = useRef(null);
   const [keyword, setKeyword] = useState('');
   const [keywordList, setKeywordList] = useState([]);
@@ -23,6 +22,7 @@ const InputBox = (props) => {
     props.setNewImg('');
     props.setAddBtn(true);
   }
+	console.log("props.setSteamContent22",props.steamContent)
 
 	const handleBtnClick = e => {
     imgInput.current.click();
