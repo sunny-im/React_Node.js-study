@@ -9,19 +9,19 @@ const InputBox = (props) => {
 
 	const onSubmit = () => {
     const newSteamContent = {
-      nickname: newNickName,
-      type : newType,
-      date : newDate,
-      parameter : newParameter,
-      img : newImg
+      nickname: props.newNickName,
+      type : props.newType,
+      date : props.newDate,
+      parameter : props.newParameter,
+      img : props.newImg
     }
-    setSteamContent([...steamContent, newSteamContent]);
-    setNewNickName('');
-    setNewType('');
-    setNewDate('');
-    setNewParameter('');
-    setNewImg('');
-    setAddBtn(true);
+    props.setSteamContent([...props.steamContent, props.newSteamContent]);
+    props.setNewNickName('');
+    props.setNewType('');
+    props.setNewDate('');
+    props.setNewParameter('');
+    props.setNewImg('');
+    props.setAddBtn(true);
   }
 
 	const handleBtnClick = e => {
@@ -33,7 +33,7 @@ const InputBox = (props) => {
     
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      setNewImg(reader.result);
+      props.setNewImg(reader.result);
     };
     
   };
