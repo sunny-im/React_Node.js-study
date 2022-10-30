@@ -53,11 +53,15 @@ const NaverAPI = () => {
   },[]);
 
   return (
-      <div>
-        <ul>
-          <li></li>
-        </ul>
-      </div>
+    <div>
+      <ul>
+      {campaignName.map(name=>{
+        return(
+        <li key={name}>{name}</li>
+        )
+      })}
+      </ul>
+    </div>
   )
   }
 
