@@ -9,6 +9,7 @@ const Menubar = () => {
             <Link to="/news" className='nav_item'>News</Link>
             <Link to="/naverapi" className='nav_item'>NaverAPI</Link>
             <Link to="/starbucks" className='nav_item'>Starbucks</Link>
+            <Link to="/naverAd" className='nav_item'>NaverAd</Link>
         </div> 
     </div>
   )

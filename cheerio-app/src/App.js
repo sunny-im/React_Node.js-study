@@ -5,6 +5,7 @@ import Menubar from './components/Menubar';
 import News from './components/News';
 import NaverAPI from './components/NaverAPI';
 import Starbucks from './components/Starbucks';
+import NaverAd from './components/NaverAd';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/news" element={<News/>}/>
         <Route path="/naverapi" element={<NaverAPI/>}/>
         <Route path="/starbucks" element={<Starbucks searchData={searchData} getData={getData}/>}/>
+        <Route path="/naverAd" element={<NaverAd/>}/>
       </Routes> 
     </div>
   );
