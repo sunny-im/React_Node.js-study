@@ -7,6 +7,7 @@ import NaverAPI from './components/NaverAPI';
 import Starbucks from './components/Starbucks';
 import NaverAd from './components/NaverAd';
 import { Routes, Route } from 'react-router-dom';
+import Test from './components/Test'
 
 function App() {
   const [searchData, setSearchData] = useState([]);
@@ -36,6 +37,7 @@ function App() {
         <Route path="/naverapi" element={<NaverAPI/>}/>
         <Route path="/starbucks" element={<Starbucks searchData={searchData} getData={getData}/>}/>
         <Route path="/naverAd" element={<NaverAd/>}/>
+        <Route path="/test" element={<Test/>}/>
       </Routes> 
     </div>
   );

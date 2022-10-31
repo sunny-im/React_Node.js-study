@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
-import {Grid,Container,Paper,TableContainer,Table,TableHead,TableRow,TableBody,TableCell} from '@material-ui/core';
-import { Tab } from 'bootstrap';
+import {Grid} from '@material-ui/core';
 
 const NaverAd = () => {
   const [campaignList, setCampaignList] = useState([]);
@@ -51,10 +50,7 @@ const NaverAd = () => {
       headers : getHeaders('/ncc/adgroups'),
       url : `/naver/ncc/adgroups?nccCampaignId=${campaignId}`,
     })
-    .then(res => {
-      setAdListGroup(res.data)
-      console.log("adGroup",res.data)
-    })
+    .then(res => setAdListGroup(res.data))
     .catch((error) => {
       console.log("error", error);
     });
@@ -67,9 +63,7 @@ const NaverAd = () => {
       headers : getHeaders('/ncc/keywords'),
       url : `/naver/ncc/keywords?nccAdgroupId=${adGroupId}`
     })
-    .then(res=>{
-      setKeywordList(res.data) 
-      console.log("keyword",res.data)})
+    .then(res=>setKeywordList(res.data))
     .catch((err)=>console.log("err",err))
   }
 
@@ -78,53 +72,40 @@ const NaverAd = () => {
   },[]);
 
   return (
-    <Container container spacing={2}>
-      <Table style={{width:"50%"}}>
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">캠페인 이름</TableCell>
-          </TableRow>
-        </TableHead>
-
-        <TableBody>
-          {campaignList.map((campaign,idx)=>{
-            return (
-            <TableRow>
-              <TableCell align="center" component="th" key={idx} onClick={()=>getAdGroup(campaign.nccCampaignId)} style={{color:"blue"}}>
-                {campaign.name}
-                {seletedCampaignId === campaign.nccCampaignId && (
-                  <Table>
-                    {adGroupList.map((adGroup,idx)=>{
-                      return (
-                        <TableRow>
-                          <TableCell align="center" component="td" key={idx} onClick={()=>getKeyword(adGroup.nccAdgroupId)} style={{color:"red"}}>
-                            {adGroup.name}
+    <div>
+      <Grid container spacing={2}>
+          <ul>
+            {campaignList.map((campaign,idx) => {
+              return (
+                <li key={idx} onClick={()=>getAdGroup(campaign.nccCampaignId)}>
+                  {campaign.name}
+                  {seletedCampaignId === campaign.nccCampaignId && (
+                    <ul>
+                      {adGroupList.map((adGroup,idx)=>{
+                        return(
+                          <li key={idx} onClick={()=>getKeyword(adGroup.nccAdgroupId)}>{adGroup.name}
+                            <Grid item xs={12}>
                             {seletedAdgroupId === adGroup.nccAdgroupId && (
-                              <Table>
+                              <ul>
                                 {keywordList.map((keyword,idx)=>{
-                                  return (
-                                    <TableRow>
-                                      <TableCell align="center" component="td" key={idx} style={{color:"gold"}}>{keyword.keyword}
-
-                                      </TableCell>
-                                    </TableRow>
-                                  )
+                                  return(
+                                    <li key={idx}>{keyword.keyword}</li>
+                                  );
                                 })}
-                              </Table>
+                              </ul>
                             )}
-                          </TableCell>
-                        </TableRow>
-                      )
-                    })}
-                  </Table>
-                )}
-              </TableCell>
-            </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Container>
+                            </Grid>
+                          </li>
+                        );
+                      })}
+                    </ul>              
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+      </Grid>
+    </div>
   )
   }
 
