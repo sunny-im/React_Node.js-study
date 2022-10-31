@@ -1,17 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
-import {Grid,Container,Paper,Table,TableHead,TableRow,TableBody,TableCell} from '@material-ui/core';
-import NaverKeyword from './NaverKeyword'
+import {Grid,Container,Paper,TableContainer,Table,TableHead,TableRow,TableBody,TableCell} from '@material-ui/core';
+import { Tab } from 'bootstrap';
 
 const NaverAd = () => {
   const [campaignList, setCampaignList] = useState([]);
-  const [adGroupList, setAdGroupList] = useState([]);
+  const [adGroupList, setAdListGroup] = useState([]);
   const [keywordList, setKeywordList] = useState([]);
   const [seletedCampaignId, setSeletedCampaignId] = useState(false);
   const [seletedAdgroupId, setSeletedAdgroupId] = useState(false);
-  const [seletedAdgroupName, setSeletedAdgroupName] = useState(false);
-  const [open, setOpen] = useState(false);
 
   const method = "GET";
   const NAVER_AD_ACCESS = process.env.REACT_APP_NAVER_AD_ACCESS;
@@ -54,17 +52,16 @@ const NaverAd = () => {
       url : `/naver/ncc/adgroups?nccCampaignId=${campaignId}`,
     })
     .then(res => {
-      setAdGroupList(res.data)
+      setAdListGroup(res.data)
+      console.log("adGroup",res.data)
     })
     .catch((error) => {
       console.log("error", error);
     });
   }
 
-  const getKeyword = (adGroupId,adGroupName)=> {
+  const getKeyword = (adGroupId)=> {
     setSeletedAdgroupId(adGroupId);
-    setSeletedAdgroupName(adGroupName);
-    console.log("adGroupName",adGroupName)
     axios.request({
       method : 'get',
       headers : getHeaders('/ncc/keywords'),
@@ -72,8 +69,7 @@ const NaverAd = () => {
     })
     .then(res=>{
       setKeywordList(res.data) 
-      setOpen(!open);
-    })
+      console.log("keyword",res.data)})
     .catch((err)=>console.log("err",err))
   }
 
@@ -83,53 +79,55 @@ const NaverAd = () => {
 
   return (
     <Container>
-      <Grid  container spacing={2}>
-        <Grid item xs={6}>
-          <Table component={Paper}>
-            <TableHead>
-              <TableRow>
-                <TableCell align="left">캠페인 이름</TableCell>
-              </TableRow>
-            </TableHead>
+      <Grid item xs={6}>
+        <Table component={Paper}>
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">캠페인 이름</TableCell>
+            </TableRow>
+          </TableHead>
 
-            <TableBody>
-              {campaignList.map((campaign,idx)=>{
-                return (
-                <TableRow>
-                  <TableCell align="left" component="th" key={idx} onClick={()=>getAdGroup(campaign.nccCampaignId)} style={{color:"blue"}}>
-                    {campaign.name}
-                    {seletedCampaignId === campaign.nccCampaignId && (
-                      <Table>
-                        {adGroupList.map((adGroup,idx)=>{
-                          return (
-                            <TableRow>
-                              <TableCell align="center" component="td" key={idx} onClick={()=>getKeyword(adGroup.nccAdgroupId,adGroup.name)} style={{color:"red"}}>
-                                {adGroup.name}</TableCell>
-                            </TableRow>
-                          )
-                        })}
-                      </Table>
-                    )}
-                  </TableCell>
-                </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </Grid>
-        {open &&(
-        <Grid item xs={6}>
-          <NaverKeyword
-            adGroupList={adGroupList}
-            setAdGroupList={setAdGroupList}
-            keywordList={keywordList}
-            setKeywordList={setKeywordList}
-            seletedCampaignId={seletedCampaignId}
-            seletedAdgroupId={seletedAdgroupId}
-            seletedAdgroupName={seletedAdgroupName}
-          />
-        </Grid>
-        )}
+          <TableBody>
+            {campaignList.map((campaign,idx)=>{
+              return (
+              <TableRow>
+                <TableCell align="left" component="th" key={idx} onClick={()=>getAdGroup(campaign.nccCampaignId)} style={{color:"blue"}}>
+                  {campaign.name}
+                  {seletedCampaignId === campaign.nccCampaignId && (
+                    <Table>
+                      {adGroupList.map((adGroup,idx)=>{
+                        return (
+                          <TableRow>
+                            <TableCell align="center" component="td" key={idx} onClick={()=>getKeyword(adGroup.nccAdgroupId)} style={{color:"red"}}>
+                              {adGroup.name}
+                              {seletedAdgroupId === adGroup.nccAdgroupId && (
+                                <Grid item xs={12}>
+                                <Table>
+                                  {keywordList.map((keyword,idx)=>{
+                                    return (
+                                      <TableRow>
+                                        <TableCell align="right" component="td" key={idx} style={{color:"gold"}}>{keyword.keyword}
+
+                                        </TableCell>
+                                      </TableRow>
+                                    )
+                                  })}
+                                </Table>
+                                </Grid>
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        )
+                      })}
+                    </Table>
+                  )}
+                </TableCell>
+              </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Grid>
       {/* {adGroupList.map((adGroup,idx)=>{
       {seletedAdgroupId === adGroup.nccAdgroupId && (
       <Grid item xs={6}>
@@ -154,7 +152,6 @@ const NaverAd = () => {
       </Grid>
       )}
         })} */}
-      </Grid>
     </Container>
   )
   }
