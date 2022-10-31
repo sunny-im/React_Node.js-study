@@ -11,7 +11,6 @@ const NaverAd = () => {
   const [seletedCampaignId, setSeletedCampaignId] = useState(false);
   const [seletedAdgroupId, setSeletedAdgroupId] = useState(false);
   const [seletedAdgroupName, setSeletedAdgroupName] = useState(false);
-  const [open, setOpen] = useState(false);
 
   const method = "GET";
   const NAVER_AD_ACCESS = process.env.REACT_APP_NAVER_AD_ACCESS;
@@ -53,9 +52,7 @@ const NaverAd = () => {
       headers : getHeaders('/ncc/adgroups'),
       url : `/naver/ncc/adgroups?nccCampaignId=${campaignId}`,
     })
-    .then(res => {
-      setAdGroupList(res.data)
-    })
+    .then(res =>setAdGroupList(res.data))
     .catch((error) => {
       console.log("error", error);
     });
@@ -70,10 +67,7 @@ const NaverAd = () => {
       headers : getHeaders('/ncc/keywords'),
       url : `/naver/ncc/keywords?nccAdgroupId=${adGroupId}`
     })
-    .then(res=>{
-      setKeywordList(res.data) 
-      setOpen(!open);
-    })
+    .then(res=>setKeywordList(res.data))
     .catch((err)=>console.log("err",err))
   }
 
@@ -117,43 +111,12 @@ const NaverAd = () => {
             </TableBody>
           </Table>
         </Grid>
-        {open &&(
         <Grid item xs={6}>
           <NaverKeyword
-            adGroupList={adGroupList}
-            setAdGroupList={setAdGroupList}
             keywordList={keywordList}
-            setKeywordList={setKeywordList}
-            seletedCampaignId={seletedCampaignId}
-            seletedAdgroupId={seletedAdgroupId}
             seletedAdgroupName={seletedAdgroupName}
           />
         </Grid>
-        )}
-      {/* {adGroupList.map((adGroup,idx)=>{
-      {seletedAdgroupId === adGroup.nccAdgroupId && (
-      <Grid item xs={6}>
-        <Table component={Paper}>
-          <TableHead>
-            <TableRow>
-              <TableCell>{adGroup.nccAdgroupId}</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-          {keywordList.map((keyword,idx)=>{
-            return (
-              <TableRow>
-                <TableCell align="center" component="td" key={idx} style={{color:"gold"}}>{keyword.keyword}
-
-                </TableCell>
-              </TableRow>
-            )
-          })}
-          </TableBody>
-        </Table>
-      </Grid>
-      )}
-        })} */}
       </Grid>
     </Container>
   )

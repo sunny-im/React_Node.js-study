@@ -1,18 +1,18 @@
 import React from 'react'
-import {Grid,Container,Paper,TableContainer,Table,TableHead,TableRow,TableBody,TableCell} from '@material-ui/core';
+import {Table,TableHead,TableRow,TableBody,TableCell} from '@material-ui/core';
 
-const NaverKeyword = (props) => {
+const NaverKeyword = ({keywordList,seletedAdgroupName}) => {
   return (
     <div>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell style={{color:"red"}}>{props.seletedAdgroupName}</TableCell>
+            <TableCell style={{color:"red"}}>{seletedAdgroupName}</TableCell>
           </TableRow>
         </TableHead>
 
         <TableBody>
-          {props.keywordList.map((keyword,idx)=>{
+          {keywordList.map((keyword,idx)=>{
             return (
           <TableRow>
               <TableCell key={idx}>{keyword.keyword}</TableCell>
