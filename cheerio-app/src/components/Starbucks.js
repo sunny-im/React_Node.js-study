@@ -26,7 +26,7 @@ const Starbucks = (props) => {
                 <TableBody>
                     {searchData.map((item,idx) => {
                     return (
-                    <TableRow>
+                    <TableRow key={idx}>
                         <TableCell>{idx+1}</TableCell>
                         <TableCell>{item.store ? `${item.store}` : "결과값없음"}</TableCell>
                         <TableCell>{item.addrTel ? `${item.addrTel}` : "결과값없음"}</TableCell>

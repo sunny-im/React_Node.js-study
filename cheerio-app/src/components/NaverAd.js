@@ -79,51 +79,77 @@ const NaverAd = () => {
 
   return (
     <Container container spacing={2}>
-      <Table style={{width:"50%"}}>
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">캠페인 이름</TableCell>
-          </TableRow>
-        </TableHead>
-
-        <TableBody>
-          {campaignList.map((campaign,idx)=>{
-            return (
+      <Grid item xs={6}>
+        <Table component={Paper}>
+          <TableHead>
             <TableRow>
-              <TableCell align="center" component="th" key={idx} onClick={()=>getAdGroup(campaign.nccCampaignId)} style={{color:"blue"}}>
-                {campaign.name}
-                {seletedCampaignId === campaign.nccCampaignId && (
-                  <Table>
-                    {adGroupList.map((adGroup,idx)=>{
-                      return (
-                        <TableRow>
-                          <TableCell align="center" component="td" key={idx} onClick={()=>getKeyword(adGroup.nccAdgroupId)} style={{color:"red"}}>
-                            {adGroup.name}
-                            {seletedAdgroupId === adGroup.nccAdgroupId && (
-                              <Table>
-                                {keywordList.map((keyword,idx)=>{
-                                  return (
-                                    <TableRow>
-                                      <TableCell align="center" component="td" key={idx} style={{color:"gold"}}>{keyword.keyword}
-
-                                      </TableCell>
-                                    </TableRow>
-                                  )
-                                })}
-                              </Table>
-                            )}
-                          </TableCell>
-                        </TableRow>
-                      )
-                    })}
-                  </Table>
-                )}
-              </TableCell>
+              <TableCell align="center">캠페인 이름</TableCell>
             </TableRow>
-            );
+          </TableHead>
+
+          <TableBody>
+            {campaignList.map((campaign,idx)=>{
+              return (
+              <TableRow>
+                <TableCell align="center" component="th" key={idx} onClick={()=>getAdGroup(campaign.nccCampaignId)} style={{color:"blue"}}>
+                  {campaign.name}
+                  {seletedCampaignId === campaign.nccCampaignId && (
+                    <Table>
+                      {adGroupList.map((adGroup,idx)=>{
+                        return (
+                          <TableRow>
+                            <TableCell align="center" component="td" key={idx} onClick={()=>getKeyword(adGroup.nccAdgroupId)} style={{color:"red"}}>
+                              {adGroup.name}
+                              {/* {seletedAdgroupId === adGroup.nccAdgroupId && (
+                                <Table>
+                                  {keywordList.map((keyword,idx)=>{
+                                    return (
+                                      <TableRow>
+                                        <TableCell align="center" component="td" key={idx} style={{color:"gold"}}>{keyword.keyword}
+
+                                        </TableCell>
+                                      </TableRow>
+                                    )
+                                  })}
+                                </Table>
+                              )} */}
+                            </TableCell>
+                          </TableRow>
+                        )
+                      })}
+                    </Table>
+                  )}
+                </TableCell>
+              </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Grid>
+      {adGroupList.map((adGroup,idx)=>{
+      {seletedAdgroupId === adGroup.nccAdgroupId && (
+      <Grid item xs={6}>
+        <Table component={Paper}>
+          <TableHead>
+            <TableRow>
+              <TableCell>{adGroup.nccAdgroupId}</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+          {keywordList.map((keyword,idx)=>{
+            return (
+              <TableRow>
+                <TableCell align="center" component="td" key={idx} style={{color:"gold"}}>{keyword.keyword}
+
+                </TableCell>
+              </TableRow>
+            )
           })}
-        </TableBody>
-      </Table>
+          </TableBody>
+        </Table>
+      </Grid>
+      )}
+        })}
     </Container>
   )
   }
