@@ -100,7 +100,8 @@ const NaverAd = () => {
                           <TableRow>
                             <TableCell align="center" component="td" key={idx} onClick={()=>getKeyword(adGroup.nccAdgroupId)} style={{color:"red"}}>
                               {adGroup.name}
-                              {/* {seletedAdgroupId === adGroup.nccAdgroupId && (
+                              {seletedAdgroupId === adGroup.nccAdgroupId && (
+                                <Grid item xs={6}>
                                 <Table>
                                   {keywordList.map((keyword,idx)=>{
                                     return (
@@ -112,7 +113,8 @@ const NaverAd = () => {
                                     )
                                   })}
                                 </Table>
-                              )} */}
+                                </Grid>
+                              )}
                             </TableCell>
                           </TableRow>
                         )
@@ -126,7 +128,7 @@ const NaverAd = () => {
           </TableBody>
         </Table>
       </Grid>
-      {adGroupList.map((adGroup,idx)=>{
+      {/* {adGroupList.map((adGroup,idx)=>{
       {seletedAdgroupId === adGroup.nccAdgroupId && (
       <Grid item xs={6}>
         <Table component={Paper}>
@@ -149,7 +151,7 @@ const NaverAd = () => {
         </Table>
       </Grid>
       )}
-        })}
+        })} */}
     </Container>
   )
   }
