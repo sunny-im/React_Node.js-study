@@ -44,6 +44,7 @@ const NaverLogin = () => {
     }
     useEffect (()=>{
         getNaverCode();
+        naverLogin();
     },[]);
     return (
     <div>

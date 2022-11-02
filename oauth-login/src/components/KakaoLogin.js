@@ -15,7 +15,7 @@ const KakaoLogin = () => {
   const getAuthorizeCode = () => {
     const uri = window.location.search;
     if(!uri) return;
-    let getCode = uri.split('=')[1].split('&')[0];
+    let getCode = uri.split('=')[1];
     console.log("getCode",getCode)
     setAuthorizeCode(getCode);
 }
