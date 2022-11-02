@@ -10,7 +10,7 @@ const NaverLogin = () => {
     const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
     const CALLBACK_URL = "http://localhost:3000/login/oauth2/code/naver";
     //로그인 연동 URL
-    const requestUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&state=state&redirect_uri=${CALLBACK_URL}`
+    const requestUrl = `naver/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&state=state&redirect_uri=${CALLBACK_URL}`
     //console.log(requestUrl)
 
     // code 가져오기
