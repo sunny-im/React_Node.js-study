@@ -18,7 +18,7 @@ const NaverLogin = () => {
         const uri = window.location.search;
         if(!uri) return;
         let getCode = uri.split('=')[1].split('&')[0];
-        console.log(getCode)
+        console.log("getCode",getCode)
         setNewCode(getCode);
     }
     //토큰 발급 
