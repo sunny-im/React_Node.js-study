@@ -12,6 +12,8 @@ const NaverAd = () => {
   const [statList, setStatList] = useState([]);
   const [seletedCampaignId, setSeletedCampaignId] = useState(false);
   const [seletedAdgroupName, setSeletedAdgroupName] = useState(false);
+  const [seletedAdgroupId, setSeletedAdgroupId] = useState(false);
+  const [seletedKeywordId, setSeletedKeywordId] = useState(false);
 
   const method = "GET";
   const NAVER_AD_ACCESS = process.env.REACT_APP_NAVER_AD_ACCESS;
@@ -67,6 +69,8 @@ const NaverAd = () => {
   let keywordId=[];
   const getKeyword = (adGroupId,adGroupName,keywordId)=> {
     setSeletedAdgroupName(adGroupName);
+    setSeletedAdgroupId(adGroupId);
+    setSeletedKeywordId(keywordId);
     axios.request({
       method : 'get',
       headers : getHeaders('/ncc/keywords'),
@@ -78,11 +82,13 @@ const NaverAd = () => {
         keywordId.push(list.nccKeywordId)
         setKeywordIdList(keywordId)
       })
-      console.log("keywordList",keywordList)
-      // console.log("keywordId",keywordIdList)
     })
     .catch((err)=>console.log("err",err))
   }
+  // console.log("keywordList",keywordList)
+  console.log("keywordId",keywordIdList)
+  console.log("seletedAdgroupName",seletedAdgroupName)
+  console.log("seletedKeywordId",seletedKeywordId)
 
   const getStats = () => {
     axios.request({
@@ -102,7 +108,6 @@ const NaverAd = () => {
     })
     .catch((err)=>console.log("err",err))
   }
-
   useEffect (()=>{
     getCampaigns();
   },[]);
@@ -135,7 +140,7 @@ const NaverAd = () => {
                           {adGroupList.map((adGroup,idx)=>{
                             return (
                               <TableRow>
-                                <TableCell align="center" key={idx} onClick={()=>{getKeyword(adGroup.nccAdgroupId,adGroup.name,keywordId);getStats()}} 
+                                <TableCell align="center" key={idx} onClick={()=>getKeyword(adGroup.nccAdgroupId,adGroup.name,keywordId)} 
                                 style={{color:"red"}}>
                                   {adGroup.name}
                                 </TableCell>
@@ -160,6 +165,9 @@ const NaverAd = () => {
             setStatList={setStatList}
             statList={statList}
             keywordIdList={keywordIdList}
+            seletedAdgroupId={seletedAdgroupId}
+            seletedKeywordId={seletedKeywordId}
+            getStats={getStats}
           />
         </Grid>
         )}

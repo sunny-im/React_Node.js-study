@@ -1,9 +1,9 @@
 import React from 'react'
 import {Paper,Table,TableHead,TableRow,TableBody,TableCell, Container} from '@material-ui/core';
 
-const NaverKeyword = ({keywordList,seletedAdgroupName,statList,keywordIdList,}) => {
-  console.log("props.statList",statList)
-  console.log("props.keywordIdList",keywordIdList)
+const NaverKeyword = ({keywordList,seletedAdgroupName,statList,keywordIdList,seletedAdgroupId,seletedKeywordId,getStats}) => {
+  // console.log("props.statList",statList)
+  // console.log("props.keywordIdList",keywordIdList)
   return (
     <Container>
       <Table component={Paper}>
@@ -28,7 +28,6 @@ const NaverKeyword = ({keywordList,seletedAdgroupName,statList,keywordIdList,}) 
 
         <TableBody>
           {keywordList.map((keyword,idx)=>{
-            console.log("stat",statList)
             return(
               <TableRow>
                 <TableCell key={idx} align="center">{keyword.keyword}</TableCell>
