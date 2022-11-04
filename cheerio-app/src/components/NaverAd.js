@@ -78,7 +78,7 @@ const NaverAd = () => {
         keywordId.push(list.nccKeywordId)
         setKeywordIdList(keywordId)
       })
-      // console.log("keywordList",keywordList)
+      console.log("keywordList",keywordList)
       // console.log("keywordId",keywordIdList)
     })
     .catch((err)=>console.log("err",err))
@@ -96,7 +96,9 @@ const NaverAd = () => {
       }
     })
     .then(res=>{
+      console.log("res.data.data",res.data.data)
       setStatList(res.data.data[0])
+      console.log("statList",statList)
     })
     .catch((err)=>console.log("err",err))
   }
