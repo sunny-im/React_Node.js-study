@@ -42,8 +42,7 @@ const KakaoLogin = () => {
 
   return (
     <div>
-      <a href={authorizeURL} target="_blank">카카오 인가코드 받기</a>
-      <div onClick={token}>토큰받기</div>
+      <a href={authorizeURL} target="_blank" onClick={token}>카카오 인가코드 받기</a>
     </div>
   )
 }
