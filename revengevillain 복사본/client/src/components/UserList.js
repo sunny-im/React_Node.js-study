@@ -36,6 +36,8 @@ const UserList = () => {
     setNewImg('');
     setAddBtn(true);
   
+    axios.get("http://localhost:8000/",{})
+    .then(()=>{alert("등록완료")});
   }
 
   //---------modal
