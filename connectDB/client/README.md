@@ -1,15 +1,21 @@
 ## 라이브러리 / 모듈
 R
 - ckEditor 
+  npm i ckeditor5
+  npm i @ckeditor/ckeditor5-build-classic
+
+- Axios : GET, POST, PUT 등의 메서드로 API 요청
+  npm i axios
+
+- React Html Parser : HTML문자열을 React 구성요소로 변환
+  npm i react-html-parser
 
 N
-- React Html Parser : HTML문자열을 React 구성요소로 변환
-  npm i node-html-parser
-
 - express : Node.js 웹 프레임워크
   npm i express
 
 - body-Parser : Post 방식의 데이터 요청을 처리하는 모듈
+  npm i body-parser
 
 - mysql : RDBMS
   npm i mysql
@@ -20,9 +26,6 @@ N
     "start": "node index.js",
     "dev": "nodemon index.js"
   추가 
-
-- Axios : GET, POST, PUT 등의 메서드로 API 요청
-  npm i axios
 
 - CORS : 도메인 또는 포드가 다른 서버의 데이터 요청
   npm i cors
