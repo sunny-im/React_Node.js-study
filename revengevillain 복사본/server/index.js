@@ -16,6 +16,11 @@ app.get("/",(req,res)=>{
       res.send(result);
   })
 });
+
+app.post("/text",(req,res)=>{
+  const nickName = req.body.nickName;
+  console.log(nickName)
+})
 app.listen(PORT, ()=>{
   console.log(`running on port ${PORT}`);
-}); 
+});  

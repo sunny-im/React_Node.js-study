@@ -36,8 +36,18 @@ const UserList = () => {
     setNewImg('');
     setAddBtn(true);
   
-    axios.get("http://localhost:8000/",{})
-    .then(()=>{alert("등록완료")});
+    axios.get("/server/text",{
+      method : "post",
+      headers : {
+        "content-type": "application/json",
+      },
+      body : JSON.stringify(newSteamContent.nickname)
+    })
+    .then((res)=>res.json())
+    .then((json)=>{
+      console.log("json",json);
+      setNewNickName ({text:json.nickname})
+    })
   }
 
   //---------modal
