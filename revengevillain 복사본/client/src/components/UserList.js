@@ -9,47 +9,44 @@ const UserList = () => {
   const [searchBtn, setSearchBtn] = useState(true);
   const [show, setShow] = useState(true);
   const [steamContent, setSteamContent] = useState([]);
-  const [newNickName, setNewNickName] = useState("");
-  const [newType, setNewType] = useState("");
-  const [newDate, setNewDate] = useState("");
-  const [newParameter, setNewParameter] = useState("");
   const [open, setOpen] = useState(false);
   const [newImg, setNewImg] = useState('');
   const imgInput = useRef(null);
   const [keyword, setKeyword] = useState('');
   const [keywordList, setKeywordList] = useState([]);
 
-  console.log("steamContent",steamContent)
-  const onSubmit = () => {
-    const newSteamContent = {
-      nickname: newNickName,
-      type : newType,
-      date : newDate,
-      parameter : newParameter,
-      img : newImg
-    }
-    setSteamContent([...steamContent, newSteamContent]);
-    setNewNickName('');
-    setNewType('');
-    setNewDate('');
-    setNewParameter('');
-    setNewImg('');
-    setAddBtn(true);
-  
-    axios.get("/server/text",{
-      method : "post",
-      headers : {
-        "content-type": "application/json",
-      },
-      body : JSON.stringify(newSteamContent.nickname)
-    })
-    .then((res)=>res.json())
-    .then((json)=>{
-      console.log("json",json);
-      setNewNickName ({text:json.nickname})
-    })
-  }
+  const [allContent, setAllContent] = useState({
+    nickName: '',
+    type : '',
+    date : '',
+    parameter : '',
+    img : ''
+  });
 
+  const [viewContent, setViewContent] = useState([]);
+
+  const submitContent = () => {
+    axios.post('http://localhost:8000/api/insert', {
+      nickname : allContent.nickName,
+      type : allContent.type,
+      date : allContent.date,
+      parameter : allContent.parameter,
+      img : newImg
+    })
+    .then((res)=>{
+      alert('저장되었습니다 :)')
+      setAddBtn(true);
+    })
+  };
+
+  const getValue = e => {
+    const {name,value} = e.target;
+    setAllContent({
+      ...allContent,
+      [name] : value
+    })
+    console.log("all",allContent)
+  }
   //---------modal
   const handleOpen = (img) => {
     setOpen(true);
@@ -60,7 +57,6 @@ const UserList = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  //---------modal
 
   //--------업로드한 파일 불러오기
   const handleBtnClick = e => {
@@ -100,56 +96,17 @@ const UserList = () => {
     console.log('keyword',keyword)
   }
 
-  //==============
-  const [allContent, setAllContent] = useState({
-    nickName: '',
-    type : '',
-    date : '',
-    parameter : '',
-    img : ''
-  });
-
-  const [viewContent, setViewContent] = useState([]);
-
-  const submitContent = () => {
-    axios.post('http://localhost:8000/api/insert', {
-      nickname : allContent.nickName,
-      type : allContent.type,
-      date : allContent.date,
-      parameter : allContent.parameter,
-      img : newImg
-    })
-    .then((res)=>{
-      alert('저장되었습니다 :)')
-      console.log("insert_res",res)
-    })
-  };
-
-  const getValue = e => {
-    const {name,value} = e.target;
-    setAllContent({
-      ...allContent,
-      [name] : value
-    })
-    console.log("all",allContent)
-  }
-
   useEffect(() => {
     axios.get('http://localhost:8000/api/get')
     .then((res)=>{
-      console.log("res", res);
+      // console.log("res", res);
       setViewContent(res.data);
     })
-  },[])
-  console.log("view",viewContent)
+  },[viewContent])
+  // console.log("view",viewContent)
 
-  const test = () => {
-    axios.get('http://localhost:8000/')
-    .then(res=>console.log("test",res))
-  }
   return (
   <Container>
-    <Button onClick={test}>dsf</Button>
     <Box className="buttons">
       <Button className="addBtn" variant="outlined" onClick={()=>setAddBtn(!addBtn)}>New Steam User</Button>
       <Button className="searchBtn" variant="outlined" onClick={()=>setSearchBtn(!searchBtn)}>Search</Button>
@@ -176,17 +133,17 @@ const UserList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {steamContent.map((item,idx)=>{
-                console.log('item',item)
+              {viewContent.map((item,idx)=>{
+                // console.log('item',item)
                 return(
                 <TableRow hover role="checkbox">
                   <TableCell key={item}>{idx+1}</TableCell>
-                  <TableCell><a href={`https://steamcommunity.com/app/${item.parameter}`} target="_blank">{item.nickname}</a></TableCell>
+                  <TableCell><a href={`https://steamcommunity.com/app/${item.url_parameter}`} target="_blank">{item.Nickname}</a></TableCell>
                   <TableCell>{item.type}</TableCell>
-                  <TableCell>{item.date}</TableCell>
+                  <TableCell>{item.occurDate}</TableCell>
                   <TableCell>
-                    <button className="modalBtn" type="button" onClick={()=>handleOpen(item.img)}>
-                      <img className="contentImg" src={item.img}/>
+                    <button className="modalBtn" type="button" onClick={()=>handleOpen(item.image)}>
+                      <img className="contentImg" src={item.image}/>
                     </button>
                     <Modal
                       open={open}
@@ -208,22 +165,6 @@ const UserList = () => {
       </Grid>
       {!addBtn&&(
       <Grid item xs={2}>
-        {/* <InputBox
-        steamContent={steamContent}
-        setSteamContent={setSteamContent}
-        newNickName={newNickName}
-        setNewNickName={setNewNickName}
-        newType={newType}
-        setNewType={setNewType}
-        newDate={newDate}
-        setNewDate={setNewDate}
-        newParameter={newParameter}
-        setNewParameter={setNewParameter}
-        newImg={newImg}
-        setNewImg={setNewImg}
-        addBtn={addBtn}
-        setAddBtn={setAddBtn}
-        /> */}
         <Box className="addField">
 				<h4>New Steam User 등록</h4>
 				<TextField id="outlined-textarea" label="닉네임" variant="outlined" size="small" multiline name='nickName' onChange={getValue}/>

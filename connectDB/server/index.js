@@ -21,9 +21,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.get("/", (req, res)=>{
-  const sqlQuery = "INSERT INTO board (title) VALUES ('hihi11')";
+  const sqlQuery = "INSERT INTO board (title) VALUES ('hihi11');";
   db.query(sqlQuery, (err, result)=>{
       res.send('success!');
+      console.log("result",result)
   });
 })
 
