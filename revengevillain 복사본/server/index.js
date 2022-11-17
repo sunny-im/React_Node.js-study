@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
-const bodyParser = require('body-parser');
-const { urlencoded } = require('body-parser');
+// const bodyParser = require('body-parser');
+// const { urlencoded } = require('body-parser');
 const PORT = process.env.port || 8000;
 const cors = require('cors');
 
@@ -15,10 +15,10 @@ const db = mysql.createPool({
 
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.urlencoded({extended: true}));
+// app.use(bodyParser.urlencoded({extended: true}));
 
 app.get("/",(req,res)=>{
-  const sqlQuery = "SELECT * FROM steamBoard;";
+  const sqlQuery = "INSERT INTO steamBoard (Nickname) VALUES ('test');";
   db.query(sqlQuery, (err, result)=>{
       res.send(result);
   })
@@ -26,7 +26,7 @@ app.get("/",(req,res)=>{
 
 // select
 app.get("/api/get", (req,res) => {
-  const sqlQuery = "SELECT No,Nickname,url_parameter,type,occurDate as date FROM steamBoard";
+  const sqlQuery = "SELECT No,Nickname,url_parameter,type,occurDate FROM steamBoard";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   })
@@ -34,10 +34,15 @@ app.get("/api/get", (req,res) => {
 
 // insert
 app.post("/api/insert",(req,res)=>{
-  const nickName = req.body.nickName;
-  const sqlQuery = "INSERT INTO steamBoard (nickname,url_parameter,type,occurDate) VALUES (?,?,?,?)";
-  db.query(sqlQuery, [nickName], (err,result)=>{
-    res.send('success');
+  const nickName = req.body.nickname;
+  const type = req.body.type;
+  const date = req.body.date;
+  const parameter = req.body.parameter;
+  const img = req.body.img;
+  const sqlQuery = `INSERT INTO steamBoard (Nickname,url_parameter,type,occurDate,image) VALUES ('${nickName}','${type}','${date}','${parameter}','${img}')`;
+  db.query(sqlQuery,(err,result)=>{
+    res.send(result);
+    console.log("result",result)
   })
 })
 

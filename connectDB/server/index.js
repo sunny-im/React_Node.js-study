@@ -3,7 +3,7 @@ const app = express();
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const { urlencoded } = require('body-parser');
-const PORT = process.env.port || 8000;
+const PORT = process.env.port || 8001;
 const cors = require('cors');
 
 // DB 연결 객체
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.get("/", (req, res)=>{
-  const sqlQuery = "INSERT INTO board (title, content) VALUES ('hihi11', '안뇽안뇽11')";
+  const sqlQuery = "INSERT INTO board (title) VALUES ('hihi11')";
   db.query(sqlQuery, (err, result)=>{
       res.send('success!');
   });
@@ -38,11 +38,13 @@ app.get("/api/get", (req,res) => {
 
 // 값 삽입
 app.post("/api/insert", (req,res)=>{
-  const title = req.body.title;
-  const content = req.body.content;
-  const sqlQuery = "INSERT INTO board (title,content) VALUES (?,?)";
-  db.query(sqlQuery, [title,content], (err, result)=>{
+  const title1 = req.body.title;
+  const content1 = req.body.content;
+  const sqlQuery = `INSERT INTO board (title,content) VALUES ('${title1}','${content1}')`;
+  db.query(sqlQuery, (err, result)=>{
     res.send('success!!!!');
+    console.log("result",result)
+    console.log("req.body",req.body)
   });
 });
 

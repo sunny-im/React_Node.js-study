@@ -15,7 +15,7 @@ const Board = () => {
 
   // 포트 8000으로 값 전송! 데이터를 post방식으로 보내고 완료 시 alert
   const submitContent = () =>{
-    axios.post('http://localhost:8000/api/insert' , {
+    axios.post('http://localhost:8001/api/insert' , {
       title : allContent.title,
       content : allContent.content
     })
@@ -43,7 +43,7 @@ const Board = () => {
   }
 
   useEffect(()=>{
-    axios.get('http://localhost:8000/api/get')
+    axios.get('http://localhost:8001/api/get')
     .then((res)=>{
       // console.log("res", res)
       setViewContent(res.data);
@@ -51,8 +51,14 @@ const Board = () => {
     // console.log("viewContent",viewContent)
   },[viewContent])
   // useEffect에 빈 배열[]을 넣으면 처음 1회만 랜더링된다.. 새로고침을 해도 계속 값을 불러오기 위해 viewContent
+
+  const test = () => {
+    axios.get('http://localhost:8001/')
+    .then(res=>console.log("test",res))
+  }
   return (
     <div>
+      <button onClick={test}>asdf</button>
       <h1>무엇이든 적어주세용</h1>
       <table>
         <thead>

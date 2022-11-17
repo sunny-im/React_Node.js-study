@@ -99,57 +99,15 @@ const UserList = () => {
     console.log('keywordList',keywordList)
     console.log('keyword',keyword)
   }
-
-  //==============
-  const [allContent, setAllContent] = useState({
-    nickName: '',
-    type : '',
-    date : '',
-    parameter : '',
-    img : ''
-  });
-
-  const [viewContent, setViewContent] = useState([]);
-
-  const submitContent = () => {
-    axios.post('http://localhost:8000/api/insert', {
-      nickname : allContent.nickName,
-      type : allContent.type,
-      date : allContent.date,
-      parameter : allContent.parameter,
-      img : newImg
-    })
-    .then((res)=>{
-      alert('저장되었습니다 :)')
-      console.log("insert_res",res)
-    })
-  };
-
-  const getValue = e => {
-    const {name,value} = e.target;
-    setAllContent({
-      ...allContent,
-      [name] : value
-    })
-    console.log("all",allContent)
-  }
-
   useEffect(() => {
     axios.get('http://localhost:8000/api/get')
     .then((res)=>{
-      console.log("res", res);
-      setViewContent(res.data);
+      console.log("res", res)
     })
-  },[])
-  console.log("view",viewContent)
+  })
 
-  const test = () => {
-    axios.get('http://localhost:8000/')
-    .then(res=>console.log("test",res))
-  }
   return (
   <Container>
-    <Button onClick={test}>dsf</Button>
     <Box className="buttons">
       <Button className="addBtn" variant="outlined" onClick={()=>setAddBtn(!addBtn)}>New Steam User</Button>
       <Button className="searchBtn" variant="outlined" onClick={()=>setSearchBtn(!searchBtn)}>Search</Button>
@@ -226,13 +184,13 @@ const UserList = () => {
         /> */}
         <Box className="addField">
 				<h4>New Steam User 등록</h4>
-				<TextField id="outlined-textarea" label="닉네임" variant="outlined" size="small" multiline name='nickName' onChange={getValue}/>
-				<TextField id="outlined-textarea" label="유형" variant="outlined" size="small" multiline name='type' onChange={getValue}/>
-				<TextField id="outlined-textarea" label="발생일자" variant="outlined" size="small" multiline name='date' onChange={getValue}/>
-				<TextField id="outlined-textarea" label="url 파라미터" variant="outlined" size="small" multiline name='parameter' onChange={getValue}/>
+				<TextField id="outlined-textarea" label="닉네임" variant="outlined" size="small" multiline value={newNickName} onChange={(e) => setNewNickName(e.target.value)}/>
+				<TextField id="outlined-textarea" label="유형" variant="outlined" size="small" multiline name='type' value={newType} onChange={(e) => setNewType(e.target.value)}/>
+				<TextField id="outlined-textarea" label="발생일자" variant="outlined" size="small" multiline name='date' value={newDate} onChange={(e) => setNewDate(e.target.value)}/>
+				<TextField id="outlined-textarea" label="url 파라미터" variant="outlined" size="small" multiline name='parameter' value={newParameter} onChange={(e) => setNewParameter(e.target.value)}/>
 				<Button onClick={handleBtnClick}>이미지업로드</Button>
 				<input ref={imgInput} onChange={handleChange} type="file" id="fileUpload" style={{display:"none"}}/>
-				<Button variant="outlined" onClick={submitContent}>Submit</Button>
+				<Button variant="outlined" onClick={()=>{onSubmit()}}>Submit</Button>
 			</Box>
       </Grid>
       )}
