@@ -26,7 +26,7 @@ app.get("/",(req,res)=>{
 
 // select
 app.get("/api/get", (req,res) => {
-  const sqlQuery = "SELECT No,title,content,DATE_FORMAT(date,'%Y-%m-%d') as date FROM board";
+  const sqlQuery = "SELECT No,Nickname,url_parameter,type,occurDate as date FROM steamBoard";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   })
@@ -35,7 +35,7 @@ app.get("/api/get", (req,res) => {
 // insert
 app.post("/api/insert",(req,res)=>{
   const nickName = req.body.nickName;
-  const sqlQuery = "INSERT INTO steamBoard (nickname) VALUES (?)";
+  const sqlQuery = "INSERT INTO steamBoard (nickname,url_parameter,type,occurDate) VALUES (?,?,?,?)";
   db.query(sqlQuery, [nickName], (err,result)=>{
     res.send('success');
   })
