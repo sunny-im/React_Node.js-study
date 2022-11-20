@@ -165,7 +165,7 @@ const UserList = () => {
       </Grid>
       {!addBtn&&(
       <Grid item xs={2}>
-        <Box className="addField">
+        {/* <Box className="addField">
 				<h4>New Steam User 등록</h4>
 				<TextField id="outlined-textarea" label="닉네임" variant="outlined" size="small" multiline name='nickName' onChange={getValue}/>
 				<TextField id="outlined-textarea" label="유형" variant="outlined" size="small" multiline name='type' onChange={getValue}/>
@@ -174,7 +174,15 @@ const UserList = () => {
 				<Button onClick={handleBtnClick}>이미지업로드</Button>
 				<input ref={imgInput} onChange={handleChange} type="file" id="fileUpload" style={{display:"none"}}/>
 				<Button variant="outlined" onClick={submitContent}>Submit</Button>
-			</Box>
+			</Box> */}
+      <InputBox
+        getValue={getValue}
+        handleBtnClick={handleBtnClick}
+        submitContent={submitContent}
+        allContent={allContent}
+        handleChange={handleChange}
+        imgInput={imgInput}
+      />
       </Grid>
       )}
     </Grid>
