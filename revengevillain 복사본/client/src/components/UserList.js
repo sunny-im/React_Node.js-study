@@ -4,9 +4,7 @@ import Search from './Search'
 import InputBox from './InputBox'
 import axios from 'axios';
 
-const UserList = () => {
-  const [addBtn, setAddBtn] = useState(true);
-  const [searchBtn, setSearchBtn] = useState(true);
+const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   const [show, setShow] = useState(true);
   const [steamContent, setSteamContent] = useState([]);
   const [open, setOpen] = useState(false);
@@ -107,13 +105,13 @@ const UserList = () => {
 
   return (
   <Container>
-    <Box className="buttons">
-      <Button className="addBtn" variant="outlined" onClick={()=>setAddBtn(!addBtn)}>New Steam User</Button>
-      <Button className="searchBtn" variant="outlined" onClick={()=>setSearchBtn(!searchBtn)}>Search</Button>
-    </Box>
     <Grid>
       {!searchBtn &&(
-        <Search keyword={keyword} setKeyword={setKeyword} onSearch={onSearch}/>
+        <Search 
+          keyword={keyword} 
+          setKeyword={setKeyword} 
+          onSearch={onSearch}
+        />
       )}
     </Grid>
     <Grid container spacing={2}>
