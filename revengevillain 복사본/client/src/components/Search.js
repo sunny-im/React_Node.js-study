@@ -1,16 +1,7 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Box, TextField, Button} from '@material-ui/core';
 
-const Search = ({searchKeyword,setSearchKeyword,onSearch}) => {
-
-  // const handleInput = (name, value) => {
-  //   setKeyword({keyword, [name]:value})
-  //   console.log('name',name)
-  //   console.log('value',value)
-  //   console.log('keyword123',keyword)
-  // }
-  
-
+const Search = ({searchKeyword,setSearchKeyword,onSearch,viewContent}) => {
   const getKeyword = e => {
     const {name,value} = e.target;
     setSearchKeyword ({
@@ -19,6 +10,7 @@ const Search = ({searchKeyword,setSearchKeyword,onSearch}) => {
     })
     // console.log("key",searchKeyword)
   }
+
   return (
     <div>
       <Box className="searchFeild">
