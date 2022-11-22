@@ -1,8 +1,11 @@
-import React,{useState, useRef}  from 'react'
+import React,{useState, useRef, useEffect}  from 'react'
 import {Container, Grid, TextField, Button, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Box, Modal} from '@material-ui/core';
 
-const InputBox = ({getValue,handleBtnClick,submitContent,handleChange,imgInput}) => {
+const InputBox = ({getValue,handleBtnClick,submitContent,handleChange,imgInput,viewContent}) => {
 	
+  useEffect(()=>{
+
+  },[])
 	return (
 		<div>
 			<Box className="addField">

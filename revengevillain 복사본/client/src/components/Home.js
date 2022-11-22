@@ -9,11 +9,18 @@ const Home = () => {
   return (
   <Container>
     <h1>리벤지빌런</h1>
+
     <Box className="buttons">
       <Button className="addBtn" variant="outlined" onClick={()=>setAddBtn(!addBtn)}>New Steam User</Button>
       <Button className="searchBtn" variant="outlined" onClick={()=>setSearchBtn(!searchBtn)}>Search</Button>
     </Box>
-    <UserList addBtn={addBtn} setAddBtn={setAddBtn} searchBtn={searchBtn} setSearchBtn={setSearchBtn}/>
+
+    <UserList 
+      addBtn={addBtn} 
+      setAddBtn={setAddBtn} 
+      searchBtn={searchBtn} 
+      setSearchBtn={setSearchBtn}
+      />
   </Container>
   )
 }

@@ -43,6 +43,23 @@ app.post("/api/insert",(req,res)=>{
   })
 })
 
+// search
+app.get("/api/search",(req,res)=>{
+  const nickname = req.body.nickname;
+  const url = req.body.url;
+  if(nickname !== '' && url === '') {
+    const sqlQuery = `SELECT * FROM steamBoard WHERE Nickname='${nickname}';`
+  } else if (nickname === '' && url !== '') {
+    const sqlQuery = `SELECT * FROM steamBoard WHERE url_parameter='${url}';`
+  } else {
+    const sqlQuery = `SELECT * FROM steamBoard WHERE Nickname='${nickname}' AND url_parameter='${url}';`
+  }
+  db.query(sqlQuery,(err,result)=>{
+    res.send(result);
+    console.log("search",result)
+  })
+})
+
 
 app.listen(PORT, ()=>{
   console.log(`running on port ${PORT}`);

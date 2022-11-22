@@ -12,7 +12,6 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   const imgInput = useRef(null);
   const [keyword, setKeyword] = useState('');
   const [keywordList, setKeywordList] = useState([]);
-
   const [allContent, setAllContent] = useState({
     nickName: '',
     type : '',
@@ -20,6 +19,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
     parameter : '',
     img : ''
   });
+  const [searchKeyword, setSearchKeyword] = useState({nickname : '',url : ''});
 
   const [viewContent, setViewContent] = useState([]);
 
@@ -43,7 +43,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
       ...allContent,
       [name] : value
     })
-    console.log("all",allContent)
+    // console.log("all",allContent)
   }
   //---------modal
   const handleOpen = (img) => {
@@ -76,22 +76,30 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
 
   //-------search
   const onSearch = () => {
-    steamContent.filter((itemList) => {
-      console.log("itemList",itemList)
-      if (itemList.nickname === keyword.nickName || itemList.parameter === keyword.parameter){
-        setKeywordList(keyword);
-        console.log("123")
-      } else if (keyword.nickName.length === 0 || keyword.parameter.length === 0){
-        console.log("456")
-        alert("값을 입력해주세요 !!")
-      } else {
-        //setKeywordList(itemList);
-        console.log("789")
-        alert("검색결과가 없습니다.")
-      }
+    // steamContent.filter((itemList) => {
+    //   console.log("itemList",itemList)
+    //   if (itemList.nickname === keyword.nickName || itemList.parameter === keyword.parameter){
+    //     setKeywordList(keyword);
+    //     console.log("123")
+    //   } else if (keyword.nickName.length === 0 || keyword.parameter.length === 0){
+    //     console.log("456")
+    //     alert("값을 입력해주세요 !!")
+    //   } else {
+    //     //setKeywordList(itemList);
+    //     console.log("789")
+    //     alert("검색결과가 없습니다.")
+    //   }
+    // })
+    // console.log('keywordList',keywordList)
+    // console.log('keyword',keyword)
+    axios.post('http://localhost:8000/api/search', {
+      nickname : searchKeyword.nickname,
+      url : searchKeyword.url,
     })
-    console.log('keywordList',keywordList)
-    console.log('keyword',keyword)
+    .then((res)=>{
+      // setAddBtn(true);
+    })
+    .catch(err=>{console.log("err",err)})
   }
 
   useEffect(() => {
@@ -108,8 +116,8 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
     <Grid>
       {!searchBtn &&(
         <Search 
-          keyword={keyword} 
-          setKeyword={setKeyword} 
+          searchKeyword={searchKeyword}
+          setSearchKeyword={setSearchKeyword}
           onSearch={onSearch}
         />
       )}
@@ -170,6 +178,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
         allContent={allContent}
         handleChange={handleChange}
         imgInput={imgInput}
+        viewContent={viewContent}
       />
       </Grid>
       )}
