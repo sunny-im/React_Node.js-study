@@ -10,8 +10,6 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   const [open, setOpen] = useState(false);
   const [newImg, setNewImg] = useState('');
   const imgInput = useRef(null);
-  const [keyword, setKeyword] = useState('');
-  const [keywordList, setKeywordList] = useState([]);
   const [allContent, setAllContent] = useState({
     nickName: '',
     type : '',
@@ -20,8 +18,8 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
     img : ''
   });
   const [searchKeyword, setSearchKeyword] = useState({nickname : '',url : ''});
-
   const [viewContent, setViewContent] = useState([]);
+  const [searchView, setSearchView] = useState([]);
 
   const submitContent = () => {
     axios.post('http://localhost:8000/api/insert', {
@@ -76,28 +74,13 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
 
   //-------search
   const onSearch = () => {
-    // steamContent.filter((itemList) => {
-    //   console.log("itemList",itemList)
-    //   if (itemList.nickname === keyword.nickName || itemList.parameter === keyword.parameter){
-    //     setKeywordList(keyword);
-    //     console.log("123")
-    //   } else if (keyword.nickName.length === 0 || keyword.parameter.length === 0){
-    //     console.log("456")
-    //     alert("값을 입력해주세요 !!")
-    //   } else {
-    //     //setKeywordList(itemList);
-    //     console.log("789")
-    //     alert("검색결과가 없습니다.")
-    //   }
-    // })
-    // console.log('keywordList',keywordList)
-    // console.log('keyword',keyword)
     axios.post('http://localhost:8000/api/search', {
       nickname : searchKeyword.nickname,
       url : searchKeyword.url,
     })
     .then((res)=>{
-      // setAddBtn(true);
+      console.log("search",res)
+      setSearchView(res.data)
     })
     .catch(err=>{console.log("err",err)})
   }

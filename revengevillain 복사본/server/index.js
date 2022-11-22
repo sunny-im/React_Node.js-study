@@ -44,16 +44,20 @@ app.post("/api/insert",(req,res)=>{
 })
 
 // search
-app.get("/api/search",(req,res)=>{
+app.post("/api/search",(req,res)=>{
   const nickname = req.body.nickname;
   const url = req.body.url;
-  if(nickname !== '' && url === '') {
-    const sqlQuery = `SELECT * FROM steamBoard WHERE Nickname='${nickname}';`
-  } else if (nickname === '' && url !== '') {
-    const sqlQuery = `SELECT * FROM steamBoard WHERE url_parameter='${url}';`
+
+  let where = '';
+  if(nickname.length !== 0 && url.length === 0) {
+    where += `Nickname='${nickname}';`;
+  } else if (nickname.length === 0 && url.length !== 0) {
+    where += `url_parameter='${url}';`;
   } else {
-    const sqlQuery = `SELECT * FROM steamBoard WHERE Nickname='${nickname}' AND url_parameter='${url}';`
+    where += `Nickname='${nickname}' AND url_parameter='${url}';`;
   }
+
+  const sqlQuery = `SELECT * FROM steamBoard WHERE ${where}`;
   db.query(sqlQuery,(err,result)=>{
     res.send(result);
     console.log("search",result)

@@ -17,7 +17,7 @@ const Search = ({searchKeyword,setSearchKeyword,onSearch}) => {
       ...searchKeyword,
       [name]:value
     })
-    console.log("key",searchKeyword)
+    // console.log("key",searchKeyword)
   }
   return (
     <div>
