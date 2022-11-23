@@ -13,6 +13,7 @@ const Board = () => {
 
   const [viewContent, setViewContent] = useState([]);
 
+
   // 포트 8000으로 값 전송! 데이터를 post방식으로 보내고 완료 시 alert
   const submitContent = () =>{
     axios.post('http://localhost:8001/api/insert' , {
@@ -93,6 +94,7 @@ const Board = () => {
         onBlur={(event,editor)=>{console.log("blur", editor)}}
         onFocus={(event,editor)=>{console.log("focus",editor)}}/>
       </div>
+      <lable><input type="checkbox"/>하하하</lable>
       <button onClick={submitContent}>입력</button>
     </div>
   )
