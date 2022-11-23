@@ -11,7 +11,9 @@ const space = " ";
 const newLine = "\n";
 const method = "GET";
 const dfmId = "";
+// 서식리스트
 // const url = `/workflow/apigw/v2/company/${companyId}/dfm?status=all`;
+// 서식 상세
 const url = `/workflow/apigw/v2/company/${companyId}/fg/${dfmId}`;
 const timestamp = new Date().getTime().toString();
 
