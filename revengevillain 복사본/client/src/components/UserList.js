@@ -81,6 +81,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
     .then((res)=>{
       console.log("search",res)
       setSearchView(res.data)
+      setShow(!show);
     })
     .catch(err=>{console.log("err",err)})
   }
@@ -123,7 +124,6 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
             </TableHead>
             <TableBody>
               {viewContent.map((item,idx)=>{
-                // console.log('item',item)
                 return(
                 <TableRow hover role="checkbox">
                   <TableCell key={item}>{idx+1}</TableCell>
