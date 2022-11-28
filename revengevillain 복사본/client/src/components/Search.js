@@ -18,7 +18,7 @@ const Search = ({searchKeyword,setSearchKeyword,onSearch,viewContent}) => {
         <TextField className="searchUrl" id="outlined-basic" label="steam url을 입력하세요" variant="outlined" size="small" onChange={getKeyword} name="url"/>
         <Button className="addBtn" variant="outlined" onClick={(e)=>onSearch()}>Find</Button>
       </Box>
-		</div>
+    </div>
   )
 }
 

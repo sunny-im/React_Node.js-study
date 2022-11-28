@@ -1,11 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {Container, Grid, TextField, Button, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Box, Modal} from '@material-ui/core';
+import {Container, Grid, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Modal} from '@material-ui/core';
 import Search from './Search'
 import InputBox from './InputBox'
 import axios from 'axios';
 
 const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   const [show, setShow] = useState(true);
+  const [list, setList] = useState(true);
   const [steamContent, setSteamContent] = useState([]);
   const [open, setOpen] = useState(false);
   const [newImg, setNewImg] = useState('');
@@ -81,7 +82,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
     .then((res)=>{
       console.log("search",res)
       setSearchView(res.data)
-      setShow(!show);
+      setList(!list);
     })
     .catch(err=>{console.log("err",err)})
   }
@@ -91,8 +92,9 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
     .then((res)=>{
       // console.log("res", res);
       setViewContent(res.data);
+      setList(!list);
     })
-  },[viewContent])
+  },[])
   // console.log("view",viewContent)
 
   return (
@@ -123,31 +125,59 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {viewContent.map((item,idx)=>{
-                return(
-                <TableRow hover role="checkbox">
-                  <TableCell key={item}>{idx+1}</TableCell>
-                  <TableCell><a href={`https://steamcommunity.com/app/${item.url_parameter}`} target="_blank">{item.Nickname}</a></TableCell>
-                  <TableCell>{item.type}</TableCell>
-                  <TableCell>{item.occurDate}</TableCell>
-                  <TableCell>
-                    <button className="modalBtn" type="button" onClick={()=>handleOpen(item.image)}>
-                      <img className="contentImg" src={item.image}/>
-                    </button>
-                    <Modal
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="simple-modal-title"
-                      aria-describedby="simple-modal-description"
-                    >
-                      <img className="modalImg" src={newImg} />
-                    </Modal>
-                  </TableCell>
-                  {!show&&(
-                  <TableCell>{item.parameter}</TableCell>
-                  )}
-                </TableRow>
-                )}).reverse()}
+              {list === false ? (
+                viewContent.map((item,idx)=>{
+                  return(
+                    <TableRow hover role="checkbox">
+                      <TableCell key={item}>{idx+1}</TableCell>
+                      <TableCell><a href={`https://steamcommunity.com/app/${item.url_parameter}`} rel="noreferrer" target="_blank">{item.Nickname}</a></TableCell>
+                      <TableCell>{item.type}</TableCell>
+                      <TableCell>{item.occurDate}</TableCell>
+                      <TableCell>
+                        <button className="modalBtn" type="button" onClick={()=>handleOpen(item.image)}>
+                          <img className="contentImg" src={item.image}/>
+                        </button>
+                        <Modal
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="simple-modal-title"
+                          aria-describedby="simple-modal-description"
+                        >
+                          <img className="modalImg" src={newImg} />
+                        </Modal>
+                      </TableCell>
+                      {!show&&(
+                      <TableCell>{item.parameter}</TableCell>
+                      )}
+                    </TableRow>
+                  )}).reverse()
+                ):(
+                searchView.map((item,idx)=> {
+                  return(
+                    <TableRow hover role="checkbox">
+                      <TableCell key={item}>{idx+1}</TableCell>
+                      <TableCell><a href={`https://steamcommunity.com/app/${item.url_parameter}`} target="_blank">{item.Nickname}</a></TableCell>
+                      <TableCell>{item.type}</TableCell>
+                      <TableCell>{item.occurDate}</TableCell>
+                      <TableCell>
+                        <button className="modalBtn" type="button" onClick={()=>handleOpen(item.image)}>
+                          <img className="contentImg" src={item.image}/>
+                        </button>
+                        <Modal
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="simple-modal-title"
+                          aria-describedby="simple-modal-description"
+                        >
+                          <img className="modalImg" src={newImg} />
+                        </Modal>
+                      </TableCell>
+                      {!show&&(
+                      <TableCell>{item.parameter}</TableCell>
+                      )}
+                    </TableRow>
+                  )}).reverse()
+                )}
             </TableBody>
           </Table>
         </TableContainer>

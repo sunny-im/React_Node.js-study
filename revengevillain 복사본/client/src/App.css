@@ -6,7 +6,9 @@
 .searchNickname > div, .searchUrl > div {margin-right: 10px;}
 
 .modalBtn {cursor: pointer;}
-.contentImg {width: 100px; height: 100px; }
+.contentImg {width: 50px; height: 30px; }
 .modalImg {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
 
 .addField > div > div {margin-bottom: 10px;}
+
+.MuiTableCell-root {padding:5px !important}
