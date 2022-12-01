@@ -21,6 +21,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   const [searchKeyword, setSearchKeyword] = useState({nickname : '',url : ''});
   const [viewContent, setViewContent] = useState([]);
   const [searchView, setSearchView] = useState([]);
+  const [idList, setIdList] = useState('');
 
   const submitContent = () => {
     axios.post('http://localhost:8000/api/insert', {
@@ -92,6 +93,9 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
     .then((res)=>{
       // console.log("res", res);
       setViewContent(res.data);
+      res.data.map(Id => {
+        setIdList(Id.No);
+      })
       setList(!list);
     })
   },[])
