@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   const [show, setShow] = useState(true);
-  const [list, setList] = useState(true);
+  const [list, setList] = useState(false);
   const [steamContent, setSteamContent] = useState([]);
   const [open, setOpen] = useState(false);
   const [newImg, setNewImg] = useState('');
@@ -89,16 +89,19 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   }
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/get')
-    .then((res)=>{
-      // console.log("res", res);
-      setViewContent(res.data);
-      res.data.map(Id => {
-        setIdList(Id.No);
+    const getList = () => {
+      axios.get('http://localhost:8000/api/get')
+      .then((res)=>{
+        console.log("res", res);
+        setViewContent(res.data);
+        res.data.map(id => {
+          setIdList(id.No)
+        })
       })
-      setList(!list);
-    })
-  },[])
+    }
+    getList();
+  },[idList])
+  console.log(idList)
   // console.log("view",viewContent)
 
   return (
