@@ -77,15 +77,16 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   //--------업로드한 파일 불러오기
 
   //-------search
-  const onSearch = () => {
+  const onFind = () => {
     axios.post('http://localhost:8000/api/search', {
       nickname : searchKeyword.nickname,
       url : searchKeyword.url,
     })
     .then((res)=>{
-      console.log("search",res)
-      setSearchView(res.data)
+      const data = res.data;
+      setSearchView(data)
       setList(!list);
+      setSearchBtn(!searchBtn);
     })
     .catch(err=>{console.log("err",err)})
   }
@@ -108,11 +109,11 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   return (
   <Container>
     <Grid>
-      {!searchBtn &&(
+      {!searchBtn && (
         <Search 
           searchKeyword={searchKeyword}
           setSearchKeyword={setSearchKeyword}
-          onSearch={onSearch}
+          onFind={onFind}
         />
       )}
     </Grid>
