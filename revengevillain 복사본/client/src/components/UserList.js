@@ -3,6 +3,7 @@ import {Container, Grid, TableContainer, Table, TableHead, TableRow, TableBody, 
 import Search from './Search'
 import InputBox from './InputBox'
 import axios from 'axios';
+// import {useSelector,useDispatch} from 'react-redux';
 
 const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   const [show, setShow] = useState(true);
@@ -22,6 +23,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   const [viewContent, setViewContent] = useState([]);
   const [searchView, setSearchView] = useState([]);
   const [idList, setIdList] = useState('');
+  // const dispatch = useDispatch();
 
   const submitContent = () => {
     axios.post('http://localhost:8000/api/insert', {
@@ -88,20 +90,19 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
     .catch(err=>{console.log("err",err)})
   }
 
-  useEffect(() => {
-    const getList = () => {
-      axios.get('http://localhost:8000/api/get')
-      .then((res)=>{
-        console.log("res", res);
-        setViewContent(res.data);
-        res.data.map(id => {
-          setIdList(id.No)
-        })
+  const getList = () => {
+    axios.get('http://localhost:8000/api/get')
+    .then((res)=>{
+      setViewContent(res.data);
+      res.data.map(id => {
+        setIdList(id.No);
       })
-    }
+    })
+  }
+  useEffect(() => {
     getList();
-  },[idList])
-  console.log(idList)
+  },[viewContent])
+  // console.log(idList)
   // console.log("view",viewContent)
 
   return (
