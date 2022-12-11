@@ -21,7 +21,9 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   });
   const [searchKeyword, setSearchKeyword] = useState({nickname : '',url : ''});
   const [viewContent, setViewContent] = useState([]);
+  const [viewTotalCount, setViewTotalCount] = useState('');
   const [searchView, setSearchView] = useState([]);
+  const [searchViewCount, setSearchViewCount] = useState('');
   const [idList, setIdList] = useState('');
   // const dispatch = useDispatch();
 
@@ -84,7 +86,8 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
     })
     .then((res)=>{
       const data = res.data;
-      setSearchView(data)
+      setSearchView(data[0])
+      setSearchViewCount(data[1][0]['count'])
       setList(!list);
       setSearchBtn(!searchBtn);
     })
@@ -94,10 +97,8 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   const getList = () => {
     axios.get('http://localhost:8000/api/get')
     .then((res)=>{
-      setViewContent(res.data);
-      res.data.map(id => {
-        setIdList(id.No);
-      })
+      setViewContent(res.data[0]);
+      setViewTotalCount(res.data[1][0]['count']);
     })
   }
   useEffect(() => {
@@ -105,7 +106,6 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   },[viewContent])
   // console.log(idList)
   // console.log("view",viewContent)
-
   return (
   <Container>
     <Grid>
@@ -119,6 +119,11 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
     </Grid>
     <Grid container spacing={2}>
       <Grid item xs={addBtn?12:10}>
+        {searchViewCount !== '' ? (
+          <p>검색결과 : {searchViewCount}건</p>
+        ):(
+          <p>총 {viewTotalCount}건</p>
+        )}
         <TableContainer>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>

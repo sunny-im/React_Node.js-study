@@ -8,7 +8,8 @@ const db = mysql.createPool({
   host : "localhost",
   user : "root",
   password : "1234",
-  database : "revengevillain"
+  database : "revengevillain",
+  multipleStatements: true
 });
 
 app.use(cors());
@@ -23,8 +24,11 @@ app.get("/",(req,res)=>{
 
 // select
 app.get("/api/get", (req,res) => {
-  const sqlQuery = "SELECT No,Nickname,url_parameter,type,occurDate,image FROM steamBoard";
-  db.query(sqlQuery, (err, result) => {
+  const sqlQuery = "SELECT No,Nickname,url_parameter,type,occurDate,image FROM steamBoard;";
+  const countQuery = "SELECT COUNT(*) as count FROM steamBoard;";
+  db.query(sqlQuery+countQuery, (err, result, field) => {
+    // console.log(result[0])
+    // console.log(result[1])
     res.send(result);
   })
 })
@@ -58,9 +62,10 @@ app.post("/api/search",(req,res)=>{
   }
 
   const sqlQuery = `SELECT * FROM steamBoard WHERE ${where}`;
-  db.query(sqlQuery,(err,result)=>{
+  const countQuery = `SELECT COUNT(*) as count FROM steamBoard WHERE ${where}`;
+  db.query(sqlQuery+countQuery,(err,result)=>{
     res.send(result);
-    console.log("search",result)
+    // console.log("search",result)
   })
 })
 
