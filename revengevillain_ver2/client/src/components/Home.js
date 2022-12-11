@@ -9,7 +9,7 @@ const Home = () => {
 
   return (
   <Container>
-    <h1>리벤지빌런</h1>
+    <h1>kr_simba</h1>
 
     <Box className="buttons">
       <Button className="addBtn" variant="outlined" onClick={()=>setAddBtn(!addBtn)}>New Steam User</Button>
@@ -23,7 +23,7 @@ const Home = () => {
       setSearchBtn={setSearchBtn}
       />
 
-      <Pagination />
+    <Pagination />
   </Container>
   )
 }
