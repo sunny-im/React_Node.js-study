@@ -3,12 +3,9 @@ import {Container, Grid, TableContainer, Table, TableHead, TableRow, TableBody, 
 import Search from './Search'
 import InputBox from './InputBox'
 import axios from 'axios';
-// import {useSelector,useDispatch} from 'react-redux';
 
 const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   const [show, setShow] = useState(true);
-  const [list, setList] = useState(false);
-  const [steamContent, setSteamContent] = useState([]);
   const [open, setOpen] = useState(false);
   const [newImg, setNewImg] = useState('');
   const imgInput = useRef(null);
@@ -24,8 +21,6 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   const [viewTotalCount, setViewTotalCount] = useState('');
   const [searchView, setSearchView] = useState([]);
   const [searchViewCount, setSearchViewCount] = useState('');
-  const [idList, setIdList] = useState('');
-  // const dispatch = useDispatch();
 
   const submitContent = () => {
     axios.post('http://localhost:8000/api/insert', {
@@ -36,7 +31,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
       img : newImg
     })
     .then((res)=>{
-      alert('저장되었습니다 :)')
+      alert('등록되었습니다 :)')
       setAddBtn(true);
     })
   };
@@ -88,7 +83,6 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
       const data = res.data;
       setSearchView(data[0])
       setSearchViewCount(data[1][0]['count'])
-      setList(!list);
       setSearchBtn(!searchBtn);
     })
     .catch(err=>{console.log("err",err)})
@@ -104,8 +98,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   useEffect(() => {
     getList();
   },[viewContent])
-  // console.log(idList)
-  // console.log("view",viewContent)
+
   return (
   <Container>
     <Grid>
@@ -139,33 +132,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {list === false ? (
-                viewContent.map((item,idx)=>{
-                  return(
-                    <TableRow hover role="checkbox">
-                      <TableCell key={item}>{idx+1}</TableCell>
-                      <TableCell><a href={`https://steamcommunity.com/app/${item.url_parameter}`} rel="noreferrer" target="_blank">{item.Nickname}</a></TableCell>
-                      <TableCell>{item.type}</TableCell>
-                      <TableCell>{item.occurDate}</TableCell>
-                      <TableCell>
-                        <button className="modalBtn" type="button" onClick={()=>handleOpen(item.image)}>
-                          <img className="contentImg" src={item.image}/>
-                        </button>
-                        <Modal
-                          open={open}
-                          onClose={handleClose}
-                          aria-labelledby="simple-modal-title"
-                          aria-describedby="simple-modal-description"
-                        >
-                          <img className="modalImg" src={newImg} />
-                        </Modal>
-                      </TableCell>
-                      {!show&&(
-                      <TableCell>{item.parameter}</TableCell>
-                      )}
-                    </TableRow>
-                  )}).reverse()
-                ):(
+              {searchView.length !== 0 ? (
                 searchView.map((item,idx)=> {
                   return(
                     <TableRow hover role="checkbox">
@@ -190,8 +157,41 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
                       <TableCell>{item.parameter}</TableCell>
                       )}
                     </TableRow>
-                  )}).reverse()
-                )}
+                  )
+                }).reverse()
+              ):(
+                searchViewCount === 0 ? (
+                  <p>검색결과가 없습니다 😢</p>
+                ):(
+                  viewContent.map((item,idx)=>{
+                    return(
+                      <TableRow hover role="checkbox">
+                        <TableCell key={item}>{idx+1}</TableCell>
+                        <TableCell><a href={`https://steamcommunity.com/app/${item.url_parameter}`} rel="noreferrer" target="_blank">{item.Nickname}</a></TableCell>
+                        <TableCell>{item.type}</TableCell>
+                        <TableCell>{item.occurDate}</TableCell>
+                        <TableCell>
+                          <button className="modalBtn" type="button" onClick={()=>handleOpen(item.image)}>
+                            <img className="contentImg" src={item.image}/>
+                          </button>
+                          <Modal
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="simple-modal-title"
+                            aria-describedby="simple-modal-description"
+                          >
+                            <img className="modalImg" src={newImg} />
+                          </Modal>
+                        </TableCell>
+                        {!show&&(
+                        <TableCell>{item.parameter}</TableCell>
+                        )}
+                      </TableRow>
+                    )
+                  }).reverse()
+                )
+              )
+            }
             </TableBody>
           </Table>
         </TableContainer>

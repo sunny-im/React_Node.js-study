@@ -1,55 +1,54 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {Container, Grid, TextField, Button, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Box, Modal} from '@material-ui/core';
+import {Container, Grid, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Modal} from '@material-ui/core';
 import Search from './Search'
 import InputBox from './InputBox'
 import axios from 'axios';
+// import {useSelector,useDispatch} from 'react-redux';
 
-const UserList = () => {
-  const [addBtn, setAddBtn] = useState(true);
-  const [searchBtn, setSearchBtn] = useState(true);
+const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   const [show, setShow] = useState(true);
+  const [list, setList] = useState(false);
   const [steamContent, setSteamContent] = useState([]);
-  const [newNickName, setNewNickName] = useState("");
-  const [newType, setNewType] = useState("");
-  const [newDate, setNewDate] = useState("");
-  const [newParameter, setNewParameter] = useState("");
   const [open, setOpen] = useState(false);
   const [newImg, setNewImg] = useState('');
   const imgInput = useRef(null);
-  const [keyword, setKeyword] = useState('');
-  const [keywordList, setKeywordList] = useState([]);
+  const [allContent, setAllContent] = useState({
+    nickName: '',
+    type : '',
+    date : '',
+    parameter : '',
+    img : ''
+  });
+  const [searchKeyword, setSearchKeyword] = useState({nickname : '',url : ''});
+  const [viewContent, setViewContent] = useState([]);
+  const [viewTotalCount, setViewTotalCount] = useState('');
+  const [searchView, setSearchView] = useState([]);
+  const [searchViewCount, setSearchViewCount] = useState('');
+  const [idList, setIdList] = useState('');
+  // const dispatch = useDispatch();
 
-  console.log("steamContent",steamContent)
-  const onSubmit = () => {
-    const newSteamContent = {
-      nickname: newNickName,
-      type : newType,
-      date : newDate,
-      parameter : newParameter,
+  const submitContent = () => {
+    axios.post('http://localhost:8000/api/insert', {
+      nickname : allContent.nickName,
+      type : allContent.type,
+      date : allContent.date,
+      parameter : allContent.parameter,
       img : newImg
-    }
-    setSteamContent([...steamContent, newSteamContent]);
-    setNewNickName('');
-    setNewType('');
-    setNewDate('');
-    setNewParameter('');
-    setNewImg('');
-    setAddBtn(true);
-  
-    axios.get("/server/text",{
-      method : "post",
-      headers : {
-        "content-type": "application/json",
-      },
-      body : JSON.stringify(newSteamContent.nickname)
     })
-    .then((res)=>res.json())
-    .then((json)=>{
-      console.log("json",json);
-      setNewNickName ({text:json.nickname})
+    .then((res)=>{
+      alert('저장되었습니다 :)')
+      setAddBtn(true);
     })
-  }
+  };
 
+  const getValue = e => {
+    const {name,value} = e.target;
+    setAllContent({
+      ...allContent,
+      [name] : value
+    })
+    // console.log("all",allContent)
+  }
   //---------modal
   const handleOpen = (img) => {
     setOpen(true);
@@ -60,7 +59,6 @@ const UserList = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  //---------modal
 
   //--------업로드한 파일 불러오기
   const handleBtnClick = e => {
@@ -81,44 +79,52 @@ const UserList = () => {
   //--------업로드한 파일 불러오기
 
   //-------search
-  const onSearch = () => {
-    steamContent.filter((itemList) => {
-      console.log("itemList",itemList)
-      if (itemList.nickname === keyword.nickName || itemList.parameter === keyword.parameter){
-        setKeywordList(keyword);
-        console.log("123")
-      } else if (keyword.nickName.length === 0 || keyword.parameter.length === 0){
-        console.log("456")
-        alert("값을 입력해주세요 !!")
-      } else {
-        //setKeywordList(itemList);
-        console.log("789")
-        alert("검색결과가 없습니다.")
-      }
+  const onFind = () => {
+    axios.post('http://localhost:8000/api/search', {
+      nickname : searchKeyword.nickname,
+      url : searchKeyword.url,
     })
-    console.log('keywordList',keywordList)
-    console.log('keyword',keyword)
+    .then((res)=>{
+      const data = res.data;
+      setSearchView(data[0])
+      setSearchViewCount(data[1][0]['count'])
+      setList(!list);
+      setSearchBtn(!searchBtn);
+    })
+    .catch(err=>{console.log("err",err)})
   }
-  useEffect(() => {
+
+  const getList = () => {
     axios.get('http://localhost:8000/api/get')
     .then((res)=>{
-      console.log("res", res)
+      setViewContent(res.data[0]);
+      setViewTotalCount(res.data[1][0]['count']);
     })
-  })
-
+  }
+  useEffect(() => {
+    getList();
+  },[viewContent])
+  // console.log(idList)
+  // console.log("view",viewContent)
+  // console.log(searchView.length)
   return (
   <Container>
-    <Box className="buttons">
-      <Button className="addBtn" variant="outlined" onClick={()=>setAddBtn(!addBtn)}>New Steam User</Button>
-      <Button className="searchBtn" variant="outlined" onClick={()=>setSearchBtn(!searchBtn)}>Search</Button>
-    </Box>
     <Grid>
-      {!searchBtn &&(
-        <Search keyword={keyword} setKeyword={setKeyword} onSearch={onSearch}/>
+      {!searchBtn && (
+        <Search 
+          searchKeyword={searchKeyword}
+          setSearchKeyword={setSearchKeyword}
+          onFind={onFind}
+        />
       )}
     </Grid>
     <Grid container spacing={2}>
       <Grid item xs={addBtn?12:10}>
+        {searchViewCount !== '' ? (
+          <p>검색결과 : {searchViewCount}건</p>
+        ):(
+          <p>총 {viewTotalCount}건</p>
+        )}
         <TableContainer>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
@@ -134,64 +140,76 @@ const UserList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {steamContent.map((item,idx)=>{
-                console.log('item',item)
-                return(
-                <TableRow hover role="checkbox">
-                  <TableCell key={item}>{idx+1}</TableCell>
-                  <TableCell><a href={`https://steamcommunity.com/app/${item.parameter}`} target="_blank">{item.nickname}</a></TableCell>
-                  <TableCell>{item.type}</TableCell>
-                  <TableCell>{item.date}</TableCell>
-                  <TableCell>
-                    <button className="modalBtn" type="button" onClick={()=>handleOpen(item.img)}>
-                      <img className="contentImg" src={item.img}/>
-                    </button>
-                    <Modal
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="simple-modal-title"
-                      aria-describedby="simple-modal-description"
-                    >
-                      <img className="modalImg" src={newImg} />
-                    </Modal>
-                  </TableCell>
-                  {!show&&(
-                  <TableCell>{item.parameter}</TableCell>
-                  )}
-                </TableRow>
-                )}).reverse()}
+              {searchView.length === 0 ? (
+                viewContent.map((item,idx)=>{
+                  return(
+                    <TableRow hover role="checkbox">
+                      <TableCell key={item}>{idx+1}</TableCell>
+                      <TableCell><a href={`https://steamcommunity.com/app/${item.url_parameter}`} rel="noreferrer" target="_blank">{item.Nickname}</a></TableCell>
+                      <TableCell>{item.type}</TableCell>
+                      <TableCell>{item.occurDate}</TableCell>
+                      <TableCell>
+                        <button className="modalBtn" type="button" onClick={()=>handleOpen(item.image)}>
+                          <img className="contentImg" src={item.image}/>
+                        </button>
+                        <Modal
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="simple-modal-title"
+                          aria-describedby="simple-modal-description"
+                        >
+                          <img className="modalImg" src={newImg} />
+                        </Modal>
+                      </TableCell>
+                      {!show&&(
+                      <TableCell>{item.parameter}</TableCell>
+                      )}
+                    </TableRow>
+                  )
+                }).reverse()
+              ):(
+                searchView.map((item,idx)=> {
+                  return(
+                    <TableRow hover role="checkbox">
+                      <TableCell key={item}>{idx+1}</TableCell>
+                      <TableCell><a href={`https://steamcommunity.com/app/${item.url_parameter}`} target="_blank">{item.Nickname}</a></TableCell>
+                      <TableCell>{item.type}</TableCell>
+                      <TableCell>{item.occurDate}</TableCell>
+                      <TableCell>
+                        <button className="modalBtn" type="button" onClick={()=>handleOpen(item.image)}>
+                          <img className="contentImg" src={item.image}/>
+                        </button>
+                        <Modal
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="simple-modal-title"
+                          aria-describedby="simple-modal-description"
+                        >
+                          <img className="modalImg" src={newImg} />
+                        </Modal>
+                      </TableCell>
+                      {!show&&(
+                      <TableCell>{item.parameter}</TableCell>
+                      )}
+                    </TableRow>
+                  )
+                }).reverse()
+              )}
             </TableBody>
           </Table>
         </TableContainer>
       </Grid>
       {!addBtn&&(
       <Grid item xs={2}>
-        {/* <InputBox
-        steamContent={steamContent}
-        setSteamContent={setSteamContent}
-        newNickName={newNickName}
-        setNewNickName={setNewNickName}
-        newType={newType}
-        setNewType={setNewType}
-        newDate={newDate}
-        setNewDate={setNewDate}
-        newParameter={newParameter}
-        setNewParameter={setNewParameter}
-        newImg={newImg}
-        setNewImg={setNewImg}
-        addBtn={addBtn}
-        setAddBtn={setAddBtn}
-        /> */}
-        <Box className="addField">
-				<h4>New Steam User 등록</h4>
-				<TextField id="outlined-textarea" label="닉네임" variant="outlined" size="small" multiline value={newNickName} onChange={(e) => setNewNickName(e.target.value)}/>
-				<TextField id="outlined-textarea" label="유형" variant="outlined" size="small" multiline name='type' value={newType} onChange={(e) => setNewType(e.target.value)}/>
-				<TextField id="outlined-textarea" label="발생일자" variant="outlined" size="small" multiline name='date' value={newDate} onChange={(e) => setNewDate(e.target.value)}/>
-				<TextField id="outlined-textarea" label="url 파라미터" variant="outlined" size="small" multiline name='parameter' value={newParameter} onChange={(e) => setNewParameter(e.target.value)}/>
-				<Button onClick={handleBtnClick}>이미지업로드</Button>
-				<input ref={imgInput} onChange={handleChange} type="file" id="fileUpload" style={{display:"none"}}/>
-				<Button variant="outlined" onClick={()=>{onSubmit()}}>Submit</Button>
-			</Box>
+      <InputBox
+        getValue={getValue}
+        handleBtnClick={handleBtnClick}
+        submitContent={submitContent}
+        allContent={allContent}
+        handleChange={handleChange}
+        imgInput={imgInput}
+        viewContent={viewContent}
+      />
       </Grid>
       )}
     </Grid>
