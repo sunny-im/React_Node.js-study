@@ -3,6 +3,7 @@ import {Container, Grid, TableContainer, Table, TableHead, TableRow, TableBody, 
 import Search from './Search'
 import InputBox from './InputBox'
 import axios from 'axios';
+import Pagination from './Pagination';
 
 const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   const [show, setShow] = useState(true);
@@ -210,6 +211,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
       </Grid>
       )}
     </Grid>
+    <Pagination viewTotalCount={viewTotalCount}/>
   </Container>
   )
 }

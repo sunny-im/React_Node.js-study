@@ -23,7 +23,6 @@ const Home = () => {
       setSearchBtn={setSearchBtn}
       />
 
-    <Pagination />
   </Container>
   )
 }
