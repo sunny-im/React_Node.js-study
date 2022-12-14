@@ -1,5 +1,5 @@
-import React,{useState, useRef, useEffect}  from 'react'
-import {Container, Grid, TextField, Button, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Box, Modal} from '@material-ui/core';
+import React,{useEffect}  from 'react'
+import {TextField, Button, Box} from '@material-ui/core';
 
 const InputBox = ({getValue,handleBtnClick,submitContent,handleChange,imgInput,viewContent}) => {
 	

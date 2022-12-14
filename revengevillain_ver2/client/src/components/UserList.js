@@ -142,7 +142,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
                       <TableCell>{item.occurDate}</TableCell>
                       <TableCell>
                         <button className="modalBtn" type="button" onClick={()=>handleOpen(item.image)}>
-                          <img className="contentImg" src={item.image}/>
+                          <img className="contentImg" src={item.image} alt=""/>
                         </button>
                         <Modal
                           open={open}
@@ -150,7 +150,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
                           aria-labelledby="simple-modal-title"
                           aria-describedby="simple-modal-description"
                         >
-                          <img className="modalImg" src={newImg} />
+                          <img className="modalImg" src={newImg} alt=""/>
                         </Modal>
                       </TableCell>
                       {!show&&(
@@ -172,7 +172,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
                         <TableCell>{item.occurDate}</TableCell>
                         <TableCell>
                           <button className="modalBtn" type="button" onClick={()=>handleOpen(item.image)}>
-                            <img className="contentImg" src={item.image}/>
+                            <img className="contentImg" src={item.image} alt=""/>
                           </button>
                           <Modal
                             open={open}
@@ -180,7 +180,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
                             aria-labelledby="simple-modal-title"
                             aria-describedby="simple-modal-description"
                           >
-                            <img className="modalImg" src={newImg} />
+                            <img className="modalImg" src={newImg} alt=""/>
                           </Modal>
                         </TableCell>
                         {!show&&(

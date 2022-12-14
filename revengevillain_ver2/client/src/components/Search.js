@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {Box, TextField, Button} from '@material-ui/core';
 
 const Search = ({searchKeyword,setSearchKeyword,onFind}) => {
