@@ -13,28 +13,26 @@ const Pagination = (viewTotalCount) => {
     currentPosts = posts.slice(indexOfFirst, indexOfLast);  // begin ~ end-1 번째 까지의 복사본을 새롭게 반환
     return currentPosts;
   }
+  
   //=============================
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++){
+  for (let i = 1; i <= Math.ceil(Object.values(viewTotalCount) / postsPerPage); i++){
     pageNumbers.push(i);
   }
-  //=============================
-  
+
   useEffect(()=>{
-    for (const count of Object.values(viewTotalCount)) {
-      console.log("count",count)
-      setTotalPosts(count);
-    }
-    
-    console.log(pageNumbers)
   },[])
+
+  //=============================
   return (
     <div>
-      <ul style={{display:'flex'}}>
-      {pageNumbers.map((page,idx)=>{
-        <li key={idx}>
-          <span onClick={()=>setCurrentPage(page)}>{page}</span>
-        </li>
+      <ul style={{listStyle:'none', display:'flex'}}>
+      {pageNumbers.map(page=>{
+        return(
+          <li key={page} style={{paddingRight:'15px'}}>
+            <span onClick={()=>setCurrentPage(page)}>{page}</span>
+          </li>
+        )
       })}
       </ul>
     </div>

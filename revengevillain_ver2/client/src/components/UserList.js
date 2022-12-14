@@ -45,7 +45,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
     })
     // console.log("all",allContent)
   }
-  //---------modal
+  //====================================modal
   const handleOpen = (img) => {
     setOpen(true);
     setNewImg(img);
@@ -56,7 +56,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
     setOpen(false);
   };
 
-  //--------업로드한 파일 불러오기
+  //===================================업로드한 파일 불러오기
   const handleBtnClick = e => {
     imgInput.current.click();
   };
@@ -72,9 +72,8 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
     };
     
   };
-  //--------업로드한 파일 불러오기
 
-  //-------search
+  //===================================search
   const onFind = () => {
     axios.post('http://localhost:8000/api/search', {
       nickname : searchKeyword.nickname,
@@ -96,6 +95,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
       setViewTotalCount(res.data[1][0]['count']);
     })
   }
+
   useEffect(() => {
     getList();
   },[viewContent])
