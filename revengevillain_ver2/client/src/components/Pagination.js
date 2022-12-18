@@ -19,6 +19,10 @@ const Pagination = (viewTotalCount) => {
   for (let i = 1; i <= Math.ceil(Object.values(viewTotalCount) / postsPerPage); i++){
     pageNumbers.push(i);
   }
+
+  const changePage = (page) => {
+    setCurrentPage(page)
+  }
   useEffect(()=>{
   },[])
 
@@ -29,7 +33,7 @@ const Pagination = (viewTotalCount) => {
       {pageNumbers.map(page=>{
         return(
           <li key={page} style={{paddingRight:'15px'}}>
-            <span onClick={()=>setCurrentPage(page)}>{page}</span>
+            <span onClick={()=>changePage(page)}>{page}</span>
           </li>
         )
       })}
