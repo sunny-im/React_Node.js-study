@@ -19,7 +19,6 @@ const Pagination = (viewTotalCount) => {
   for (let i = 1; i <= Math.ceil(Object.values(viewTotalCount) / postsPerPage); i++){
     pageNumbers.push(i);
   }
-
   useEffect(()=>{
   },[])
 
