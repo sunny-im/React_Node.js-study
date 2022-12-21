@@ -211,7 +211,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
       </Grid>
       )}
     </Grid>
-    <Pagination viewTotalCount={viewTotalCount}/>
+    <Pagination viewTotalCount={viewTotalCount} viewContent={viewContent}/>
   </Container>
   )
 }
