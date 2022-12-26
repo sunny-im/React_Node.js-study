@@ -13,7 +13,7 @@ const Pagination = (viewTotalCount,viewContent) => {
     currentPosts = viewContent.slice(indexOfFirst, indexOfLast);  // begin ~ end-1 번째 까지의 복사본을 새롭게 반환
     return currentPosts;
   }
-  
+    
   //=============================
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(Object.values(viewTotalCount) / postsPerPage); i++){
