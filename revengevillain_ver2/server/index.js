@@ -52,17 +52,22 @@ app.post("/api/search",(req,res)=>{
   const nickname = req.body.nickname;
   const url = req.body.url;
 
-  let where = '';
+  let where = 'WHERE ';
   if(nickname.length !== 0 && url.length === 0) {
     where += `Nickname='${nickname}';`;
   } else if (nickname.length === 0 && url.length !== 0) {
     where += `url_parameter='${url}';`;
-  } else {
+  } else if (nickname.length === 0 && url.length === 0){
     where += `Nickname='${nickname}' AND url_parameter='${url}';`;
   }
 
-  const sqlQuery = `SELECT * FROM steamBoard WHERE ${where}`;
-  const countQuery = `SELECT COUNT(*) as count FROM steamBoard WHERE ${where}`;
+  const sqlQuery = `SELECT * FROM steamBoard ${where}`;
+  const countQuery = `SELECT COUNT(*) as count FROM steamBoard ${where}`;
+
+  console.log("nickname",nickname.length);
+  console.log("url",url.length);
+
+  console.log("sqlQuery",sqlQuery);
   db.query(sqlQuery+countQuery,(err,result)=>{
     res.send(result);
     // console.log("search",result)

@@ -81,13 +81,17 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
     })
     .then((res)=>{
       const data = res.data;
-      setSearchView(data[0])
-      setSearchViewCount(data[1][0]['count'])
-      setSearchBtn(!searchBtn);
+      setSearchView(data[0]);
+      setSearchViewCount(data[1][0]['count']);
+      onReset();
+      // setSearchBtn(!searchBtn);
     })
     .catch(err=>{console.log("err",err)})
   }
 
+  const onReset = () => {
+    setSearchKeyword({nickName:'',url:''});
+  }
   const getList = () => {
     axios.get('http://localhost:8000/api/get')
     .then((res)=>{
