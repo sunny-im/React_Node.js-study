@@ -59,7 +59,7 @@ app.post("/api/search",(req,res)=>{
     where += `url_parameter='${url}';`;
   } else if (nickname.length === 0 && url.length === 0){
     where += `Nickname='${nickname}' AND url_parameter='${url}';`;
-  }
+  };
 
   const sqlQuery = `SELECT * FROM steamBoard ${where}`;
   const countQuery = `SELECT COUNT(*) as count FROM steamBoard ${where}`;
