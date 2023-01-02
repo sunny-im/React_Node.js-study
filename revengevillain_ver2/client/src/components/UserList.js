@@ -74,6 +74,9 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   };
 
   //===================================search
+  const onReset = () => {
+    setSearchKeyword({nickName:'',url:''});
+  }
   const onFind = () => {
     axios.post('http://localhost:8000/api/search', {
       nickname : searchKeyword.nickname,
@@ -89,9 +92,6 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
     .catch(err=>{console.log("err",err)})
   }
 
-  const onReset = () => {
-    setSearchKeyword({nickName:'',url:''});
-  }
   const getList = () => {
     axios.get('http://localhost:8000/api/get')
     .then((res)=>{
