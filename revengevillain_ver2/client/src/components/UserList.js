@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react'
 import {Container, Grid, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Modal} from '@material-ui/core';
 import Search from './Search'
 import InputBox from './InputBox'
+import TotalList from './TotalList';
 import axios from 'axios';
 import Pagination from './Pagination';
 
@@ -74,9 +75,6 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   };
 
   //===================================search
-  const onReset = () => {
-    setSearchKeyword({nickName:'',url:''});
-  }
   const onFind = () => {
     axios.post('http://localhost:8000/api/search', {
       nickname : searchKeyword.nickname,
@@ -86,8 +84,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
       const data = res.data;
       setSearchView(data[0]);
       setSearchViewCount(data[1][0]['count']);
-      onReset();
-      // setSearchBtn(!searchBtn);
+      setSearchBtn(!searchBtn);
     })
     .catch(err=>{console.log("err",err)})
   }
@@ -112,6 +109,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
           searchKeyword={searchKeyword}
           setSearchKeyword={setSearchKeyword}
           onFind={onFind}
+          getList={getList}
         />
       )}
     </Grid>
@@ -138,35 +136,27 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
             </TableHead>
             <TableBody>
               {searchView.length !== 0 ? (
-                searchView.map((item,idx)=> {
-                  return(
-                    <TableRow hover role="checkbox">
-                      <TableCell key={item}>{idx+1}</TableCell>
-                      <TableCell><a href={`https://steamcommunity.com/app/${item.url_parameter}`} target="_blank">{item.Nickname}</a></TableCell>
-                      <TableCell>{item.type}</TableCell>
-                      <TableCell>{item.occurDate}</TableCell>
-                      <TableCell>
-                        <button className="modalBtn" type="button" onClick={()=>handleOpen(item.image)}>
-                          <img className="contentImg" src={item.image} alt=""/>
-                        </button>
-                        <Modal
-                          open={open}
-                          onClose={handleClose}
-                          aria-labelledby="simple-modal-title"
-                          aria-describedby="simple-modal-description"
-                        >
-                          <img className="modalImg" src={newImg} alt=""/>
-                        </Modal>
-                      </TableCell>
-                      {!show&&(
-                      <TableCell>{item.parameter}</TableCell>
-                      )}
-                    </TableRow>
-                  )
-                }).reverse()
+                <TotalList
+                  searchView={searchView}
+                  show={show}
+                  handleOpen={handleOpen}
+                  open={open}
+                  handleClose={handleClose}
+                  newImg={newImg}
+                />
               ):(
                 searchViewCount === 0 ? (
-                  <p>검색결과가 없습니다 😢</p>
+                  <>
+                    <p>검색결과가 없습니다 😢</p>
+                    <TotalList
+                      searchView={searchView}
+                      show={show}
+                      handleOpen={handleOpen}
+                      open={open}
+                      handleClose={handleClose}
+                      newImg={newImg}
+                    />
+                  </>
                 ):(
                   viewContent.map((item,idx)=>{
                     return(
