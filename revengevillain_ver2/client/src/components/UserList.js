@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {Container, Grid, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Modal} from '@material-ui/core';
+import {Container, Grid, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Modal, Button} from '@material-ui/core';
 import Search from './Search'
 import InputBox from './InputBox'
 import TotalList from './TotalList';
@@ -8,6 +8,7 @@ import Pagination from './Pagination';
 
 const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   const [show, setShow] = useState(true);
+  const [totalView, setTotalView] = useState(true);
   const [open, setOpen] = useState(false);
   const [newImg, setNewImg] = useState('');
   const imgInput = useRef(null);
@@ -165,7 +166,13 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
               ):(
                 searchViewCount === 0 ? (
                   <>
-                    <p>검색결과가 없습니다 😢</p>
+                    {totalView&&(
+                      <>
+                      <span>검색결과가 없습니다 😢 </span>
+                      <a variant="outlined" onClick={()=>setTotalView(!totalView)}>[전체보기]</a>
+                      </>
+                    )}
+                    {!totalView&&(
                     <TotalList
                       viewContent={viewContent}
                       show={show}
@@ -174,6 +181,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
                       handleClose={handleClose}
                       newImg={newImg}
                     />
+                    )}
                   </>
                 ):(
                   <>
