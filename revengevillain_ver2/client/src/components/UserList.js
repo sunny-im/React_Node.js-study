@@ -136,20 +136,38 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
             </TableHead>
             <TableBody>
               {searchView.length !== 0 ? (
-                <TotalList
-                  searchView={searchView}
-                  show={show}
-                  handleOpen={handleOpen}
-                  open={open}
-                  handleClose={handleClose}
-                  newImg={newImg}
-                />
+                searchView.map((item,idx)=> {
+                  return(
+                    <TableRow hover role="checkbox">
+                      <TableCell key={item}>{idx+1}</TableCell>
+                      <TableCell><a href={`https://steamcommunity.com/app/${item.url_parameter}`} target="_blank">{item.Nickname}</a></TableCell>
+                      <TableCell>{item.type}</TableCell>
+                      <TableCell>{item.occurDate}</TableCell>
+                      <TableCell>
+                        <button className="modalBtn" type="button" onClick={()=>handleOpen(item.image)}>
+                          <img className="contentImg" src={item.image} alt=""/>
+                        </button>
+                        <Modal
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="simple-modal-title"
+                          aria-describedby="simple-modal-description"
+                        >
+                          <img className="modalImg" src={newImg} alt=""/>
+                        </Modal>
+                      </TableCell>
+                      {!show&&(
+                      <TableCell>{item.parameter}</TableCell>
+                      )}
+                    </TableRow>
+                  )
+                }).reverse()
               ):(
                 searchViewCount === 0 ? (
                   <>
                     <p>검색결과가 없습니다 😢</p>
                     <TotalList
-                      searchView={searchView}
+                      viewContent={viewContent}
                       show={show}
                       handleOpen={handleOpen}
                       open={open}
@@ -158,32 +176,16 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
                     />
                   </>
                 ):(
-                  viewContent.map((item,idx)=>{
-                    return(
-                      <TableRow hover role="checkbox">
-                        <TableCell key={item}>{idx+1}</TableCell>
-                        <TableCell><a href={`https://steamcommunity.com/app/${item.url_parameter}`} rel="noreferrer" target="_blank">{item.Nickname}</a></TableCell>
-                        <TableCell>{item.type}</TableCell>
-                        <TableCell>{item.occurDate}</TableCell>
-                        <TableCell>
-                          <button className="modalBtn" type="button" onClick={()=>handleOpen(item.image)}>
-                            <img className="contentImg" src={item.image} alt=""/>
-                          </button>
-                          <Modal
-                            open={open}
-                            onClose={handleClose}
-                            aria-labelledby="simple-modal-title"
-                            aria-describedby="simple-modal-description"
-                          >
-                            <img className="modalImg" src={newImg} alt=""/>
-                          </Modal>
-                        </TableCell>
-                        {!show&&(
-                        <TableCell>{item.parameter}</TableCell>
-                        )}
-                      </TableRow>
-                    )
-                  }).reverse()
+                  <>
+                  <TotalList
+                      viewContent={viewContent}
+                      show={show}
+                      handleOpen={handleOpen}
+                      open={open}
+                      handleClose={handleClose}
+                      newImg={newImg}
+                    />
+                  </>
                 )
               )
             }
