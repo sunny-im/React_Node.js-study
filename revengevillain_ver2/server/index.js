@@ -52,13 +52,14 @@ app.post("/api/search",(req,res)=>{
   const nickname = req.body.nickname;
   const url = req.body.url;
 
-  let where = 'WHERE ';
+  // let where = 'WHERE ';
+  let where = '';
   if(nickname.length !== 0 && url.length === 0) {
-    where += `Nickname='${nickname}';`;
+    where += `WHERE Nickname='${nickname}';`;
   } else if (nickname.length === 0 && url.length !== 0) {
-    where += `url_parameter='${url}';`;
+    where += `WHERE url_parameter='${url}';`;
   } else if (nickname.length === 0 && url.length === 0){
-    where += `Nickname='${nickname}' AND url_parameter='${url}';`;
+    where += `;`;
   };
 
   const sqlQuery = `SELECT * FROM steamBoard ${where}`;

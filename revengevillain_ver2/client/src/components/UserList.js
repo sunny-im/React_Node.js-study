@@ -88,6 +88,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
       setSearchBtn(!searchBtn);
     })
     .catch(err=>{console.log("err",err)})
+    setSearchKeyword({nickname : '',url : ''});
   }
 
   const getList = () => {
@@ -165,24 +166,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
                 }).reverse()
               ):(
                 searchViewCount === 0 ? (
-                  <>
-                    {totalView&&(
-                      <>
-                      <span>검색결과가 없습니다 😢 </span>
-                      <a variant="outlined" onClick={()=>setTotalView(!totalView)}>[전체보기]</a>
-                      </>
-                    )}
-                    {!totalView&&(
-                    <TotalList
-                      viewContent={viewContent}
-                      show={show}
-                      handleOpen={handleOpen}
-                      open={open}
-                      handleClose={handleClose}
-                      newImg={newImg}
-                    />
-                    )}
-                  </>
+                  <span>검색결과가 없습니다 😢 </span>
                 ):(
                   <>
                   <TotalList
