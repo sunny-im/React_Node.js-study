@@ -1,6 +1,5 @@
-import React, {useState, useEffect, useRef} from 'react'
-import {Box,Container, Grid, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Modal} from '@material-ui/core';
-// import {useSelector,useDispatch} from 'react-redux';
+import React from 'react'
+import {TableRow, TableCell, Modal} from '@material-ui/core';
 
 const TotalList = ({viewContent,show,handleOpen,open,handleClose,newImg}) => {
   return (
