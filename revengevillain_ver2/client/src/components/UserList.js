@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {Container, Grid, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Modal, Button} from '@material-ui/core';
+import {Container, Grid, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Modal} from '@material-ui/core';
 import Search from './Search'
 import InputBox from './InputBox'
 import TotalList from './TotalList';
@@ -8,7 +8,6 @@ import Pagination from './Pagination';
 
 const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
   const [show, setShow] = useState(true);
-  const [totalView, setTotalView] = useState(true);
   const [open, setOpen] = useState(false);
   const [newImg, setNewImg] = useState('');
   const imgInput = useRef(null);
@@ -141,8 +140,8 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
                 searchView.map((item,idx)=> {
                   return(
                     <TableRow hover role="checkbox">
-                      <TableCell key={item}>{idx+1}</TableCell>
-                      <TableCell><a href={`https://steamcommunity.com/app/${item.url_parameter}`} target="_blank">{item.Nickname}</a></TableCell>
+                      <TableCell key={item.No}>{idx+1}</TableCell>
+                      <TableCell><a href={`https://steamcommunity.com/app/${item.url_parameter}`} target="_blank" rel="noreferrer">{item.Nickname}</a></TableCell>
                       <TableCell>{item.type}</TableCell>
                       <TableCell>{item.occurDate}</TableCell>
                       <TableCell>
@@ -166,7 +165,7 @@ const UserList = ({searchBtn,addBtn,setSearchBtn,setAddBtn}) => {
                 }).reverse()
               ):(
                 searchViewCount === 0 ? (
-                  <span>검색결과가 없습니다 😢 </span>
+                  '검색결과가 없습니다 😢'
                 ):(
                   <>
                   <TotalList

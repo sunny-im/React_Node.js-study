@@ -1,6 +1,5 @@
 import React,{useState} from 'react';
 import UserList from './UserList';
-import Pagination from './Pagination';
 import {Container,Box,Button} from '@material-ui/core';
 
 const Home = () => {
@@ -26,5 +25,4 @@ const Home = () => {
   </Container>
   )
 }
-
 export default Home

@@ -6,7 +6,7 @@ const TotalList = ({viewContent,show,handleOpen,open,handleClose,newImg}) => {
     viewContent.map((item,idx)=>{
       return(
         <TableRow hover role="checkbox">
-          <TableCell key={item}>{idx+1}</TableCell>
+          <TableCell key={item.No}>{idx+1}</TableCell>
           <TableCell><a href={`https://steamcommunity.com/app/${item.url_parameter}`} rel="noreferrer" target="_blank">{item.Nickname}</a></TableCell>
           <TableCell>{item.type}</TableCell>
           <TableCell>{item.occurDate}</TableCell>
