@@ -29,7 +29,7 @@ const Pagination = (viewTotalCount) => {
   }
 
   useEffect(()=>{
-    console.log(pageNumbers)
+    console.log(pageNumbers);
   },[])
 
   //=============================
