@@ -8,7 +8,6 @@ const Search = ({searchKeyword,setSearchKeyword,onFind,getList}) => {
       ...searchKeyword,
       [name]:value
     })
-    // console.log("key",searchKeyword)
   }
 
   return (
