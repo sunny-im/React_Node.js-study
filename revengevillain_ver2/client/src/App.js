@@ -6,10 +6,10 @@ import Login from './components/Login'
 import { useSelector } from 'react-redux';
 
 function App() {
-  // const authenticate = useSelector((state) => state.auth.authenticate);
-  // useEffect(()=>{
-  //   console.log("authenticate",authenticate)
-  // },[authenticate])
+  const authenticate = useSelector((state) => state.auth.authenticate);
+  useEffect(()=>{
+    console.log("authenticate",authenticate)
+  },[authenticate])
   return (
     <div>
     <BrowserRouter>
