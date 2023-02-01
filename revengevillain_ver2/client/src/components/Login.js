@@ -12,7 +12,7 @@ const Login = ({setAuthenticate}) => {
     const loginUser=(e)=>{
         e.preventDefault();
         console.log("login user function")
-        //setAuthenticate(true);
+        setAuthenticate(true);
         dispatch(authenticateAction.login(id,password));
         navigate('/');
     }
