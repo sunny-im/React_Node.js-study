@@ -38,7 +38,6 @@ const Login = ({setAuthenticate}) => {
                 <Button variant="warning" type="submit">
                     로그인  
                 </Button>
-                
             </Form>
         </Container>    
     </div>
