@@ -41,7 +41,7 @@ const AccountBookChart = () => {
   ];
   return (
     <div>
-      <h3>전월 비교 사용내역 (단위:만원)</h3>
+      <h3>전월 비교 사용내역 (단위:만원)asdfasdfasdf asdf</h3>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart
           data={data}
