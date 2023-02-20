@@ -29,10 +29,17 @@ const Student = mongoose.model('Schema', student);
 
 //==============================================================
 
+// 전체 데이터 가져오기
 app.get('/',(req,res)=> {
-  res.send('hihihi')
+  Student.find((error,students) => {
+    if(error){console.log('에러',error);}
+    else{console.log('students',students);}
+    res.send(students);
+  });
+  
 });
 
+// 데이터 입력받아 db 저장
 app.post('/insert',(req,res) => {
   const name = req.body.name;
   const address = req.body.address;
