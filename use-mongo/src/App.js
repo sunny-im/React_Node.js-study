@@ -10,8 +10,8 @@ function App() {
     address:'',
     age:''
   })
-  //==============================================================
-  const connectMongo = () => {
+  //MongoDB 데이터 가져오기 ==========================================
+  const getMongoData = () => {
     axios.get('http://localhost:8001/')
     .then((res)=>{
       console.log("res",res);
@@ -28,7 +28,7 @@ function App() {
     });
     console.log('content',content);
   };
-  //==============================================================
+  //입력할 데이터 보내기 ==============================================
   const submit = () => {
     axios.post('http://localhost:8001/insert', {
       name : content.name,
@@ -48,7 +48,7 @@ function App() {
       나이 : <input name='age' onChange={getValue}/><br></br>
       <button onClick={submit}>등록</button><br></br>
       ----------------------------------------------------<br></br>
-      <button onClick={()=>connectMongo()}>데이터 가져오기</button><br></br>
+      <button onClick={()=>getMongoData()}>데이터 가져오기</button><br></br>
       <table>
         <thead>
           <tr>
