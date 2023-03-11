@@ -1,0 +1,74 @@
+"queryResult": [
+                {
+                    "pathname": "/baby",
+                    "total": 242
+                },
+                {
+                    "pathname": "/cancer",
+                    "total": 120
+                },
+                {
+                    "pathname": "/cham",
+                    "total": 529
+                },
+                {
+                    "pathname": "/child",
+                    "total": 813
+                },
+                {
+                    "pathname": "/codrive",
+                    "total": 42
+                },
+                {
+                    "pathname": "/drive",
+                    "total": 649
+                },
+                {
+                    "pathname": "/eye",
+                    "total": 1
+                },
+                {
+                    "pathname": "/fire",
+                    "total": 50
+                },
+                {
+                    "pathname": "/golfplan",
+                    "total": 390
+                },
+                {
+                    "pathname": "/good",
+                    "total": 119
+                },
+                {
+                    "pathname": "/house",
+                    "total": 173
+                },
+                {
+                    "pathname": "/kakao",
+                    "total": 15
+                },
+                {
+                    "pathname": "/main",
+                    "total": 2075
+                },
+                {
+                    "pathname": "/maturity",
+                    "total": 41
+                },
+                {
+                    "pathname": "/operation",
+                    "total": 1867
+                },
+                {
+                    "pathname": "/operation_cancer",
+                    "total": 1141
+                },
+                {
+                    "pathname": "/report",
+                    "total": 70
+                },
+                {
+                    "pathname": "/single",
+                    "total": 231
+                }
+            ]
